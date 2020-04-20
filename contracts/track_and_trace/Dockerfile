@@ -1,7 +1,7 @@
 # Copyright (c) The dgc.network
 # SPDX-License-Identifier: Apache-2.0
 
-FROM hyperledger/dgc-platform-dev:v1 as dgc-platform-track_and_trace-builder
+FROM hyperledger/grid-dev:v1 as dgc-platform-track_and_trace-builder
 
 COPY contracts/track_and_trace /build/contracts/track_and_trace
 COPY sdk/ /build/sdk/

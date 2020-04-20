@@ -1,7 +1,7 @@
 # Copyright (c) The dgc.network
 # SPDX-License-Identifier: Apache-2.0
 
-FROM hyperledger/dgc-platform-dev:v1 as dgc-platform-schema-builder
+FROM hyperledger/grid-dev:v1 as dgc-platform-schema-builder
 
 COPY contracts/schema /build/contracts/schema
 COPY sdk/ /build/sdk/

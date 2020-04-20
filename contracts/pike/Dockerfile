@@ -1,7 +1,7 @@
 # Copyright (c) The dgc.network
 # SPDX-License-Identifier: Apache-2.0
 
-FROM hyperledger/dgc-platform-dev:v1 as dgc-platform-pike-builder
+FROM hyperledger/grid-dev:v1 as dgc-platform-pike-builder
 
 COPY contracts/pike /build/contracts/pike
 COPY sdk/ /build/sdk/
