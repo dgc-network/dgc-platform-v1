@@ -1,6 +1,6 @@
-# Running Hyperledger Grid on Splinter
+# Running dgc-platform on Splinter
 
-This document shows how to set up a Grid-on-Splinter environment that runs in a
+This document shows how to set up a dgc-platform-on-Splinter environment that runs in a
 set of Docker containers.
 
 The example Splinter docker-compose file creates a network with three nodes
@@ -33,15 +33,15 @@ used this procedure before, run the following commands to ensure that your
 images are up to date:
 
 ```
-$ docker pull hyperledger/grid-dev
+$ docker pull hyperledger/dgc-platform-dev
 $ docker-compose -f examples/splinter/docker-compose.yaml pull generate-key-registry db-alpha scabbard-cli-alpha splinterd-alpha
 ```
 
-## Set Up and Run Grid
+## Set Up and Run dgc-platform
 
-1. Clone the [Hyperledger Grid repository](https://github.com/hyperledger/grid)
-   ([https://github.com/hyperledger/grid](https://github.com/hyperledger/grid)).
-2. Navigate to the grid root directory and start the Grid Docker containers.
+1. Clone the [dgc-platform repository](https://github.com/hyperledger/dgc-platform)
+   ([https://github.com/hyperledger/dgc-platform](https://github.com/hyperledger/dgc-platform)).
+2. Navigate to the dgc-platform root directory and start the dgc-platform Docker containers.
 
    `$ docker-compose -f examples/splinter/docker-compose.yaml up --build`
 
@@ -58,7 +58,7 @@ circuit is created.
 1. Get the gridd public key from the `gridd-alpha` container. You will need this
    key when creating a circuit definition file in step 3.
 
-   `$ docker exec gridd-alpha cat /etc/grid/keys/gridd.pub`
+   `$ docker exec gridd-alpha cat /etc/dgc-platform/keys/gridd.pub`
 
 2. Connect to the `splinterd-alpha` container. You will use this container to
    run Splinter commands on alpha-node-000.
@@ -85,7 +85,7 @@ circuit is created.
       --service gsAA::alpha-node-000 \
       --service gsBB::beta-node-000 \
       --service-type *::scabbard \
-      --management grid \
+      --management dgc-platform \
       --service-arg *::admin_keys=$(cat gridd.pub) \
       --service-peer-group gsAA,gsBB
    ```
@@ -101,7 +101,7 @@ circuit is created.
    ```
    root@splinterd-alpha:/# splinter circuit proposals --url http://splinterd-alpha:8085
    ID            MANAGEMENT MEMBERS
-   01234-ABCDE   grid       alpha-node-000;beta-node-000
+   01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
    ```
 
    ```
@@ -111,7 +111,7 @@ circuit is created.
    ```
    root@splinterd-alpha:/# splinter circuit show $CIRCUIT_ID --url http://splinterd-alpha:8085
    Proposal to create: 01234-ABCDE
-      Management Type: grid
+      Management Type: dgc-platform
 
       alpha-node-000 (tcps://splinterd-alpha:8044)
           Vote: ACCEPT (implied as requester):
@@ -147,7 +147,7 @@ circuit is created.
    ```
    root@splinterd-beta:/# splinter circuit proposals --url http://splinterd-beta:8085
    ID            MANAGEMENT MEMBERS
-   01234-ABCDE   grid       alpha-node-000;beta-node-000
+   01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
    ```
 
    ```
@@ -159,7 +159,7 @@ circuit is created.
    ```
    root@splinterd-beta:/# splinter circuit show $CIRCUIT_ID --url http://splinterd-beta:8085
    Proposal to create: 01234-ABCDE
-      Management Type: grid
+      Management Type: dgc-platform
 
       alpha-node-000 (tcps://splinterd-alpha:8044)
           Vote: ACCEPT (implied as requester):
@@ -189,30 +189,30 @@ circuit is created.
     ```
     root@splinterd-beta:/# splinter circuit list --url http://splinterd-beta:8085
     ID            MANAGEMENT MEMBERS
-    01234-ABCDE   grid       alpha-node-000;beta-node-000
+    01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
     ```
 
     ```
     root@splinterd-alpha:/# splinter circuit list --url http://splinterd-alpha:8085
     ID            MANAGEMENT MEMBERS
-    01234-ABCDE   grid       alpha-node-000;beta-node-000
+    01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
     ```
 
 
-## Demonstrate Grid Smart Contract Functionality
+## Demonstrate dgc-platform Smart Contract Functionality
 
 **Note:** To simplify this procedure, the example `docker-compose.yaml` file
 defines environment variables for the ``gridd-alpha`` and ``gridd-beta``
-containers. These variables define the Grid daemon's key file and endpoint,
-so you don't have to use the `-k` and `--url` options with the `grid` command in
+containers. These variables define the dgc-platform daemon's key file and endpoint,
+so you don't have to use the `-k` and `--url` options with the `dgc-platform` command in
 this section.
 
 The following environment variables apply only to this example. If you want to
 override these values, you can edit `docker-compose.yaml` to redefine the
-variables, or you can use the associated option with the `grid` commands in
+variables, or you can use the associated option with the `dgc-platform` commands in
 steps 3 through 10.
 
-- `GRID_DAEMON_KEY` defines the key file name for the Grid daemon, as generated
+- `GRID_DAEMON_KEY` defines the key file name for the dgc-platform daemon, as generated
    by the `docker-compose.yaml` file. Use `-k <keyfile>` to override this
    variable on the command line.
 
@@ -222,7 +222,7 @@ steps 3 through 10.
 
 
 1. Start a bash session in the `gridd-alpha` Docker container.  You will use
-   this container to run Grid commands on `alpha-node-000`.
+   this container to run dgc-platform commands on `alpha-node-000`.
 
    ```
    $ docker exec -it gridd-alpha bash
@@ -230,12 +230,12 @@ steps 3 through 10.
    ```
 
 2. Generate a secp256k1 key pair for the alpha node. This key will be used to
-   sign Grid transactions.
+   sign dgc-platform transactions.
 
-   `root@gridd-alpha:/# grid keygen alpha-agent`
+   `root@gridd-alpha:/# dgc-platform keygen alpha-agent`
 
    This command generates two files, `alpha-agent.priv` and `alpha-agent.pub`,
-   in the `~/.grid/keys/` directory.
+   in the `~/.dgc-platform/keys/` directory.
 
 3. Set an environment variable with the service ID. Use the circuit ID of the
    circuit that was created above. The commands below will check this variable
@@ -250,7 +250,7 @@ steps 3 through 10.
 4. Create a new organization, `myorg`.
 
    ```
-   root@gridd-alpha:/# grid \
+   root@gridd-alpha:/# dgc-platform \
    organization create 314156 myorg '123 main street' \
     --metadata gs1_company_prefixes=314156
    ```
@@ -262,11 +262,11 @@ steps 3 through 10.
    includes the circuit name and the scabbard service name for the alpha node.
 
 5. Update the agent's permissions (Pike roles) to allow creating, updating, and
-   deleting Grid products.
+   deleting dgc-platform products.
 
    ```
-   root@gridd-alpha:/# grid \
-   agent update 314156 $(cat ~/.grid/keys/alpha-agent.pub) --active \
+   root@gridd-alpha:/# dgc-platform \
+   agent update 314156 $(cat ~/.dgc-platform/keys/alpha-agent.pub) --active \
    --role can_create_product \
    --role can_update_product \
    --role can_delete_product \
@@ -300,7 +300,7 @@ steps 3 through 10.
    `product.yaml`.
 
    ```
-   root@gridd-alpha:/# grid \
+   root@gridd-alpha:/# dgc-platform \
      product create  product.yaml
    ```
 
@@ -317,7 +317,7 @@ steps 3 through 10.
 10. Display all products.
 
    ```
-   root@gridd-beta:/# grid product list
+   root@gridd-beta:/# dgc-platform product list
    ```
 
 
@@ -451,10 +451,10 @@ though alpha and beta are using the same XO smart contract, their game moves
 (smart contract transactions) remain private to their two-party circuit.
 
 ## For More Information
-- Hyperledger Grid documentation: https://grid.hyperledger.org/docs/grid/nightly/master/introduction.html
+- dgc-platform documentation: https://dgc-platform.hyperledger.org/docs/dgc-platform/nightly/master/introduction.html
 - Splinter: https://github.com/Cargill/splinter
 - Sawtooth Sabre: https://github.com/hyperledger/sawtooth-sabre
-- Pike transaction family (defines a Grid Pike smart contract): https://grid.hyperledger.org/docs/grid/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
-- Schema transaction family (defines a Grid Schema smart contract): https://grid.hyperledger.org/docs/grid/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
-- Product RFC: https://github.com/target/grid-rfcs/blob/d6305b86e2a43e510bb57b297b3ec09b0a66c5b0/0000-product.md
+- Pike transaction family (defines a dgc-platform Pike smart contract): https://dgc-platform.hyperledger.org/docs/dgc-platform/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
+- Schema transaction family (defines a dgc-platform Schema smart contract): https://dgc-platform.hyperledger.org/docs/dgc-platform/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
+- Product RFC: https://github.com/target/dgc-platform-rfcs/blob/d6305b86e2a43e510bb57b297b3ec09b0a66c5b0/0000-product.md
 - CLI for the XO smart contract (also called a "transaction processor"): https://sawtooth.hyperledger.org/docs/core/releases/latest/cli/xo.html

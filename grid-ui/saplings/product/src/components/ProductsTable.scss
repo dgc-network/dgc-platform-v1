@@ -34,8 +34,8 @@
   }
 
   .products-table {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, 22rem);
+    display: dgc-platform;
+    dgc-platform-gap: 1rem;
+    dgc-platform-template-columns: repeat(auto-fit, 22rem);
   }
 }

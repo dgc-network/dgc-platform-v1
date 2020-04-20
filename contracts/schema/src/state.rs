@@ -1,16 +1,5 @@
-// Copyright 2019 Cargill Incorporated
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 use crypto::digest::Digest;
 use crypto::sha2::Sha512;
@@ -42,7 +31,7 @@ pub fn compute_agent_address(public_key: &str) -> String {
     String::from(PIKE_NAMESPACE) + PIKE_AGENT_NAMESPACE + &sha.result_str()[..62].to_string()
 }
 
-/// Computes the address a Grid Schema is stored at based on its name
+/// Computes the address a dgc-platform Schema is stored at based on its name
 pub fn compute_schema_address(name: &str) -> String {
     let mut sha = Sha512::new();
     sha.input(name.as_bytes());
@@ -88,7 +77,7 @@ impl<'a> GridSchemaState<'a> {
         }
     }
 
-    /// Gets a Grid Schema. Handles retrieving the correct Schema from a SchemaList
+    /// Gets a dgc-platform Schema. Handles retrieving the correct Schema from a SchemaList
     pub fn get_schema(&self, name: &str) -> Result<Option<Schema>, ApplyError> {
         let address = compute_schema_address(name);
         let d = self.context.get_state_entry(&address)?;
@@ -116,7 +105,7 @@ impl<'a> GridSchemaState<'a> {
         }
     }
 
-    /// Sets a Grid Schema in state. Handles creating a SchemaList if one does not already exist
+    /// Sets a dgc-platform Schema in state. Handles creating a SchemaList if one does not already exist
     /// at the address the schema will be stored. If a SchemaList does already exist, there has
     /// been a hash collision. The Schema is stored in the SchemaList, sorted by the Schema name,
     /// and set in state.

@@ -1,5 +1,5 @@
 ***********************
-Grid REST API Reference
+dgc-platform REST API Reference
 ***********************
 
 .. Licensed under Creative Commons Attribution 4.0 International License

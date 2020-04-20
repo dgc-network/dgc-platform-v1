@@ -2,8 +2,8 @@
 Transaction Family Specifications
 *********************************
 
-Grid includes several transaction families to be used as a Sabre smart
-contract, including Grid Schema, Pike, and Grid Track and Trace.
+dgc-platform includes several transaction families to be used as a Sabre smart
+contract, including dgc-platform Schema, Pike, and dgc-platform Track and Trace.
 
 Each transaction family specification describes the available data objects,
 state addressing (how transaction information is stored and addressed by

@@ -31,7 +31,7 @@ export function Input({
   children
 }) {
   return (
-    <div className="grid-input">
+    <div className="dgc-platform-input">
       {type === 'select' && (
         <>
           <select

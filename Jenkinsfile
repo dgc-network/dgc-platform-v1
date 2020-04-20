@@ -1,20 +1,7 @@
 #!groovy
 
-// Copyright 2017 Intel Corporation
-// Copyright 2020 Cargill Incorporated
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-// ------------------------------------------------------------------------------
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 pipeline {
     agent {
@@ -77,46 +64,46 @@ pipeline {
             }
         }
 
-        stage("Build Grid UI Test Dependencies") {
+        stage("Build dgc-platform UI Test Dependencies") {
             steps {
-                sh 'docker build grid-ui -f grid-ui/docker/test/Dockerfile -t grid-ui:$ISOLATION_ID'
-                sh 'docker build grid-ui/saplings/product -f grid-ui/saplings/product/test/Dockerfile -t product-sapling:$ISOLATION_ID'
-                sh 'docker build grid-ui/saplings/profile -f grid-ui/saplings/profile/test/Dockerfile -t profile-sapling:$ISOLATION_ID'
+                sh 'docker build dgc-platform-ui -f dgc-platform-ui/docker/test/Dockerfile -t dgc-platform-ui:$ISOLATION_ID'
+                sh 'docker build dgc-platform-ui/saplings/product -f dgc-platform-ui/saplings/product/test/Dockerfile -t product-sapling:$ISOLATION_ID'
+                sh 'docker build dgc-platform-ui/saplings/profile -f dgc-platform-ui/saplings/profile/test/Dockerfile -t profile-sapling:$ISOLATION_ID'
             }
         }
 
-        stage("Run Lint on Grid UI") {
+        stage("Run Lint on dgc-platform UI") {
             steps {
-                sh 'docker run --rm --env CI=true grid-ui:$ISOLATION_ID yarn lint'
+                sh 'docker run --rm --env CI=true dgc-platform-ui:$ISOLATION_ID yarn lint'
                 sh 'docker run --rm --env CI=true product-sapling:$ISOLATION_ID yarn lint'
                 sh 'docker run --rm --env CI=true profile-sapling:$ISOLATION_ID yarn lint'
             }
         }
 
-        stage("Run Grid UI tests") {
+        stage("Run dgc-platform UI tests") {
             steps {
-                sh 'docker run --rm --env CI=true grid-ui:$ISOLATION_ID yarn test'
+                sh 'docker run --rm --env CI=true dgc-platform-ui:$ISOLATION_ID yarn test'
                 sh 'docker run --rm --env CI=true product-sapling:$ISOLATION_ID yarn test'
             }
         }
 
-        stage("Run Lint on Grid") {
+        stage("Run Lint on dgc-platform") {
             steps {
-                sh 'docker build . -f docker/lint -t lint-grid:$ISOLATION_ID'
-                sh 'docker run --rm -v $(pwd):/project/grid lint-grid:$ISOLATION_ID'
+                sh 'docker build . -f docker/lint -t lint-dgc-platform:$ISOLATION_ID'
+                sh 'docker run --rm -v $(pwd):/project/dgc-platform lint-dgc-platform:$ISOLATION_ID'
             }
         }
 
         // Use a docker container to build and protogen, so that the Jenkins
         // environment doesn't need all the dependencies.
-        stage("Build Grid Test Dependencies") {
+        stage("Build dgc-platform Test Dependencies") {
             steps {
                 sh 'VERSION=AUTO_STRICT REPO_VERSION=$(./bin/get_version) docker-compose -f docker-compose.yaml build --force-rm'
                 sh 'docker-compose -f docker/compose/grid_tests.yaml build --force-rm'
             }
         }
 
-        stage("Run Grid unit tests") {
+        stage("Run dgc-platform unit tests") {
             steps {
                 sh 'docker-compose -f docker/compose/grid_tests.yaml up --abort-on-container-exit --exit-code-from grid_tests'
                 sh 'docker-compose -f docker/compose/grid_tests.yaml down'
@@ -148,15 +135,15 @@ pipeline {
 
         stage ("Build documentation") {
             steps {
-                sh 'docker build . -f docs/grid-build-docs -t grid-build-docs:$ISOLATION_ID'
-                sh 'docker run --rm -v $(pwd):/project/grid grid-build-docs:$ISOLATION_ID'
+                sh 'docker build . -f docs/dgc-platform-build-docs -t dgc-platform-build-docs:$ISOLATION_ID'
+                sh 'docker run --rm -v $(pwd):/project/dgc-platform dgc-platform-build-docs:$ISOLATION_ID'
             }
         }
 
         stage("Build artifacts") {
             steps {
                 sh 'mkdir -p build/debs'
-                sh 'docker run --rm -v $(pwd)/build/debs/:/debs gridd:${ISOLATION_ID} bash -c "cp /tmp/grid*.deb /debs && chown -R ${JENKINS_UID} /debs"'
+                sh 'docker run --rm -v $(pwd)/build/debs/:/debs gridd:${ISOLATION_ID} bash -c "cp /tmp/dgc-platform*.deb /debs && chown -R ${JENKINS_UID} /debs"'
             }
         }
     }

@@ -1,19 +1,5 @@
-/*
- * Copyright 2019 Cargill Incorporated
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * -----------------------------------------------------------------------------
- */
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 use crate::error::ConfigurationError;
 
@@ -112,9 +98,9 @@ impl Default for GridConfigBuilder {
                 backend: Backend::Sawtooth,
             }),
             rest_api_endpoint: Some("127.0.0.1:8080".to_owned()),
-            database_url: Some("postgres://grid:grid_example@localhost/grid".to_owned()),
+            database_url: Some("postgres://dgc-platform:grid_example@localhost/dgc-platform".to_owned()),
             #[cfg(feature = "splinter-support")]
-            admin_key_dir: Some("/etc/grid/keys".to_owned()),
+            admin_key_dir: Some("/etc/dgc-platform/keys".to_owned()),
         }
     }
 }

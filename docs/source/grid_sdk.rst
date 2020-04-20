@@ -1,5 +1,5 @@
 ******************
-Grid SDK Reference
+dgc-platform SDK Reference
 ******************
 
 .. Licensed under Creative Commons Attribution 4.0 International License

@@ -3,8 +3,8 @@ Application Developer's Guide
 *****************************
 
 This guide describes how to develop applications that run on the
-Hyperledger Grid core platform. These applications primarily use the included
-Grid SDK, Sabre smart contracts, and the Grid daemon, ``gridd``.
+dgc-platform core platform. These applications primarily use the included
+dgc-platform SDK, Sabre smart contracts, and the dgc-platform daemon, ``gridd``.
 
 .. toctree::
 

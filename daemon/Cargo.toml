@@ -1,25 +1,14 @@
-# Copyright 2019 Bitwise, IO Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Copyright (c) The dgc.network
+# SPDX-License-Identifier: Apache-2.0
 
 [package]
-name = "grid-daemon"
+name = "dgc-platform-daemon"
 version = "0.1.0"
-authors = ["Contributors to Hyperledger Grid"]
+authors = ["Contributors to dgc-platform"]
 edition = "2018"
 license = "Apache-2.0"
 description = """\
-    Hyperledger Grid is a platform for building supply chain solutions. It \
+    dgc-platform is a platform for building supply chain solutions. It \
     provides a growing set of tools that accelerate development for supply \
     chain smart contracts and client interfaces.
 """
@@ -40,7 +29,7 @@ diesel = { version = "1.0.0", features = ["postgres", "r2d2", "serde_json"] }
 diesel_migrations = "1.4"
 flexi_logger = "0.14"
 futures = "0.3"
-grid-sdk = { path = "../sdk" }
+dgc-platform-sdk = { path = "../sdk" }
 log = "0.4"
 protobuf = "2"
 reqwest = { version = "0.10.1", optional = true, features = ["json", "blocking"] }
@@ -69,7 +58,7 @@ splinter-support = ["splinter", "reqwest", "sabre-sdk", "transact", "transact/co
 test-api = []
 
 [package.metadata.deb]
-maintainer = "The Hyperledger Grid Team"
+maintainer = "The dgc-platform Team"
 depends = "$auto"
 assets = [
     ["target/release/gridd", "/usr/bin/gridd", "755"]

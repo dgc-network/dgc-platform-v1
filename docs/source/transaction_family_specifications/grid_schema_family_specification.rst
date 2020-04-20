@@ -1,24 +1,24 @@
 ********************************************
-Grid Schema Transaction Family Specification
+dgc-platform Schema Transaction Family Specification
 ********************************************
 
 Overview
 ========
 
-Grid Schema for Hyperledger Grid provides a reusable, standard approach to
+dgc-platform Schema for dgc-platform provides a reusable, standard approach to
 defining, storing, and consuming properties within smart contracts, software
 libraries, and network-based APIs.
 
-Several components within Grid store and retrieve properties which are
+Several components within dgc-platform store and retrieve properties which are
 defined at runtime. To properly store and validate these properties, we need
 property definitions which minimally include the property’s type (integer,
 string, enum, etc.). In addition, the properties (for example, product
 description, GPS location, or product dimensions) should always be stored and
-exchanged using the same format within Grid components.
+exchanged using the same format within dgc-platform components.
 
 State
 =====
-All Grid Schema objects are serialized using protocol buffers (protobufs) before
+All dgc-platform Schema objects are serialized using protocol buffers (protobufs) before
 being stored in state. Theses objects include Schema, PropertyDefinition and
 PropertyValues. Schemas are stored in a list to handle hash collisions.
 
@@ -281,7 +281,7 @@ Enums
 Structs
   A struct is a recursively defined collection of other named properties that
   represents two or more intrinsically linked values, like X/Y coordinates or
-  RGB colors. These values can be of any Grid Schema data type, including
+  RGB colors. These values can be of any dgc-platform Schema data type, including
   STRUCT, which allows nesting to an arbitrary depth. Although versatile and
   powerful, structs are heavyweight and should be used conservatively;
   restrict struct use to linking values that must always be updated together.
@@ -479,7 +479,7 @@ against the Lightbulb schema.
 Addressing
 ----------
 
-Grid Schemas are stored under the Grid namespace ``621dee``. For each schemas,
+dgc-platform Schemas are stored under the dgc-platform namespace ``621dee``. For each schemas,
 the address is formed by concatenating the namespace, the special policy
 namespace of ``01``, and the first 62 characters of the SHA-512 hash of the
 schema name.

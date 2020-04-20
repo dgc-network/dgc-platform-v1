@@ -32,10 +32,10 @@ case "$1" in
 
         # Create some required directories and make sure permissions
         # are correct
-        mkdir -p /etc/grid/keys
-        chown -R root:$group /etc/grid
-        chmod 775 /etc/grid
-        chmod 750 /etc/grid/keys
+        mkdir -p /etc/dgc-platform/keys
+        chown -R root:$group /etc/dgc-platform
+        chmod 775 /etc/dgc-platform
+        chmod 750 /etc/dgc-platform/keys
     else
         true
     fi

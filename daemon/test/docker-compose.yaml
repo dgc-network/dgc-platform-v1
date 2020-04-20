@@ -33,9 +33,9 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    image: grid:tests
+    image: dgc-platform:tests
     volumes:
-      - ../..:/project/grid
+      - ../..:/project/dgc-platform
     command: |
       bash -c "
         # we need to wait for the db to have started.

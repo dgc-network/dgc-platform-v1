@@ -22,7 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useServiceState } from '../state/service-context';
 import { getProperty } from '../data/property-parsing';
 import ProductProperty from './ProductProperty';
-import { fetchProduct } from '../api/grid';
+import { fetchProduct } from '../api/dgc-platform';
 import NotFound from './NotFound';
 import Loading from './Loading';
 import './ProductInfo.scss';

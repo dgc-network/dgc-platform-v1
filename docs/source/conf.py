@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Hyperledger Grid documentation build configuration file.
+# dgc-platform documentation build configuration file.
 #
 # This file is execfile()d with the current directory set to its
 # containing dir.
@@ -60,7 +60,7 @@ source_suffix = '.rst'
 master_doc = 'contents'
 
 # General information about the project.
-project = u'Hyperledger Grid'
+project = u'dgc-platform'
 copyright = u'2015-2017, Intel Corporation'
 author = u'Intel Corporation'
 
@@ -247,7 +247,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  (master_doc, 'hyperledgergrid.tex', u'Hyperledger Grid Documentation',
+  (master_doc, 'hyperledgergrid.tex', u'dgc-platform Documentation',
    u'Intel Corporation', 'manual')
 ]
 
@@ -279,7 +279,7 @@ latex_documents = [
 man_pages = [
     (master_doc,
      'hyperledger_grid',
-     u'Hyperledger Grid Documentation',
+     u'dgc-platform Documentation',
      [author], 1)
 ]
 
@@ -293,7 +293,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'HyperledgerGrid', u'Hyperledger Grid Documentation',
+  (master_doc, 'HyperledgerGrid', u'dgc-platform Documentation',
    author, 'HyperledgerGrid',
    'Framework for building supply chain solutions.',
    'Miscellaneous'),

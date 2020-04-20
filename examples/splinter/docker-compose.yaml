@@ -1,17 +1,6 @@
-# Copyright 2020 Cargill Incorporated
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ------------------------------------------------------------------------------
+# Copyright (c) The dgc.network
+# SPDX-License-Identifier: Apache-2.0
+
 version: '3.6'
 
 volumes:
@@ -37,7 +26,7 @@ services:
       - contracts-shared:/usr/share/scar
     entrypoint: |
       bash -c "
-        cp /tmp/grid-pike*.scar /usr/share/scar
+        cp /tmp/dgc-platform-pike*.scar /usr/share/scar
       "
 
   product-contract-builder:
@@ -52,7 +41,7 @@ services:
       - contracts-shared:/usr/share/scar
     entrypoint: |
       bash -c "
-        cp /tmp/grid-product*.scar /usr/share/scar
+        cp /tmp/dgc-platform-product*.scar /usr/share/scar
       "
 
   schema-contract-builder:
@@ -67,7 +56,7 @@ services:
       - contracts-shared:/usr/share/scar
     entrypoint: |
       bash -c "
-        cp /tmp/grid-schema*.scar /usr/share/scar
+        cp /tmp/dgc-platform-schema*.scar /usr/share/scar
       "
 
   tnt-contract-builder:
@@ -82,7 +71,7 @@ services:
       - contracts-shared:/usr/share/scar
     entrypoint: |
       bash -c "
-        cp /tmp/grid-track-and-trace*.scar /usr/share/scar
+        cp /tmp/dgc-platform-track-and-trace*.scar /usr/share/scar
       "
 
   generate-key-registry:
@@ -112,9 +101,9 @@ services:
     expose:
       - 5432
     environment:
-      POSTGRES_USER: grid
+      POSTGRES_USER: dgc-platform
       POSTGRES_PASSWORD: grid_example
-      POSTGRES_DB: grid
+      POSTGRES_DB: dgc-platform
 
   gridd-alpha:
     image: gridd
@@ -128,7 +117,7 @@ services:
         - CARGO_ARGS=-- --features experimental
     volumes:
       - contracts-shared:/usr/share/scar
-      - gridd-alpha:/etc/grid/keys
+      - gridd-alpha:/etc/dgc-platform/keys
     expose:
       - 8080
     ports:
@@ -139,15 +128,15 @@ services:
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
-          until PGPASSWORD=grid_example psql -h db-alpha -U grid -c '\q' > /dev/null 2>&1; do
+          until PGPASSWORD=grid_example psql -h db-alpha -U dgc-platform -c '\q' > /dev/null 2>&1; do
               >&2 echo \"Database is unavailable - sleeping\"
               sleep 1
           done
-          grid -vv admin keygen --skip && \
-          grid -vv database migrate \
-              --database-url postgres://grid:grid_example@db-alpha/grid &&
+          dgc-platform -vv admin keygen --skip && \
+          dgc-platform -vv database migrate \
+              --database-url postgres://dgc-platform:grid_example@db-alpha/dgc-platform &&
           gridd -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-alpha:8085 \
-              --database-url postgres://grid:grid_example@db-alpha/grid
+              --database-url postgres://dgc-platform:grid_example@db-alpha/dgc-platform
         "
 
   scabbard-cli-alpha:
@@ -214,9 +203,9 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: splinter
 
-  grid-ui-alpha:
+  dgc-platform-ui-alpha:
     build:
-      context: ../../grid-ui
+      context: ../../dgc-platform-ui
       args:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
@@ -225,8 +214,8 @@ services:
         SPLINTER_URL: 'http://splinterd-alpha:8085'
         SAPLING_URL: ' http://sapling-dev-server-alpha:80'
         GRID_URL: 'http://gridd-alpha:8080'
-    image: grid-ui-alpha
-    container_name: grid-ui-alpha
+    image: dgc-platform-ui-alpha
+    container_name: dgc-platform-ui-alpha
     expose:
       - 80
     ports:
@@ -234,7 +223,7 @@ services:
 
   sapling-dev-server-alpha:
     build:
-      context: ../../grid-ui
+      context: ../../dgc-platform-ui
       dockerfile: sapling-dev-server/Dockerfile
     container_name: sapling-dev-server-alpha
     expose:
@@ -250,9 +239,9 @@ services:
     expose:
       - 5432
     environment:
-      POSTGRES_USER: grid
+      POSTGRES_USER: dgc-platform
       POSTGRES_PASSWORD: grid_example
-      POSTGRES_DB: grid
+      POSTGRES_DB: dgc-platform
 
   gridd-beta:
     image: gridd
@@ -266,7 +255,7 @@ services:
         - CARGO_ARGS=-- --features experimental
     volumes:
       - contracts-shared:/usr/share/scar
-      - gridd-beta:/etc/grid/keys
+      - gridd-beta:/etc/dgc-platform/keys
     expose:
       - 8080
     ports:
@@ -277,15 +266,15 @@ services:
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
-          until PGPASSWORD=grid_example psql -h db-beta -U grid -c '\q' > /dev/null 2>&1; do
+          until PGPASSWORD=grid_example psql -h db-beta -U dgc-platform -c '\q' > /dev/null 2>&1; do
               >&2 echo \"Database is unavailable - sleeping\"
               sleep 1
           done
-          grid -vv admin keygen --skip && \
-          grid -vv database migrate \
-              --database-url postgres://grid:grid_example@db-beta/grid &&
+          dgc-platform -vv admin keygen --skip && \
+          dgc-platform -vv database migrate \
+              --database-url postgres://dgc-platform:grid_example@db-beta/dgc-platform &&
           gridd -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-beta:8085 \
-              --database-url postgres://grid:grid_example@db-beta/grid
+              --database-url postgres://dgc-platform:grid_example@db-beta/dgc-platform
         "
 
   scabbard-cli-beta:
@@ -351,9 +340,9 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: splinter
 
-  grid-ui-beta:
+  dgc-platform-ui-beta:
     build:
-      context: ../../grid-ui
+      context: ../../dgc-platform-ui
       args:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
@@ -362,8 +351,8 @@ services:
         SPLINTER_URL: 'http://splinterd-beta:8085'
         SAPLING_URL: ' http://sapling-dev-server-beta:80'
         GRID_URL: 'http://gridd-beta:8080'
-    image: grid-ui-beta
-    container_name: grid-ui-beta
+    image: dgc-platform-ui-beta
+    container_name: dgc-platform-ui-beta
     expose:
       - 80
     ports:
@@ -371,7 +360,7 @@ services:
 
   sapling-dev-server-beta:
     build:
-      context: ../../grid-ui
+      context: ../../dgc-platform-ui
       dockerfile: sapling-dev-server/Dockerfile
     container_name: sapling-dev-server-beta
     expose:
@@ -387,9 +376,9 @@ services:
     expose:
       - 5432
     environment:
-      POSTGRES_USER: grid
+      POSTGRES_USER: dgc-platform
       POSTGRES_PASSWORD: grid_example
-      POSTGRES_DB: grid
+      POSTGRES_DB: dgc-platform
 
   gridd-gamma:
     image: gridd
@@ -403,7 +392,7 @@ services:
         - CARGO_ARGS=-- --features experimental
     volumes:
       - contracts-shared:/usr/share/scar
-      - gridd-gamma:/etc/grid/keys
+      - gridd-gamma:/etc/dgc-platform/keys
     expose:
       - 8080
     ports:
@@ -414,15 +403,15 @@ services:
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
-          until PGPASSWORD=grid_example psql -h db-gamma -U grid -c '\q' > /dev/null 2>&1; do
+          until PGPASSWORD=grid_example psql -h db-gamma -U dgc-platform -c '\q' > /dev/null 2>&1; do
               >&2 echo \"Database is unavailable - sleeping\"
               sleep 1
           done
-          grid -vv admin keygen --skip && \
-          grid -vv database migrate \
-              --database-url postgres://grid:grid_example@db-gamma/grid &&
+          dgc-platform -vv admin keygen --skip && \
+          dgc-platform -vv database migrate \
+              --database-url postgres://dgc-platform:grid_example@db-gamma/dgc-platform &&
           gridd -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-gamma:8085 \
-              --database-url postgres://grid:grid_example@db-gamma/grid
+              --database-url postgres://dgc-platform:grid_example@db-gamma/dgc-platform
         "
 
   splinterd-gamma:
@@ -481,9 +470,9 @@ services:
       POSTGRES_PASSWORD: admin
       POSTGRES_DB: splinter
 
-  grid-ui-gamma:
+  dgc-platform-ui-gamma:
     build:
-      context: ../../grid-ui
+      context: ../../dgc-platform-ui
       args:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
@@ -492,8 +481,8 @@ services:
         SPLINTER_URL: 'http://splinterd-gamma:8085'
         SAPLING_URL: ' http://sapling-dev-server-gamma:80'
         GRID_URL: 'http://gridd-gamma:8080'
-    image: grid-ui-gamma
-    container_name: grid-ui-gamma
+    image: dgc-platform-ui-gamma
+    container_name: dgc-platform-ui-gamma
     expose:
       - 80
     ports:
@@ -501,7 +490,7 @@ services:
 
   sapling-dev-server-gamma:
     build:
-      context: ../../grid-ui
+      context: ../../dgc-platform-ui
       dockerfile: sapling-dev-server/Dockerfile
     container_name: sapling-dev-server-gamma
     expose:

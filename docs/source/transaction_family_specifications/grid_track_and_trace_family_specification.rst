@@ -1,31 +1,31 @@
 *****************************************************
-Grid Track and Trace Transaction Family Specification
+dgc-platform Track and Trace Transaction Family Specification
 *****************************************************
 
 Overview
 ========
 
-The Grid Track and Trace transaction family allows users to track
+The dgc-platform Track and Trace transaction family allows users to track
 goods as they move through a supply chain. Records for goods include a
 history of ownership and custodianship, as well as histories for a
 variety of properties such as temperature and location. These properties are
-managed using Grid Schemas.
+managed using dgc-platform Schemas.
 
 
 State
 =====
 
-All Grid Track and Trace objects are serialized using Protocol Buffers before
+All dgc-platform Track and Trace objects are serialized using Protocol Buffers before
 being stored in state. These objects include: Records, Proposals, and
 Properties (accompanied by their auxiliary PropertyPage objects). As described
 in the Addressing_ section below, these objects are stored in separate
-sub-namespaces under the Grid Track and Trace namespace. To handle hash
+sub-namespaces under the dgc-platform Track and Trace namespace. To handle hash
 collisions, all objects are stored in lists within protobuf "List" objects.
 
-.. note:: In addition to the messages defined in Grid Track and Trace, this
+.. note:: In addition to the messages defined in dgc-platform Track and Trace, this
     transaction family also makes use of Agents (as defined in the :doc:`Pike
     Transaction Family<pike_transaction_family>`), as well as Schemas,
-    PropertyDefinitions, and PropertyValues (as defined in the :doc:`Grid
+    PropertyDefinitions, and PropertyValues (as defined in the :doc:`dgc-platform
     Schema Transaction Family<grid_schema_family_specification>`). Clients
     and contracts that implement this specification will need to orchestrate
     these transaction families together in order to create a working
@@ -34,7 +34,7 @@ collisions, all objects are stored in lists within protobuf "List" objects.
 Records
 -------
 
-Records represent the goods being tracked by Grid Track and Trace. Almost
+Records represent the goods being tracked by dgc-platform Track and Trace. Almost
 every transaction references some Record.
 
 A Record contains a unique identifier, the name of a Schema, and
@@ -125,7 +125,7 @@ ever runs out of space for new updates. Under this scheme, 16^2 *
 (16^4 - 1) = 16776960 entries can be stored before older updates are
 overwritten.
 
-Updates to Properties are in the format of PropertyValue (defined in the Grid
+Updates to Properties are in the format of PropertyValue (defined in the dgc-platform
 Schema Transaction Family). The type of update is indicated by a tag belonging
 to the PropertyDefinition object. For more information about PropertyValues and
 PropertyDefinitions, please see the :doc:`grid_schema_family_specification`.
@@ -287,7 +287,7 @@ then by ``timestamp`` (earliest to latest).
 Addressing
 ----------
 
-Grid Track and Trace objects are stored under the namespace obtained by taking
+dgc-platform Track and Trace objects are stored under the namespace obtained by taking
 the first six characters of the SHA-512 hash of the string
 ``grid_track_and_trace``:
 
@@ -299,7 +299,7 @@ the first six characters of the SHA-512 hash of the string
    >>> get_hash('grid_track_and_trace')[:6]
    'a43b46'
 
-After its namespace prefix, the next two characters of a Grid Track and Trace
+After its namespace prefix, the next two characters of a dgc-platform Track and Trace
 object's address are a string based on the object's type:
 
 - Property / PropertyPage: ``ea``
@@ -349,7 +349,7 @@ Transactions
 Transaction Payload
 -------------------
 
-All Grid Track and Trace transactions are wrapped in a tagged payload object to
+All dgc-platform Track and Trace transactions are wrapped in a tagged payload object to
 allow for the transaction to be dispatched to appropriate handling logic.
 
 .. code-block:: protobuf

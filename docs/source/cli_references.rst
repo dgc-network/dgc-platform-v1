@@ -2,8 +2,8 @@
 CLI Command Reference
 *********************
 
-The Grid command-line interface (CLI) provides a set of commands to interact
-with Grid services.
+The dgc-platform command-line interface (CLI) provides a set of commands to interact
+with dgc-platform services.
 
 This chapter shows the available options and arguments for each command and
 subcommand. The synopsis for each command shows its parameters and their usage.

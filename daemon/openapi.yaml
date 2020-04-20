@@ -1,25 +1,11 @@
-# Copyright 2017 Intel Corporation
-# Copyright 2019 Bitwise IO, Inc.
-# Copyright 2020 Cargill Incorporated
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# -----------------------------------------------------------------------------
+# Copyright (c) The dgc.network
+# SPDX-License-Identifier: Apache-2.0
 
 openapi: 3.0.0
 info:
   version: 0.1.0
-  title: Grid REST API
-  description: _An API providing HTTP/JSON interface to Hyperledger Grid._
+  title: dgc-platform REST API
+  description: _An API providing HTTP/JSON interface to dgc-platform._
 paths:
   /batches:
     post:
@@ -545,7 +531,7 @@ components:
   schemas:
     Link:
       type: string
-      example: https://api.grid.com/state?head=65cd3a3ce088b265b626f704b7f3db97b6f12e848dccb35d7806f3d0324c71b709ed360d602b8b658b94695374717e3bdb4b76f77886953777d5d008558247dd
+      example: https://api.dgc-platform.com/state?head=65cd3a3ce088b265b626f704b7f3db97b6f12e848dccb35d7806f3d0324c71b709ed360d602b8b658b94695374717e3bdb4b76f77886953777d5d008558247dd
     Error:
       properties:
         code:
@@ -677,7 +663,7 @@ components:
             $ref: "#/components/schemas/PropertyDefinition"
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - name
         - description
@@ -714,7 +700,7 @@ components:
             $ref: "#/components/schemas/PropertyDefinition"
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - name
         - data_type
@@ -757,7 +743,7 @@ components:
             $ref: "#/components/schemas/Metadata"
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - public_key
         - org_id
@@ -782,7 +768,7 @@ components:
             $ref: "#/components/schemas/Metadata"
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - id
         - name
@@ -808,7 +794,7 @@ components:
           example: 1557949075
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - agent_id
         - timestamp
@@ -856,7 +842,7 @@ components:
           type: boolean
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - record_id
         - schema
@@ -896,13 +882,13 @@ components:
               example: 02cd3181dbd7d1539f470436ce222c53ab5e514f67809dc0095895e6cdfba97612
             service_id:
               type: string
-              example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+              example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
           required:
             - metadata
             - public_key
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - timestamp
         - value
@@ -933,7 +919,7 @@ components:
             $ref: "#/components/schemas/ReportedValue"
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - name
         - record_id
@@ -977,7 +963,7 @@ components:
           example: 1557949075
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - receiving_agent
         - issuing_agent
@@ -1046,7 +1032,7 @@ components:
             $ref: '#/components/schemas/LatLong'
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - name
         - data_type
@@ -1076,7 +1062,7 @@ components:
             $ref: "#/components/schemas/ProductPropertyValue"
         service_id:
           type: string
-          example: 01234567-0123-0123-0123-012345678901::grid-scabbard-a
+          example: 01234567-0123-0123-0123-012345678901::dgc-platform-scabbard-a
       required:
         - product_id
         - product_address

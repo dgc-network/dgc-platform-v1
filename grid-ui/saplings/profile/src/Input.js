@@ -19,7 +19,7 @@ import './Input.scss';
 
 export function Input({ type, id, label, name, value, onChange, required }) {
   return (
-    <div className="grid-input">
+    <div className="dgc-platform-input">
       <input
         type={type}
         id={id}

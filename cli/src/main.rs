@@ -1,16 +1,5 @@
-// Copyright 2019 Cargill Incorporated
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 #[macro_use]
 extern crate clap;
@@ -72,8 +61,8 @@ fn run() -> Result<(), CliError> {
     let mut app = clap_app!(myapp =>
         (name: APP_NAME)
         (version: VERSION)
-        (author: "Contributors to Hyperledger Grid")
-        (about: "Command line for Hyperledger Grid")
+        (author: "Contributors to dgc-platform")
+        (about: "Command line for dgc-platform")
         (@arg url: --url  +takes_value "URL for the REST API")
         (@arg wait: --wait +takes_value "How long to wait for transaction to be committed")
         (@arg key: -k +takes_value "base name for private key file")
@@ -149,7 +138,7 @@ fn run() -> Result<(), CliError> {
             )
         )
         (@subcommand database =>
-            (about: "Manage Grid Daemon database")
+            (about: "Manage dgc-platform Daemon database")
             (@setting SubcommandRequiredElseHelp)
             (@subcommand migrate =>
                 (about: "Run database migrations")
@@ -207,7 +196,7 @@ fn run() -> Result<(), CliError> {
                                 .takes_value(true)
                                 .help(
                                     "Specify the directory for the key files; \
-                                     defaults to /etc/grid/keys",
+                                     defaults to /etc/dgc-platform/keys",
                                 ),
                         )
                         .arg(
@@ -382,7 +371,7 @@ fn run() -> Result<(), CliError> {
         ("database", Some(m)) => match m.subcommand() {
             ("migrate", Some(m)) => database::run_migrations(
                 m.value_of("database_url")
-                    .unwrap_or("postgres://grid:grid_example@localhost/grid"),
+                    .unwrap_or("postgres://dgc-platform:grid_example@localhost/dgc-platform"),
             )?,
             _ => return Err(CliError::UserError("Subcommand not recognized".into())),
         },

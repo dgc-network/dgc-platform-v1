@@ -1,20 +1,5 @@
-/*
- * Copyright 2018 Intel Corporation
- * Copyright 2019 Cargill Incorporated
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ------------------------------------------------------------------------------
- */
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 use std::fs::{self, OpenOptions};
 use std::io::prelude::*;
@@ -29,7 +14,7 @@ use crate::error::CliError;
 /// Generates a public/private key pair that can be used to sign transactions.
 /// If no directory is provided, the keys are created in the default directory
 ///
-///   $HOME/.grid/keys/
+///   $HOME/.dgc-platform/keys/
 ///
 /// If no key_name is provided the key name is set to USER environment variable.
 pub fn generate_keys(
@@ -63,7 +48,7 @@ pub fn generate_keys(
                     CliError::UserError(String::from("Unable to determine home directory"))
                 })
                 .and_then(|mut p| {
-                    p.push(".grid");
+                    p.push(".dgc-platform");
                     p.push("keys");
                     Ok(p)
                 })?;

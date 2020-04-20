@@ -1,16 +1,5 @@
-// Copyright 2019 Cargill Incorporated
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 mod agents;
 mod batches;
@@ -1063,13 +1052,13 @@ mod test {
     ///     list_grid_schemas request.
     ///
     ///     The TestServer will receive a request with no parameters,
-    ///         then will respond with an Ok status and a list of Grid Schemas.
+    ///         then will respond with an Ok status and a list of dgc-platform Schemas.
     #[actix_rt::test]
     async fn test_list_schemas() {
         run_migrations(&DATABASE_URL);
         let test_pool = get_connection_pool();
         let srv = create_test_server(Backend::Sawtooth, ResponseType::ClientBatchStatusResponseOK);
-        // Clears the grid schema table in the test database
+        // Clears the dgc-platform schema table in the test database
         clear_grid_schema_table(&test_pool.get().unwrap());
         let mut response = srv
             .request(http::Method::GET, srv.url("/schema"))
@@ -1102,13 +1091,13 @@ mod test {
     ///     list_grid_schemas request.
     ///
     ///     The TestServer will receive a request with the service ID,
-    ///         then will respond with an Ok status and a list of Grid Schemas.
+    ///         then will respond with an Ok status and a list of dgc-platform Schemas.
     #[actix_rt::test]
     async fn test_list_schemas_with_service_id() {
         run_migrations(&DATABASE_URL);
         let test_pool = get_connection_pool();
         let srv = create_test_server(Backend::Splinter, ResponseType::ClientBatchStatusResponseOK);
-        // Clears the grid schema table in the test database
+        // Clears the dgc-platform schema table in the test database
         clear_grid_schema_table(&test_pool.get().unwrap());
         let mut response = srv
             .request(
@@ -1150,7 +1139,7 @@ mod test {
 
     ///
     /// Verifies a GET /schema/{name} responds with an OK response
-    ///     and the Grid Schema with the specified name
+    ///     and the dgc-platform Schema with the specified name
     ///
     #[actix_rt::test]
     async fn test_fetch_schema_ok() {
@@ -1176,7 +1165,7 @@ mod test {
 
     ///
     /// Verifies a GET /schema/{name}?service_id=test_service responds with an OK response
-    ///     and the Grid Schema with the specified name and service_id.
+    ///     and the dgc-platform Schema with the specified name and service_id.
     ///
     #[actix_rt::test]
     async fn test_fetch_schema_with_service_id_ok() {
@@ -1210,7 +1199,7 @@ mod test {
 
     ///
     /// Verifies a GET /schema/{name} responds with a Not Found error
-    ///     when there is no Grid Schema with the specified name
+    ///     when there is no dgc-platform Schema with the specified name
     ///
     #[actix_rt::test]
     async fn test_fetch_schema_not_found() {
@@ -1228,7 +1217,7 @@ mod test {
 
     ///
     /// Verifies a GET /schema/{name}?service_id=test_service responds with a Not Found error
-    ///     when there is no Grid Schema with the specified name and service id.
+    ///     when there is no dgc-platform Schema with the specified name and service id.
     ///
     #[actix_rt::test]
     async fn test_fetch_schema_with_service_id_not_found() {
@@ -1286,7 +1275,7 @@ mod test {
         let test_product = body.first().unwrap();
         assert_eq!(test_product.product_id, "041205707820".to_string());
         assert_eq!(test_product.product_address, "test_address".to_string());
-        assert_eq!(test_product.product_namespace, "Grid Product".to_string());
+        assert_eq!(test_product.product_namespace, "dgc-platform Product".to_string());
         assert_eq!(test_product.owner, "phillips001".to_string());
         assert_eq!(test_product.properties.len(), 2);
     }
@@ -1337,7 +1326,7 @@ mod test {
         let test_product = body.first().unwrap();
         assert_eq!(test_product.product_id, "041205707820".to_string());
         assert_eq!(test_product.product_address, "test_address".to_string());
-        assert_eq!(test_product.product_namespace, "Grid Product".to_string());
+        assert_eq!(test_product.product_namespace, "dgc-platform Product".to_string());
         assert_eq!(test_product.owner, "phillips001".to_string());
         assert_eq!(test_product.properties.len(), 2);
         assert_eq!(test_product.service_id, Some(TEST_SERVICE_ID.to_string()));
@@ -1366,7 +1355,7 @@ mod test {
             serde_json::from_slice(&*response.body().await.unwrap()).unwrap();
         assert_eq!(test_product.product_id, "041205707820".to_string());
         assert_eq!(test_product.product_address, "test_address".to_string());
-        assert_eq!(test_product.product_namespace, "Grid Product".to_string());
+        assert_eq!(test_product.product_namespace, "dgc-platform Product".to_string());
         assert_eq!(test_product.owner, "phillips001".to_string());
         assert_eq!(test_product.properties.len(), 2);
     }
@@ -1401,7 +1390,7 @@ mod test {
             serde_json::from_slice(&*response.body().await.unwrap()).unwrap();
         assert_eq!(test_product.product_id, "041205707820".to_string());
         assert_eq!(test_product.product_address, "test_address".to_string());
-        assert_eq!(test_product.product_namespace, "Grid Product".to_string());
+        assert_eq!(test_product.product_namespace, "dgc-platform Product".to_string());
         assert_eq!(test_product.owner, "phillips001".to_string());
         assert_eq!(test_product.properties.len(), 2);
         assert_eq!(test_product.service_id, Some(TEST_SERVICE_ID.to_string()));
@@ -2852,7 +2841,7 @@ mod test {
             start_commit_num: 0,
             end_commit_num: MAX_COMMIT_NUM,
             name: "TestGridSchema".to_string(),
-            description: "Example test grid schema".to_string(),
+            description: "Example test dgc-platform schema".to_string(),
             owner: "phillips001".to_string(),
             service_id,
         }]
@@ -2862,7 +2851,7 @@ mod test {
         vec![NewProduct {
             product_id: "041205707820".to_string(),
             product_address: "test_address".to_string(),
-            product_namespace: "Grid Product".to_string(),
+            product_namespace: "dgc-platform Product".to_string(),
             owner: "phillips001".to_string(),
             start_commit_num: 0,
             end_commit_num: MAX_COMMIT_NUM,
@@ -3411,7 +3400,7 @@ mod test {
                 end_commit_num: MAX_COMMIT_NUM,
                 product_id: "041205707820".to_string(),
                 product_address: "test_address".to_string(),
-                property_name: "Test Grid Product".to_string(),
+                property_name: "Test dgc-platform Product".to_string(),
                 data_type: "Lightbulb".to_string(),
                 bytes_value: None,
                 boolean_value: None,
@@ -3427,7 +3416,7 @@ mod test {
                 end_commit_num: MAX_COMMIT_NUM,
                 product_id: "041205707820".to_string(),
                 product_address: "test_address".to_string(),
-                property_name: "Test Grid Product".to_string(),
+                property_name: "Test dgc-platform Product".to_string(),
                 data_type: "Lightbulb".to_string(),
                 bytes_value: None,
                 boolean_value: None,

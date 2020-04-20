@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Dockerfile for running unit tests and lint on the Grid UI
+# Dockerfile for running unit tests and lint on the dgc-platform UI
 FROM node:lts-alpine
 
-WORKDIR /grid-ui/saplings/product
+WORKDIR /dgc-platform-ui/saplings/product
 
 COPY package*.json ./
 

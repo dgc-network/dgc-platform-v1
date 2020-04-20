@@ -1,19 +1,5 @@
-/*
- * Copyright 2020 Cargill Incorporated
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * -----------------------------------------------------------------------------
- */
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 use std::convert::TryInto;
 
@@ -38,17 +24,17 @@ const SCABBARD_SUBMISSION_WAIT_SECS: u64 = 10;
 
 // Pike constants
 const PIKE_PREFIX: &str = "cad11d";
-const PIKE_CONTRACT_NAME: &str = "grid-pike";
+const PIKE_CONTRACT_NAME: &str = "dgc-platform-pike";
 const PIKE_CONTRACT_VERSION_REQ: &str = "0.1.0-dev";
 
 // Product constants
 const PRODUCT_PREFIX: &str = "621dee02";
-const PRODUCT_CONTRACT_NAME: &str = "grid-product";
+const PRODUCT_CONTRACT_NAME: &str = "dgc-platform-product";
 const PRODUCT_CONTRACT_VERSION_REQ: &str = "0.1.0-dev";
 
 // Schema constants
 const SCHEMA_PREFIX: &str = "621dee01";
-const SCHEMA_CONTRACT_NAME: &str = "grid-schema";
+const SCHEMA_CONTRACT_NAME: &str = "dgc-platform-schema";
 const SCHEMA_CONTRACT_VERSION_REQ: &str = "0.1.0-dev";
 
 pub fn setup_grid(

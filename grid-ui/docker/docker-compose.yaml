@@ -33,7 +33,7 @@
         - contracts:/usr/share/scar
       entrypoint: |
         bash -c "
-          cp /tmp/grid-pike*.scar /usr/share/scar
+          cp /tmp/dgc-platform-pike*.scar /usr/share/scar
         "
 
     product-contract-builder:
@@ -48,7 +48,7 @@
         - contracts:/usr/share/scar
       entrypoint: |
         bash -c "
-          cp /tmp/grid-product*.scar /usr/share/scar
+          cp /tmp/dgc-platform-product*.scar /usr/share/scar
         "
 
     schema-contract-builder:
@@ -63,7 +63,7 @@
         - contracts:/usr/share/scar
       entrypoint: |
         bash -c "
-          cp /tmp/grid-schema*.scar /usr/share/scar
+          cp /tmp/dgc-platform-schema*.scar /usr/share/scar
         "
 
     tnt-contract-builder:
@@ -78,7 +78,7 @@
         - contracts:/usr/share/scar
       entrypoint: |
         bash -c "
-          cp /tmp/grid-track-and-trace*.scar /usr/share/scar
+          cp /tmp/dgc-platform-track-and-trace*.scar /usr/share/scar
         "
 
     generate-key-registry:
@@ -97,17 +97,17 @@
           fi
         "
 
-    grid-db:
+    dgc-platform-db:
       image: postgres
-      container_name: grid-db
-      hostname: grid-db
+      container_name: dgc-platform-db
+      hostname: dgc-platform-db
       restart: always
       expose:
         - 5432
       environment:
         POSTGRES_USER: admin
         POSTGRES_PASSWORD: admin
-        POSTGRES_DB: grid
+        POSTGRES_DB: dgc-platform
 
     gridd:
       image: gridd
@@ -121,7 +121,7 @@
           - CARGO_ARGS=-- --features experimental
       volumes:
         - contracts:/usr/share/scar
-        - gridd:/etc/grid/keys
+        - gridd:/etc/dgc-platform/keys
       expose:
         - 8080
       ports:
@@ -129,19 +129,19 @@
       environment:
         GRID_DAEMON_KEY: "alpha-agent"
         GRID_DAEMON_ENDPOINT: "http://gridd:8080"
-        GRID_SERVICE_ID: "my-grid-circuit::grid-scabbard-a"
+        GRID_SERVICE_ID: "my-dgc-platform-circuit::dgc-platform-scabbard-a"
       entrypoint: |
           bash -c "
             # we need to wait for the db to have started.
-            until PGPASSWORD=admin psql -h grid-db -U admin -d grid -c '\q' > /dev/null 2>&1; do
+            until PGPASSWORD=admin psql -h dgc-platform-db -U admin -d dgc-platform -c '\q' > /dev/null 2>&1; do
                 >&2 echo \"Database is unavailable - sleeping\"
                 sleep 1
             done
-            grid -vv admin keygen --skip && \
-            grid -vv database migrate \
-                --database-url postgres://admin:admin@grid-db/grid &&
+            dgc-platform -vv admin keygen --skip && \
+            dgc-platform -vv database migrate \
+                --database-url postgres://admin:admin@dgc-platform-db/dgc-platform &&
             gridd -vv -b 0.0.0.0:8080 -C splinter:http://splinterd:8085 \
-                --database-url postgres://admin:admin@grid-db/grid
+                --database-url postgres://admin:admin@dgc-platform-db/dgc-platform
           "
 
     scabbard-cli:
@@ -210,7 +210,7 @@
         POSTGRES_PASSWORD: admin
         POSTGRES_DB: splinter
 
-    grid-ui:
+    dgc-platform-ui:
       build:
         context: ..
         args:
@@ -219,8 +219,8 @@
           REACT_APP_SAPLING_URL: '/sapling-dev-server'
           SPLINTER_URL: 'http://splinterd:8085'
           SAPLING_URL: ' http://sapling-dev-server:80'
-      image: grid-ui
-      container_name: grid-ui
+      image: dgc-platform-ui
+      container_name: dgc-platform-ui
       expose:
         - 80
       ports:

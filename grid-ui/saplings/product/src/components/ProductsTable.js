@@ -23,7 +23,7 @@ import ProductCard from './ProductCard';
 import NotFound from './NotFound';
 import Loading from './Loading';
 import { getProperty } from '../data/property-parsing';
-import { listProducts } from '../api/grid';
+import { listProducts } from '../api/dgc-platform';
 import './ProductsTable.scss';
 
 function ProductsTable({ actions }) {

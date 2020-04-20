@@ -1,13 +1,13 @@
-# Contributing to Hyperledger Grid
+# Contributing to dgc-platform
 
-Hyperledger Grid is Apache 2.0 licensed and accepts contributions via GitHub
+dgc-platform is Apache 2.0 licensed and accepts contributions via GitHub
 pull requests.
 
 Contributions from the community help improve the design and capabilities of
-Hyperledger Grid. These contributions are the best way to make a positive impact
+dgc-platform. These contributions are the best way to make a positive impact
 on the project.
 
-This repository contains the core components for Hyperledger Grid. We welcome
+This repository contains the core components for dgc-platform. We welcome
 contributors who can:
 
 * Report bugs or issues
@@ -16,6 +16,6 @@ contributors who can:
 * Improve documentation
 
 For more information, please see
-[Contributing](https://grid.hyperledger.org/community/contributing/)
-on the Hyperledger Grid website.
+[Contributing](https://dgc-platform.hyperledger.org/community/contributing/)
+on the dgc-platform website.
 

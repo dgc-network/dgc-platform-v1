@@ -1,5 +1,5 @@
-This is a Grid branded and themed instance of Splinter Canopy. Its intended
-purpose is to provide an interface for Grid apps (saplings) to interface with
+This is a dgc-platform branded and themed instance of Splinter Canopy. Its intended
+purpose is to provide an interface for dgc-platform apps (saplings) to interface with
 shared functionality such as user, key, and session management.
 
 ## Available Scripts

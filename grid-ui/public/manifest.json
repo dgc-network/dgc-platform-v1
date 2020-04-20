@@ -1,6 +1,6 @@
 {
-  "short_name": "Grid",
-  "name": "Grid UI",
+  "short_name": "dgc-platform",
+  "name": "dgc-platform UI",
   "icons": [
     {
       "src": "favicon.ico",

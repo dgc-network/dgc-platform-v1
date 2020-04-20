@@ -1,16 +1,5 @@
-// Copyright 2019 Bitwise IO, Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+// Copyright (c) The dgc.network
+// SPDX-License-Identifier: Apache-2.0
 
 pub mod error;
 mod routes;
@@ -90,11 +79,11 @@ impl FromRequest for AcceptServiceIdParam {
 
         if service_id.is_some() && endpoint.is_sawtooth() {
             return future::err(ErrorBadRequest(
-                "Circuit ID present, but grid is running in sawtooth mode",
+                "Circuit ID present, but dgc-platform is running in sawtooth mode",
             ));
         } else if service_id.is_none() && !endpoint.is_sawtooth() {
             return future::err(ErrorBadRequest(
-                "Circuit ID is not present, but grid is running in splinter mode",
+                "Circuit ID is not present, but dgc-platform is running in splinter mode",
             ));
         }
 
@@ -130,7 +119,7 @@ pub fn run(
     let join_handle = thread::Builder::new()
         .name("GridRestApi".into())
         .spawn(move || {
-            let sys = actix::System::new("Grid-Rest-API");
+            let sys = actix::System::new("dgc-platform-Rest-API");
             let state = AppState::new(batch_submitter, database_connection);
 
             let addr = HttpServer::new(move || {

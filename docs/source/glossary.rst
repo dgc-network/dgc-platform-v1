@@ -1,7 +1,7 @@
 Glossary
 ========
 
-This glossary defines Hyperledger Grid terms and concepts.
+This glossary defines dgc-platform terms and concepts.
 
 .. glossary::
 
@@ -10,7 +10,7 @@ This glossary defines Hyperledger Grid terms and concepts.
     shared by all participants in a network. (Also called a `blockchain`.)
     Each block is linked by a cryptographic hash to the previous block.
 
-  Grid Track and Trace
+  dgc-platform Track and Trace
     Smart contract for tracking goods as they move through a supply chain.
 
   Pike
