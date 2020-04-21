@@ -52,7 +52,7 @@ fn run() -> Result<(), DaemonError> {
     let matches = clap_app!(myapp =>
         (name: APP_NAME)
         (version: VERSION)
-        (author: "dgc-network")
+        (author: "dgc.network")
         (about: "Daemon Package for dgc-platform")
         (@arg connect: -C --connect +takes_value "connection endpoint for sawtooth or splinter")
         (@arg verbose: -v +multiple "Log verbosely")

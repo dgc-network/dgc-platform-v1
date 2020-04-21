@@ -3,10 +3,9 @@
 
 [package]
 name = "dgc-platform-track-and-trace-tp"
-version = "0.11.0"
-authors = ["Cargill Incorporated"]
+version = "0.1.0"
+authors = ["dgc.network"]
 description = "dgc-platform Track and Trace Transaction Processor"
-homepage = "https://dgc-platform.hyperledger.org"
 edition = "2018"
 
 [dependencies]

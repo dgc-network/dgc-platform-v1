@@ -4,7 +4,7 @@
 [package]
 name = "dgc-platform-pike-tp"
 version = "0.1.0"
-authors = ["Cargill Incorporated"]
+authors = ["dgc.network"]
 
 [dependencies]
 protobuf = "2"

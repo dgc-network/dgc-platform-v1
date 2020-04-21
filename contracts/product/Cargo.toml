@@ -4,9 +4,8 @@
 [package]
 name = "dgc-platform-product-tp"
 version = "0.1.0"
-authors = ["Target Inc"]
+authors = ["dgc.network"]
 description = "dgc-platform Product Smart Contract"
-homepage = "https://dgc-platform.hyperledger.org"
 edition = "2018"
 
 [dependencies]

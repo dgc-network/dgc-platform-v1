@@ -4,7 +4,7 @@
 [package]
 name = "dgc-platform-sdk"
 version = "0.1.0"
-authors = ["Cargill Incorporated"]
+authors = ["dgc.network"]
 description = """\
     dgc-platform is a platform for building supply chain solutions \
     that include distributed ledger components. It provides a growing \
