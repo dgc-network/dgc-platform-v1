@@ -5,7 +5,7 @@
 name = "dgc-platform-pike-tp"
 version = "0.1.0"
 authors = ["dgc.network"]
-edition = "2018"
+#edition = "2018"
 
 [dependencies]
 protobuf = "2"
