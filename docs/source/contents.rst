@@ -5,7 +5,7 @@ Table of Contents
 .. toctree::
 
    introduction.rst
-   about_grid.rst
+   about.rst
    app_developers_guide.rst
    transaction_family_specifications.rst
    cli_references.rst

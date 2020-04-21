@@ -4,7 +4,7 @@
 [package]
 name = "dgc-platform-schema-tp"
 version = "0.1.0"
-authors = ["Contributors to dgc-platform"]
+authors = ["dgc-network"]
 description = "dgc-platform Schema Smart Contract"
 homepage = "https://dgc-platform.hyperledger.org"
 edition = "2018"

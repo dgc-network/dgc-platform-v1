@@ -61,7 +61,7 @@ fn run() -> Result<(), CliError> {
     let mut app = clap_app!(myapp =>
         (name: APP_NAME)
         (version: VERSION)
-        (author: "Contributors to dgc-platform")
+        (author: "dgc-network")
         (about: "Command line for dgc-platform")
         (@arg url: --url  +takes_value "URL for the REST API")
         (@arg wait: --wait +takes_value "How long to wait for transaction to be committed")
