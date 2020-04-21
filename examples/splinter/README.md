@@ -33,7 +33,7 @@ used this procedure before, run the following commands to ensure that your
 images are up to date:
 
 ```
-$ docker pull hyperledger/dgc-platform-dev
+$ docker pull hyperledger/grid-dev
 $ docker-compose -f examples/splinter/docker-compose.yaml pull generate-key-registry db-alpha scabbard-cli-alpha splinterd-alpha
 ```
 

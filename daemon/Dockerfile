@@ -1,7 +1,7 @@
 # Copyright (c) The dgc.network
 # SPDX-License-Identifier: Apache-2.0
 
-FROM hyperledger/dgc-platform-dev:v1 as gridd-builder
+FROM hyperledger/grid-dev:v1 as gridd-builder
 
 COPY cli /build/cli
 COPY daemon /build/daemon

@@ -5,7 +5,7 @@ version: '3.7'
 
 services:
   dgc-platform-dev:
-    image: hyperledger/dgc-platform-dev:v1
+    image: hyperledger/grid-dev:v1
     build:
       context: ..
       dockerfile: ci/dgc-platform-dev
