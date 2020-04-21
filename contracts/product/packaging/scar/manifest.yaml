@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 name: grid_product
-version: '1.0'
+version: '0.1.0'
 inputs:
   - '621dee01'
   - '621dee02'
