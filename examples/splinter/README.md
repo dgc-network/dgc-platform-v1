@@ -451,10 +451,10 @@ though alpha and beta are using the same XO smart contract, their game moves
 (smart contract transactions) remain private to their two-party circuit.
 
 ## For More Information
-- dgc-platform documentation: https://dgc-platform.hyperledger.org/docs/dgc-platform/nightly/master/introduction.html
+- Documentation: https://grid.hyperledger.org/docs/grid/nightly/master/introduction.html
 - Splinter: https://github.com/Cargill/splinter
 - Sawtooth Sabre: https://github.com/hyperledger/sawtooth-sabre
-- Pike transaction family (defines a dgc-platform Pike smart contract): https://dgc-platform.hyperledger.org/docs/dgc-platform/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
-- Schema transaction family (defines a dgc-platform Schema smart contract): https://dgc-platform.hyperledger.org/docs/dgc-platform/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
-- Product RFC: https://github.com/target/dgc-platform-rfcs/blob/d6305b86e2a43e510bb57b297b3ec09b0a66c5b0/0000-product.md
+- Pike transaction family (defines a Pike smart contract): https://grid.hyperledger.org/docs/grid/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
+- Schema transaction family (defines a Schema smart contract): https://grid.hyperledger.org/docs/grid/nightly/master/transaction_family_specifications/grid_schema_family_specification.html
+- Product RFC: https://github.com/target/grid-rfcs/blob/d6305b86e2a43e510bb57b297b3ec09b0a66c5b0/0000-product.md
 - CLI for the XO smart contract (also called a "transaction processor"): https://sawtooth.hyperledger.org/docs/core/releases/latest/cli/xo.html
