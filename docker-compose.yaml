@@ -20,12 +20,12 @@ services:
       - dgc-platform-shared:/dgc-platform-shared
     entrypoint: |
       bash -c "
-        while true; do curl -s http://dgc-platform-sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
-        sabre cr --create grid_schema --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre upload --filename /tmp/schema.yaml --key /dgc-platform-shared/my_key --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre ns --create 621dee01 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm 621dee01 grid_schema --key /dgc-platform-shared/my_key --read --write --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm cad11d grid_schema --key /dgc-platform-shared/my_key --read --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
+        while true; do curl -s http://sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
+        sabre cr --create grid_schema --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre upload --filename /tmp/schema.yaml --key /dgc-platform-shared/my_key --url http://sawtooth-rest-api:8008 --wait 30
+        sabre ns --create 621dee01 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm 621dee01 grid_schema --key /dgc-platform-shared/my_key --read --write --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm cad11d grid_schema --key /dgc-platform-shared/my_key --read --url http://sawtooth-rest-api:8008 --wait 30
         echo '---------========= dgc-platform schema contract is loaded =========---------'
       "
 
@@ -41,11 +41,11 @@ services:
       - dgc-platform-shared:/dgc-platform-shared
     entrypoint: |
       bash -c "
-        while true; do curl -s http://dgc-platform-sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
-        sabre cr --create pike --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre upload --filename /tmp/pike.yaml --key /dgc-platform-shared/my_key --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre ns --create cad11d --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm cad11d pike --key /dgc-platform-shared/my_key --read --write --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
+        while true; do curl -s http://sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
+        sabre cr --create pike --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre upload --filename /tmp/pike.yaml --key /dgc-platform-shared/my_key --url http://sawtooth-rest-api:8008 --wait 30
+        sabre ns --create cad11d --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm cad11d pike --key /dgc-platform-shared/my_key --read --write --url http://sawtooth-rest-api:8008 --wait 30
         echo '---------========= pike contract is loaded =========---------'
       "
     
@@ -61,15 +61,15 @@ services:
       - dgc-platform-shared:/dgc-platform-shared
     entrypoint: |
       bash -c "
-        while true; do curl -s http://dgc-platform-sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
-        sabre cr --create grid_product --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre upload --filename /tmp/product.yaml --key /dgc-platform-shared/my_key --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre ns --create cad11d --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre ns --create 621dee01 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre ns --create 621dee02 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm cad11d grid_product --key /dgc-platform-shared/my_key --read --write --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm 621dee01 grid_product --key /dgc-platform-shared/my_key --read --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm 621dee02 grid_product --key /dgc-platform-shared/my_key --read --write --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
+        while true; do curl -s http://sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
+        sabre cr --create grid_product --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre upload --filename /tmp/product.yaml --key /dgc-platform-shared/my_key --url http://sawtooth-rest-api:8008 --wait 30
+        sabre ns --create cad11d --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre ns --create 621dee01 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre ns --create 621dee02 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm cad11d grid_product --key /dgc-platform-shared/my_key --read --write --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm 621dee01 grid_product --key /dgc-platform-shared/my_key --read --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm 621dee02 grid_product --key /dgc-platform-shared/my_key --read --write --url http://sawtooth-rest-api:8008 --wait 30
         echo '---------========= grid_product contract is loaded =========---------'
       "
 
@@ -85,19 +85,19 @@ services:
       - dgc-platform-shared:/dgc-platform-shared
     entrypoint: |
       bash -c "
-        while true; do curl -s http://dgc-platform-sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
-        sabre cr --create grid_track_and_trace --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre upload --filename /tmp/track_and_trace.yaml --key /dgc-platform-shared/my_key --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre ns --create a43b46 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm a43b46 grid_track_and_trace --key /dgc-platform-shared/my_key --read --write --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm 621dee01 grid_track_and_trace --key /dgc-platform-shared/my_key --read --write --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
-        sabre perm cad11d grid_track_and_trace --key /dgc-platform-shared/my_key --read --url http://dgc-platform-sawtooth-rest-api:8008 --wait 30
+        while true; do curl -s http://sawtooth-rest-api:8008/state | grep -q head; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
+        sabre cr --create grid_track_and_trace --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre upload --filename /tmp/track_and_trace.yaml --key /dgc-platform-shared/my_key --url http://sawtooth-rest-api:8008 --wait 30
+        sabre ns --create a43b46 --key /dgc-platform-shared/my_key --owner $$(cat /dgc-platform-shared/my_key.pub) --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm a43b46 grid_track_and_trace --key /dgc-platform-shared/my_key --read --write --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm 621dee01 grid_track_and_trace --key /dgc-platform-shared/my_key --read --write --url http://sawtooth-rest-api:8008 --wait 30
+        sabre perm cad11d grid_track_and_trace --key /dgc-platform-shared/my_key --read --url http://sawtooth-rest-api:8008 --wait 30
         echo '---------========= track and trace contract is loaded =========---------'
       "
 
   validator:
     image: hyperledger/sawtooth-validator:1.1
-    container_name: dgc-platform-sawtooth-validator
+    container_name: sawtooth-validator
     expose:
       - 4004
     ports:
@@ -139,14 +139,14 @@ services:
 
   settings-tp:
     image: hyperledger/sawtooth-settings-tp:1.1
-    container_name: dgc-platform-sawtooth-settings-tp
+    container_name: sawtooth-settings-tp
     depends_on:
       - validator
     entrypoint: settings-tp -vv -C tcp://validator:4004
 
   rest-api:
     image: hyperledger/sawtooth-rest-api:1.1
-    container_name: dgc-platform-sawtooth-rest-api
+    container_name: sawtooth-rest-api
     expose:
       - 8008
     ports:
@@ -206,7 +206,7 @@ services:
 
   sawtooth-shell:
     image: hyperledger/sawtooth-shell:1.1
-    container_name: dgc-platform-sawtooth-shell
+    container_name: sawtooth-shell
     command: |
         bash -c "
           sawtooth keygen &&

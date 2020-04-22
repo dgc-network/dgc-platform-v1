@@ -50,7 +50,7 @@
     }
 
     .key-list {
-      display: dgc-platform;
+      display: grid;
       grid-auto-columns: 20rem;
       grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
       grid-template-rows: auto;
@@ -72,7 +72,7 @@
     }
   }
   .info-field {
-    display: dgc-platform;
+    display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr;
     grid-template-areas: 'info actions';
