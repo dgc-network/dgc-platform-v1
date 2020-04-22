@@ -39,8 +39,8 @@ $ docker-compose -f examples/splinter/docker-compose.yaml pull generate-key-regi
 
 ## Set Up and Run dgc-platform
 
-1. Clone the [dgc-platform repository](https://github.com/hyperledger/dgc-platform)
-   ([https://github.com/hyperledger/dgc-platform](https://github.com/hyperledger/dgc-platform)).
+1. Clone the [dgc-platform repository](https://github.com/dgc-network/dgc-platform)
+   ([https://github.com/dgc-network/dgc-platform](https://github.com/dgc-network/dgc-platform)).
 2. Navigate to the dgc-platform root directory and start the dgc-platform Docker containers.
 
    `$ docker-compose -f examples/splinter/docker-compose.yaml up --build`
