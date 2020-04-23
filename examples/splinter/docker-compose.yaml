@@ -182,7 +182,6 @@ services:
         --node-id alpha-node-000 \
         --service-endpoint 0.0.0.0:8043 \
         --storage yaml \
-        --transport tls \
         --client-cert /etc/splinter/certs/client.crt \
         --client-key /etc/splinter/certs/private/client.key \
         --server-cert /etc/splinter/certs/server.crt \
@@ -319,7 +318,6 @@ services:
         --node-id beta-node-000 \
         --service-endpoint 0.0.0.0:8043 \
         --storage yaml \
-        --transport tls \
         --client-cert /etc/splinter/certs/client.crt \
         --client-key /etc/splinter/certs/private/client.key \
         --server-cert /etc/splinter/certs/server.crt \
@@ -449,7 +447,6 @@ services:
         --node-id gamma-node-000 \
         --service-endpoint 0.0.0.0:8043 \
         --storage yaml \
-        --transport tls \
         --client-cert /etc/splinter/certs/client.crt \
         --client-key /etc/splinter/certs/private/client.key \
         --server-cert /etc/splinter/certs/server.crt \
