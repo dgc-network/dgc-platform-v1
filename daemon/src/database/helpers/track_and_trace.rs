@@ -6,7 +6,7 @@ use super::models::{
     NewReporter, Property, Proposal, Record, ReportedValueReporterToAgentMetadata, Reporter,
 };
 use super::schema::{
-    associated_agent, grid_property_definition, property, proposal, record, reported_value,
+    associated_agent, property_definition, property, proposal, record, reported_value,
     reported_value_reporter_to_agent_metadata, reporter,
 };
 use super::MAX_COMMIT_NUM;
@@ -314,9 +314,9 @@ pub fn fetch_property_with_data_type(
                 .and(property::end_commit_num.eq(record::end_commit_num))),
         )
         .left_join(
-            grid_property_definition::table.on(record::schema
-                .eq(grid_property_definition::schema_name)
-                .and(property::name.eq(grid_property_definition::name))
+            property_definition::table.on(record::schema
+                .eq(property_definition::schema_name)
+                .and(property::name.eq(property_definition::name))
                 .and(property::end_commit_num.eq(record::end_commit_num))),
         )
         .filter(
@@ -334,7 +334,7 @@ pub fn fetch_property_with_data_type(
     query
         .select((
             property::all_columns,
-            grid_property_definition::data_type.nullable(),
+            property_definition::data_type.nullable(),
         ))
         .first::<(Property, Option<String>)>(conn)
         .map(Some)
@@ -376,9 +376,9 @@ pub fn list_properties_with_data_type(
                 .and(property::end_commit_num.eq(record::end_commit_num))),
         )
         .left_join(
-            grid_property_definition::table.on(record::schema
-                .eq(grid_property_definition::schema_name)
-                .and(property::name.eq(grid_property_definition::name))
+            property_definition::table.on(record::schema
+                .eq(property_definition::schema_name)
+                .and(property::name.eq(property_definition::name))
                 .and(property::end_commit_num.eq(record::end_commit_num))),
         )
         .filter(
@@ -395,7 +395,7 @@ pub fn list_properties_with_data_type(
     query
         .select((
             property::all_columns,
-            grid_property_definition::data_type.nullable(),
+            property_definition::data_type.nullable(),
         ))
         .load::<(Property, Option<String>)>(conn)
 }

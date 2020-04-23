@@ -23,8 +23,8 @@ use std::i64;
 use crate::database::{
     helpers as db,
     models::{
-        LatLongValue, NewAgent, NewAssociatedAgent, NewCommit, NewGridPropertyDefinition,
-        NewGridSchema, NewOrganization, NewProduct, NewProductPropertyValue, NewProperty,
+        LatLongValue, NewAgent, NewAssociatedAgent, NewCommit, NewPropertyDefinition,
+        NewSchema, NewOrganization, NewProduct, NewProductPropertyValue, NewProperty,
         NewProposal, NewRecord, NewReportedValue, NewReporter,
     },
     ConnectionPool,
@@ -207,7 +207,7 @@ fn state_change_to_db_operation(
                     .schemas()
                     .iter()
                     .map(|state_schema| {
-                        let schema = NewGridSchema {
+                        let schema = NewSchema {
                             name: state_schema.name().to_string(),
                             description: state_schema.description().to_string(),
                             owner: state_schema.owner().to_string(),
@@ -225,7 +225,7 @@ fn state_change_to_db_operation(
 
                         (schema, definitions)
                     })
-                    .collect::<Vec<(NewGridSchema, Vec<NewGridPropertyDefinition>)>>();
+                    .collect::<Vec<(NewSchema, Vec<NewPropertyDefinition>)>>();
 
                 let definitions = schema_defs
                     .clone()
@@ -463,7 +463,7 @@ fn state_change_to_db_operation(
 enum DbInsertOperation {
     Agents(Vec<NewAgent>),
     Organizations(Vec<NewOrganization>),
-    GridSchemas(Vec<NewGridSchema>, Vec<NewGridPropertyDefinition>),
+    GridSchemas(Vec<NewSchema>, Vec<NewPropertyDefinition>),
     Properties(Vec<NewProperty>, Vec<NewReporter>),
     ReportedValues(Vec<NewReportedValue>),
     Proposals(Vec<NewProposal>),
@@ -608,11 +608,11 @@ fn make_property_definitions(
     service_id: Option<&String>,
     schema_name: &str,
     definitions: &[PropertyDefinition],
-) -> Vec<NewGridPropertyDefinition> {
+) -> Vec<NewPropertyDefinition> {
     let mut properties = Vec::new();
 
     for def in definitions {
-        properties.push(NewGridPropertyDefinition {
+        properties.push(NewPropertyDefinition {
             name: def.name().to_string(),
             schema_name: schema_name.to_string(),
             data_type: format!("{:?}", def.data_type()),

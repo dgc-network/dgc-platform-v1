@@ -61,7 +61,7 @@ impl GridSchemaTransactionHandler {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
         GridSchemaTransactionHandler {
-            family_name: "grid_schema".to_string(),
+            family_name: "dgc_platform_schema".to_string(),
             family_versions: vec!["1.0".to_string()],
             namespaces: vec![GRID_NAMESPACE.to_string()],
         }

@@ -47,7 +47,7 @@ impl TrackAndTraceTransactionHandler {
     #[allow(clippy::new_without_default)]
     pub fn new() -> TrackAndTraceTransactionHandler {
         TrackAndTraceTransactionHandler {
-            family_name: "grid_track_and_trace".to_string(),
+            family_name: "dgc_platform_track_and_trace".to_string(),
             family_versions: vec!["1.0".to_string()],
             namespaces: vec![
                 get_track_and_trace_prefix(),

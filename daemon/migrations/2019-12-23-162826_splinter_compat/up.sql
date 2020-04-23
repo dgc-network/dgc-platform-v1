@@ -25,7 +25,7 @@ ALTER TABLE reporter_to_agent_metadata RENAME COLUMN reporter_end_block_num TO r
 
 ALTER TABLE block RENAME TO commit;
 
-CREATE TABLE IF NOT EXISTS grid_circuit (
+CREATE TABLE IF NOT EXISTS circuit (
     circuit_id TEXT PRIMARY KEY,
     authorization_type TEXT NOT NULL,
     persistence TEXT NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS grid_circuit (
     updated_time TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS grid_circuit_proposal (
+CREATE TABLE IF NOT EXISTS circuit_proposal (
     id BIGSERIAL PRIMARY KEY,
     proposal_type TEXT NOT NULL,
     circuit_id TEXT NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS grid_circuit_proposal (
     updated_time TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS grid_circuit_member (
+CREATE TABLE IF NOT EXISTS circuit_member (
     id BIGSERIAL PRIMARY KEY,
     circuit_id TEXT NOT NULL,
     node_id TEXT NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS grid_circuit_member (
     updated_time TIMESTAMP NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS grid_circuit_proposal_vote_record (
+CREATE TABLE IF NOT EXISTS circuit_proposal_vote_record (
     id BIGSERIAL PRIMARY KEY,
     proposal_id BIGSERIAL NOT NULL,
     voter_public_key TEXT NOT NULL,

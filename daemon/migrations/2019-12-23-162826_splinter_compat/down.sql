@@ -13,10 +13,10 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS grid_circuit;
-DROP TABLE IF EXISTS grid_circuit_proposal;
-DROP TABLE IF EXISTS grid_circuit_member;
-DROP TABLE IF EXISTS grid_circuit_proposal_vote_record;
+DROP TABLE IF EXISTS circuit;
+DROP TABLE IF EXISTS circuit_proposal;
+DROP TABLE IF EXISTS circuit_member;
+DROP TABLE IF EXISTS circuit_proposal_vote_record;
 
 ALTER TABLE commit RENAME TO block;
 

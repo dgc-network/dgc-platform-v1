@@ -1,7 +1,7 @@
 # Copyright (c) The dgc.network
 # SPDX-License-Identifier: Apache-2.0
 
-name: grid_product
+name: dgc_platform_product
 version: '0.1.0'
 wasm: /tmp/dgc-platform-product-tp.wasm
 inputs:

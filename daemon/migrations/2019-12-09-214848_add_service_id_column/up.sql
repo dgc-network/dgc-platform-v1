@@ -17,9 +17,9 @@ ALTER TABLE agent ADD COLUMN IF NOT EXISTS service_id TEXT;
 
 ALTER TABLE associated_agent ADD COLUMN IF NOT EXISTS service_id TEXT;
 
-ALTER TABLE grid_property_definition ADD COLUMN IF NOT EXISTS service_id TEXT;
+ALTER TABLE property_definition ADD COLUMN IF NOT EXISTS service_id TEXT;
 
-ALTER TABLE grid_schema ADD COLUMN IF NOT EXISTS service_id TEXT;
+ALTER TABLE dgc_platform_schema ADD COLUMN IF NOT EXISTS service_id TEXT;
 
 ALTER TABLE organization ADD COLUMN IF NOT EXISTS service_id TEXT;
 

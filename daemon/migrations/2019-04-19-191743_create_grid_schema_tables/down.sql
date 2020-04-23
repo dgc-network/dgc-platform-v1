@@ -13,10 +13,10 @@
 -- limitations under the License.
 -- -----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS grid_schema;
+DROP TABLE IF EXISTS dgc_platform_schema;
 DROP INDEX IF EXISTS grid_schema_name_block_num_idx;
 
-DROP TABLE IF EXISTS grid_property_definition;
+DROP TABLE IF EXISTS property_definition;
 DROP INDEX IF EXISTS grid_property_definition_name_block_num_idx;
 
 DROP TYPE IF EXISTS latlong;

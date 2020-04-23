@@ -3,7 +3,7 @@
 
 use crate::database::{
     helpers as db,
-    models::{GridPropertyDefinition, GridSchema},
+    models::{PropertyDefinition, Schema},
 };
 use crate::rest_api::{
     error::RestApiResponseError, routes::DbExecutor, AcceptServiceIdParam, AppState, QueryServiceId,
@@ -26,7 +26,7 @@ pub struct GridSchemaSlice {
 }
 
 impl GridSchemaSlice {
-    pub fn from_schema(schema: &GridSchema, properties: Vec<GridPropertyDefinition>) -> Self {
+    pub fn from_schema(schema: &Schema, properties: Vec<PropertyDefinition>) -> Self {
         Self {
             name: schema.name.clone(),
             description: schema.description.clone(),
@@ -56,7 +56,7 @@ pub struct GridPropertyDefinitionSlice {
 }
 
 impl GridPropertyDefinitionSlice {
-    pub fn from_definition(definition: &GridPropertyDefinition) -> Self {
+    pub fn from_definition(definition: &PropertyDefinition) -> Self {
         Self {
             name: definition.name.clone(),
             schema_name: definition.schema_name.clone(),

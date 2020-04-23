@@ -41,12 +41,12 @@ mod test {
     use crate::database::{
         helpers::MAX_COMMIT_NUM,
         models::{
-            LatLongValue, NewAgent, NewAssociatedAgent, NewGridPropertyDefinition, NewGridSchema,
+            LatLongValue, NewAgent, NewAssociatedAgent, NewPropertyDefinition, NewSchema,
             NewOrganization, NewProduct, NewProductPropertyValue, NewProperty, NewProposal,
             NewRecord, NewReportedValue, NewReporter,
         },
         schema::{
-            associated_agent, grid_property_definition, grid_schema, product,
+            associated_agent, property_definition, dgc_platform_schema, product,
             product_property_value, property, proposal, record, reported_value, reporter,
         },
     };
@@ -2836,8 +2836,8 @@ mod test {
         diesel::delete(organization).execute(conn).unwrap();
     }
 
-    fn get_grid_schema(service_id: Option<String>) -> Vec<NewGridSchema> {
-        vec![NewGridSchema {
+    fn get_grid_schema(service_id: Option<String>) -> Vec<NewSchema> {
+        vec![NewSchema {
             start_commit_num: 0,
             end_commit_num: MAX_COMMIT_NUM,
             name: "TestGridSchema".to_string(),
@@ -3045,12 +3045,12 @@ mod test {
 
     fn populate_grid_schema_table(
         conn: &PgConnection,
-        schemas: &[NewGridSchema],
+        schemas: &[NewSchema],
         service_id: Option<String>,
     ) {
         clear_grid_schema_table(conn);
         populate_property_definition_table(conn, &get_property_definition(service_id));
-        insert_into(grid_schema::table)
+        insert_into(dgc_platform_schema::table)
             .values(schemas)
             .execute(conn)
             .map(|_| ())
@@ -3266,8 +3266,8 @@ mod test {
     }
 
     fn clear_grid_schema_table(conn: &PgConnection) {
-        use crate::database::schema::grid_schema::dsl::*;
-        diesel::delete(grid_schema).execute(conn).unwrap();
+        use crate::database::schema::dgc_platform_schema::dsl::*;
+        diesel::delete(dgc_platform_schema).execute(conn).unwrap();
     }
 
     fn clear_product_table(conn: &PgConnection) {
@@ -3292,9 +3292,9 @@ mod test {
         diesel::delete(property).execute(conn).unwrap();
     }
 
-    fn get_property_definition(service_id: Option<String>) -> Vec<NewGridPropertyDefinition> {
+    fn get_property_definition(service_id: Option<String>) -> Vec<NewPropertyDefinition> {
         vec![
-            NewGridPropertyDefinition {
+            NewPropertyDefinition {
                 start_commit_num: 0,
                 end_commit_num: MAX_COMMIT_NUM,
                 name: "Definition Name".to_string(),
@@ -3307,7 +3307,7 @@ mod test {
                 struct_properties: vec![],
                 service_id: service_id.clone(),
             },
-            NewGridPropertyDefinition {
+            NewPropertyDefinition {
                 start_commit_num: 0,
                 end_commit_num: MAX_COMMIT_NUM,
                 name: "Other Definition Name".to_string(),
@@ -3325,8 +3325,8 @@ mod test {
 
     fn get_grid_property_definition_struct_for_record(
         service_id: Option<String>,
-    ) -> Vec<NewGridPropertyDefinition> {
-        vec![NewGridPropertyDefinition {
+    ) -> Vec<NewPropertyDefinition> {
+        vec![NewPropertyDefinition {
             start_commit_num: 0,
             end_commit_num: MAX_COMMIT_NUM,
             name: "TestProperty".to_string(),
@@ -3343,9 +3343,9 @@ mod test {
 
     fn get_grid_property_definition_for_record(
         service_id: Option<String>,
-    ) -> Vec<NewGridPropertyDefinition> {
+    ) -> Vec<NewPropertyDefinition> {
         vec![
-            NewGridPropertyDefinition {
+            NewPropertyDefinition {
                 start_commit_num: 0,
                 end_commit_num: MAX_COMMIT_NUM,
                 name: "TestProperty1".to_string(),
@@ -3358,7 +3358,7 @@ mod test {
                 struct_properties: vec![],
                 service_id: service_id.clone(),
             },
-            NewGridPropertyDefinition {
+            NewPropertyDefinition {
                 start_commit_num: 0,
                 end_commit_num: MAX_COMMIT_NUM,
                 name: "TestProperty2".to_string(),
@@ -3376,10 +3376,10 @@ mod test {
 
     fn populate_property_definition_table(
         conn: &PgConnection,
-        definitions: &[NewGridPropertyDefinition],
+        definitions: &[NewPropertyDefinition],
     ) {
         clear_property_definition_table(conn);
-        insert_into(grid_property_definition::table)
+        insert_into(property_definition::table)
             .values(definitions)
             .execute(conn)
             .map(|_| ())
@@ -3387,8 +3387,8 @@ mod test {
     }
 
     fn clear_property_definition_table(conn: &PgConnection) {
-        use crate::database::schema::grid_property_definition::dsl::*;
-        diesel::delete(grid_property_definition)
+        use crate::database::schema::property_definition::dsl::*;
+        diesel::delete(property_definition)
             .execute(conn)
             .unwrap();
     }

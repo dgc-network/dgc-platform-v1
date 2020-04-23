@@ -17,9 +17,9 @@ ALTER TABLE agent DROP COLUMN service_id;
 
 ALTER TABLE associated_agent DROP COLUMN service_id;
 
-ALTER TABLE grid_property_definition DROP COLUMN service_id;
+ALTER TABLE property_definition DROP COLUMN service_id;
 
-ALTER TABLE grid_schema DROP COLUMN service_id;
+ALTER TABLE dgc_platform_schema DROP COLUMN service_id;
 
 ALTER TABLE organization DROP COLUMN service_id;
 

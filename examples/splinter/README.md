@@ -1,7 +1,6 @@
 # Running dgc-platform on Splinter
 
-This document shows how to set up a dgc-platform-on-Splinter environment that runs in a
-set of Docker containers.
+This document shows how to set up a dgc-platform-on-Splinter environment that runs in a set of Docker containers.
 
 The example Splinter docker-compose file creates a network with three nodes
 (alpha, beta, and gamma) that can be used for demos or application development.
@@ -100,7 +99,7 @@ circuit is created.
 
    ```
    root@splinterd-alpha:/# splinter circuit proposals --url http://splinterd-alpha:8085
-   ID            MANAGEMENT MEMBERS
+   ID            MANAGEMENT         MEMBERS
    01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
    ```
 
@@ -146,7 +145,7 @@ circuit is created.
 
    ```
    root@splinterd-beta:/# splinter circuit proposals --url http://splinterd-beta:8085
-   ID            MANAGEMENT MEMBERS
+   ID            MANAGEMENT         MEMBERS
    01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
    ```
 
@@ -188,14 +187,14 @@ circuit is created.
 
     ```
     root@splinterd-beta:/# splinter circuit list --url http://splinterd-beta:8085
-    ID            MANAGEMENT MEMBERS
-    01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
+    ID            MANAGEMENT        MEMBERS
+    01234-ABCDE   dgc-platform      alpha-node-000;beta-node-000
     ```
 
     ```
     root@splinterd-alpha:/# splinter circuit list --url http://splinterd-alpha:8085
-    ID            MANAGEMENT MEMBERS
-    01234-ABCDE   dgc-platform       alpha-node-000;beta-node-000
+    ID            MANAGEMENT        MEMBERS
+    01234-ABCDE   dgc-platform      alpha-node-000;beta-node-000
     ```
 
 
@@ -204,8 +203,7 @@ circuit is created.
 **Note:** To simplify this procedure, the example `docker-compose.yaml` file
 defines environment variables for the ``gridd-alpha`` and ``gridd-beta``
 containers. These variables define the dgc-platform daemon's key file and endpoint,
-so you don't have to use the `-k` and `--url` options with the `dgc-platform` command in
-this section.
+so you don't have to use the `-k` and `--url` options with the `dgc-platform` command in this section.
 
 The following environment variables apply only to this example. If you want to
 override these values, you can edit `docker-compose.yaml` to redefine the
@@ -399,8 +397,8 @@ circuits.
 
    ```
    root@scabbard-cli-beta:/# scabbard contract list -U 'http://splinterd-beta:8085' --service-id $CIRCUIT_ID::gsBB
-   NAME        VERSIONS OWNERS
-   grid_product 1.0      <gridd-alpha public key>
+   NAME         VERSIONS OWNERS
+   dgc_platform_product 1.0      <gridd-alpha public key>
    pike         0.1      <gridd-alpha public key>
    sawtooth_xo  1.0      <gridd-alpha public key>
    ```

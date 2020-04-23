@@ -49,7 +49,7 @@ table! {
 }
 
 table! {
-    grid_property_definition (id) {
+    property_definition (id) {
         id -> Int8,
         start_commit_num -> Int8,
         end_commit_num -> Int8,
@@ -66,7 +66,7 @@ table! {
 }
 
 table! {
-    grid_schema (id) {
+    dgc_platform_schema (id) {
         id -> Int8,
         start_commit_num -> Int8,
         end_commit_num -> Int8,
@@ -249,7 +249,7 @@ table! {
 }
 
 table! {
-    grid_circuit (circuit_id) {
+    circuit (circuit_id) {
         circuit_id -> Text,
         authorization_type -> Text,
         persistence -> Text,
@@ -264,7 +264,7 @@ table! {
 }
 
 table! {
-    grid_circuit_proposal (id) {
+    circuit_proposal (id) {
         id -> Int8,
         proposal_type -> Text,
         circuit_id -> Text,
@@ -278,7 +278,7 @@ table! {
 }
 
 table! {
-    grid_circuit_member (id) {
+    circuit_member (id) {
         id -> Int8,
         circuit_id -> Text,
         node_id -> Text,
@@ -290,7 +290,7 @@ table! {
 }
 
 table! {
-    grid_circuit_proposal_vote_record (id) {
+    circuit_proposal_vote_record (id) {
         id -> Int8,
         proposal_id -> Int8,
         voter_public_key -> Text,
@@ -305,8 +305,8 @@ allow_tables_to_appear_in_same_query!(
     associated_agent,
     commit,
     chain_record,
-    grid_property_definition,
-    grid_schema,
+    property_definition,
+    dgc_platform_schema,
     organization,
     product,
     product_property_value,

@@ -1,8 +1,8 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
-use super::models::{GridPropertyDefinition, GridSchema, NewGridPropertyDefinition, NewGridSchema};
-use super::schema::{grid_property_definition, grid_schema};
+use super::models::{PropertyDefinition, Schema, NewPropertyDefinition, NewSchema};
+use super::schema::{property_definition, dgc_platform_schema};
 use super::MAX_COMMIT_NUM;
 
 use diesel::{
@@ -13,12 +13,12 @@ use diesel::{
     QueryResult,
 };
 
-pub fn insert_grid_schemas(conn: &PgConnection, schemas: &[NewGridSchema]) -> QueryResult<()> {
+pub fn insert_grid_schemas(conn: &PgConnection, schemas: &[NewSchema]) -> QueryResult<()> {
     for schema in schemas {
         update_grid_schema_end_commit_num(conn, &schema.name, schema.start_commit_num)?;
     }
 
-    insert_into(grid_schema::table)
+    insert_into(dgc_platform_schema::table)
         .values(schemas)
         .execute(conn)
         .map(|_| ())
@@ -26,7 +26,7 @@ pub fn insert_grid_schemas(conn: &PgConnection, schemas: &[NewGridSchema]) -> Qu
 
 pub fn insert_grid_property_definitions(
     conn: &PgConnection,
-    definitions: &[NewGridPropertyDefinition],
+    definitions: &[NewPropertyDefinition],
 ) -> QueryResult<()> {
     for definition in definitions {
         update_definition_end_commit_num(
@@ -37,7 +37,7 @@ pub fn insert_grid_property_definitions(
         )?;
     }
 
-    insert_into(grid_property_definition::table)
+    insert_into(property_definition::table)
         .values(definitions)
         .execute(conn)
         .map(|_| ())
@@ -48,13 +48,13 @@ pub fn update_grid_schema_end_commit_num(
     name: &str,
     current_commit_num: i64,
 ) -> QueryResult<()> {
-    update(grid_schema::table)
+    update(dgc_platform_schema::table)
         .filter(
-            grid_schema::name
+            dgc_platform_schema::name
                 .eq(name)
-                .and(grid_schema::end_commit_num.eq(MAX_COMMIT_NUM)),
+                .and(dgc_platform_schema::end_commit_num.eq(MAX_COMMIT_NUM)),
         )
-        .set(grid_schema::end_commit_num.eq(current_commit_num))
+        .set(dgc_platform_schema::end_commit_num.eq(current_commit_num))
         .execute(conn)
         .map(|_| ())
 }
@@ -65,14 +65,14 @@ pub fn update_definition_end_commit_num(
     schema_name: &str,
     current_commit_num: i64,
 ) -> QueryResult<()> {
-    update(grid_property_definition::table)
+    update(property_definition::table)
         .filter(
-            grid_property_definition::schema_name
+            property_definition::schema_name
                 .eq(schema_name)
-                .and(grid_property_definition::name.eq(name))
-                .and(grid_property_definition::end_commit_num.eq(MAX_COMMIT_NUM)),
+                .and(property_definition::name.eq(name))
+                .and(property_definition::end_commit_num.eq(MAX_COMMIT_NUM)),
         )
-        .set(grid_property_definition::end_commit_num.eq(current_commit_num))
+        .set(property_definition::end_commit_num.eq(current_commit_num))
         .execute(conn)
         .map(|_| ())
 }
@@ -80,57 +80,57 @@ pub fn update_definition_end_commit_num(
 pub fn list_grid_schemas(
     conn: &PgConnection,
     service_id: Option<&str>,
-) -> QueryResult<Vec<GridSchema>> {
-    let mut query = grid_schema::table
+) -> QueryResult<Vec<Schema>> {
+    let mut query = dgc_platform_schema::table
         .into_boxed()
-        .select(grid_schema::all_columns)
-        .filter(grid_schema::end_commit_num.eq(MAX_COMMIT_NUM));
+        .select(dgc_platform_schema::all_columns)
+        .filter(dgc_platform_schema::end_commit_num.eq(MAX_COMMIT_NUM));
 
     if let Some(service_id) = service_id {
-        query = query.filter(grid_schema::service_id.eq(service_id));
+        query = query.filter(dgc_platform_schema::service_id.eq(service_id));
     } else {
-        query = query.filter(grid_schema::service_id.is_null());
+        query = query.filter(dgc_platform_schema::service_id.is_null());
     }
 
-    query.load::<GridSchema>(conn)
+    query.load::<Schema>(conn)
 }
 
 pub fn list_grid_property_definitions(
     conn: &PgConnection,
     service_id: Option<&str>,
-) -> QueryResult<Vec<GridPropertyDefinition>> {
-    let mut query = grid_property_definition::table
+) -> QueryResult<Vec<PropertyDefinition>> {
+    let mut query = property_definition::table
         .into_boxed()
-        .select(grid_property_definition::all_columns)
-        .filter(grid_property_definition::end_commit_num.eq(MAX_COMMIT_NUM));
+        .select(property_definition::all_columns)
+        .filter(property_definition::end_commit_num.eq(MAX_COMMIT_NUM));
 
     if let Some(service_id) = service_id {
-        query = query.filter(grid_property_definition::service_id.eq(service_id));
+        query = query.filter(property_definition::service_id.eq(service_id));
     } else {
-        query = query.filter(grid_property_definition::service_id.is_null());
+        query = query.filter(property_definition::service_id.is_null());
     }
 
-    query.load::<GridPropertyDefinition>(conn)
+    query.load::<PropertyDefinition>(conn)
 }
 
 pub fn fetch_grid_schema(
     conn: &PgConnection,
     name: &str,
     service_id: Option<&str>,
-) -> QueryResult<Option<GridSchema>> {
-    let mut query = grid_schema::table
+) -> QueryResult<Option<Schema>> {
+    let mut query = dgc_platform_schema::table
         .into_boxed()
-        .select(grid_schema::all_columns)
+        .select(dgc_platform_schema::all_columns)
         .filter(
-            grid_schema::name
+            dgc_platform_schema::name
                 .eq(name)
-                .and(grid_schema::end_commit_num.eq(MAX_COMMIT_NUM)),
+                .and(dgc_platform_schema::end_commit_num.eq(MAX_COMMIT_NUM)),
         );
 
     if let Some(service_id) = service_id {
-        query = query.filter(grid_schema::service_id.eq(service_id));
+        query = query.filter(dgc_platform_schema::service_id.eq(service_id));
     } else {
-        query = query.filter(grid_schema::service_id.is_null());
+        query = query.filter(dgc_platform_schema::service_id.is_null());
     }
 
     query
@@ -143,20 +143,20 @@ pub fn list_grid_property_definitions_with_schema_name(
     conn: &PgConnection,
     schema_name: &str,
     service_id: Option<&str>,
-) -> QueryResult<Vec<GridPropertyDefinition>> {
-    let mut query = grid_property_definition::table
+) -> QueryResult<Vec<PropertyDefinition>> {
+    let mut query = property_definition::table
         .into_boxed()
-        .select(grid_property_definition::all_columns)
+        .select(property_definition::all_columns)
         .filter(
-            grid_property_definition::schema_name
+            property_definition::schema_name
                 .eq(schema_name)
-                .and(grid_property_definition::end_commit_num.eq(MAX_COMMIT_NUM)),
+                .and(property_definition::end_commit_num.eq(MAX_COMMIT_NUM)),
         );
 
     if let Some(service_id) = service_id {
-        query = query.filter(grid_property_definition::service_id.eq(service_id));
+        query = query.filter(property_definition::service_id.eq(service_id));
     } else {
-        query = query.filter(grid_property_definition::service_id.is_null());
+        query = query.filter(property_definition::service_id.is_null());
     }
-    query.load::<GridPropertyDefinition>(conn)
+    query.load::<PropertyDefinition>(conn)
 }

@@ -11,8 +11,8 @@ use std::io::Write;
 use std::time::SystemTime;
 
 use super::schema::{
-    agent, associated_agent, commit, grid_circuit, grid_circuit_member, grid_circuit_proposal,
-    grid_circuit_proposal_vote_record, grid_property_definition, grid_schema, organization,
+    agent, associated_agent, commit, circuit, circuit_member, circuit_proposal,
+    circuit_proposal_vote_record, property_definition, dgc_platform_schema, organization,
     product, product_property_value, property, proposal, record, reported_value, reporter,
 };
 
@@ -172,8 +172,8 @@ pub struct ProductPropertyValue {
 }
 
 #[derive(Clone, Insertable, Debug)]
-#[table_name = "grid_schema"]
-pub struct NewGridSchema {
+#[table_name = "dgc_platform_schema"]
+pub struct NewSchema {
     pub start_commit_num: i64,
     pub end_commit_num: i64,
     pub name: String,
@@ -184,7 +184,7 @@ pub struct NewGridSchema {
 
 #[allow(dead_code)]
 #[derive(Queryable, Debug)]
-pub struct GridSchema {
+pub struct Schema {
     pub id: i64,
     pub start_commit_num: i64,
     pub end_commit_num: i64,
@@ -195,8 +195,8 @@ pub struct GridSchema {
 }
 
 #[derive(Clone, Insertable, Debug)]
-#[table_name = "grid_property_definition"]
-pub struct NewGridPropertyDefinition {
+#[table_name = "property_definition"]
+pub struct NewPropertyDefinition {
     pub start_commit_num: i64,
     pub end_commit_num: i64,
     pub name: String,
@@ -212,7 +212,7 @@ pub struct NewGridPropertyDefinition {
 
 #[allow(dead_code)]
 #[derive(Queryable, Debug)]
-pub struct GridPropertyDefinition {
+pub struct PropertyDefinition {
     pub id: i64,
     pub start_commit_num: i64,
     pub end_commit_num: i64,
@@ -459,9 +459,9 @@ pub struct ReportedValueReporterToAgentMetadata {
 }
 
 #[derive(Insertable, Queryable, Identifiable, PartialEq, Debug)]
-#[table_name = "grid_circuit"]
+#[table_name = "circuit"]
 #[primary_key(circuit_id)]
-pub struct GridCircuit {
+pub struct Circuit {
     pub circuit_id: String,
     pub authorization_type: String,
     pub persistence: String,
@@ -475,9 +475,9 @@ pub struct GridCircuit {
 }
 
 #[derive(Queryable, Identifiable, Associations, PartialEq, Debug)]
-#[table_name = "grid_circuit_proposal"]
-#[belongs_to(GridCircuit, foreign_key = "circuit_id")]
-pub struct GridCircuitProposal {
+#[table_name = "circuit_proposal"]
+#[belongs_to(Circuit, foreign_key = "circuit_id")]
+pub struct CircuitProposal {
     pub id: i64,
     pub proposal_type: String,
     pub circuit_id: String,
@@ -490,8 +490,8 @@ pub struct GridCircuitProposal {
 }
 
 #[derive(Insertable, PartialEq, Debug)]
-#[table_name = "grid_circuit_proposal"]
-pub struct NewGridCircuitProposal {
+#[table_name = "circuit_proposal"]
+pub struct NewCircuitProposal {
     pub proposal_type: String,
     pub circuit_id: String,
     pub circuit_hash: String,
@@ -503,9 +503,9 @@ pub struct NewGridCircuitProposal {
 }
 
 #[derive(Queryable, Identifiable, Associations, PartialEq, Debug)]
-#[table_name = "grid_circuit_member"]
-#[belongs_to(GridCircuit, foreign_key = "circuit_id")]
-pub struct GridCircuitMember {
+#[table_name = "circuit_member"]
+#[belongs_to(Circuit, foreign_key = "circuit_id")]
+pub struct CircuitMember {
     pub id: i64,
     pub circuit_id: String,
     pub node_id: String,
@@ -516,8 +516,8 @@ pub struct GridCircuitMember {
 }
 
 #[derive(Insertable, PartialEq, Debug)]
-#[table_name = "grid_circuit_member"]
-pub struct NewGridCircuitMember {
+#[table_name = "circuit_member"]
+pub struct NewCircuitMember {
     pub circuit_id: String,
     pub node_id: String,
     pub endpoint: String,
@@ -527,9 +527,9 @@ pub struct NewGridCircuitMember {
 }
 
 #[derive(Queryable, Identifiable, Associations, PartialEq, Debug)]
-#[table_name = "grid_circuit_proposal_vote_record"]
-#[belongs_to(GridCircuitProposal, foreign_key = "proposal_id")]
-pub struct GridCircuitProposalVoteRecord {
+#[table_name = "circuit_proposal_vote_record"]
+#[belongs_to(CircuitProposal, foreign_key = "proposal_id")]
+pub struct CircuitProposalVoteRecord {
     pub id: i64,
     pub proposal_id: i64,
     pub voter_public_key: String,
@@ -539,8 +539,8 @@ pub struct GridCircuitProposalVoteRecord {
 }
 
 #[derive(Insertable, PartialEq, Debug)]
-#[table_name = "grid_circuit_proposal_vote_record"]
-pub struct NewGridCircuitProposalVoteRecord {
+#[table_name = "circuit_proposal_vote_record"]
+pub struct NewCircuitProposalVoteRecord {
     pub proposal_id: i64,
     pub voter_public_key: String,
     pub voter_node_id: String,
