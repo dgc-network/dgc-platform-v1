@@ -11,15 +11,15 @@ components.
 
 The dgc-platform project includes several repositories:
 
-- [This repository](https://github.com/hyperledger/dgc-platform) contains core
+- [This repository](https://github.com/dgc-network/dgc-platform) contains core
   components such as supply-chain-centric data types and smart permissioning
   code.
 
-- The [dgc-platform-contrib](https://github.com/hyperledger/dgc-platform-contrib) repository
+- The [dgc-platform-contrib](https://github.com/dgc-network/dgc-platform-contrib) repository
   contains example domain models and reference implementations for smart
   contracts (also called "transaction families").
 
-- The [dgc-platform-rfcs](https://github.com/hyperledger/dgc-platform-rfcs) repository
+- The [dgc-platform-rfcs](https://github.com/dgc-network/dgc-platform-rfcs) repository
   contains RFCs (requests for comments) for proposed and approved changes to
   dgc-platform.
 
@@ -39,7 +39,7 @@ was accepted in December, 2018.
 We welcome contributors, both organizations and individuals, to help shape
 project direction, contribute ideas, provide use cases, and work on specific
 tools and examples. Please [join the
-discussion](https://dgc-platform.hyperledger.org/community/join_the_discussion/).
+discussion](https://grid.hyperledger.org/community/join_the_discussion/).
 
 ## Building dgc-platform
 
@@ -68,11 +68,11 @@ building with default features, unset the evironment variable:
 
 ## More Information
 
-- [dgc-platform website](https://dgc-platform.hyperledger.org)
-- [Documentation](https://dgc-platform.hyperledger.org/docs/dgc-platform/nightly/master/)
-- [dgc-platform mailing list](https://lists.hyperledger.org/g/dgc-platform)
-- [#dgc-platform discussion channel](https://chat.hyperledger.org/channel/dgc-platform)
-- [dgc-platform project overview](https://www.hyperledger.org/projects/dgc-platform)
+- [Website](https://grid.hyperledger.org)
+- [Documentation](https://grid.hyperledger.org/docs/grid/nightly/master/)
+- [Mailing list](https://lists.hyperledger.org/g/dgc-platform)
+- [#discussion channel](https://chat.hyperledger.org/channel/dgc-platform)
+- [Project overview](https://www.hyperledger.org/projects/dgc-platform)
   at [hyperledger.org](https://www.hyperledger.org)
 
 
