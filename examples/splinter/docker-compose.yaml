@@ -209,10 +209,10 @@ services:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
         REACT_APP_SAPLING_URL: '/sapling-dev-server'
-        REACT_APP_GRID_URL: '/gridd'
+        REACT_APP_DGC_PLATFORM_URL: '/gridd'
         SPLINTER_URL: 'http://splinterd-alpha:8085'
         SAPLING_URL: ' http://sapling-dev-server-alpha:80'
-        GRID_URL: 'http://gridd-alpha:8080'
+        DGC_PLATFORM_URL: 'http://gridd-alpha:8080'
     image: dgc-platform-ui-alpha
     container_name: dgc-platform-ui-alpha
     expose:
@@ -345,10 +345,10 @@ services:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
         REACT_APP_SAPLING_URL: '/sapling-dev-server'
-        REACT_APP_GRID_URL: '/gridd'
+        REACT_APP_DGC_PLATFORM_URL: '/gridd'
         SPLINTER_URL: 'http://splinterd-beta:8085'
         SAPLING_URL: ' http://sapling-dev-server-beta:80'
-        GRID_URL: 'http://gridd-beta:8080'
+        DGC_PLATFORM_URL: 'http://gridd-beta:8080'
     image: dgc-platform-ui-beta
     container_name: dgc-platform-ui-beta
     expose:
@@ -474,10 +474,10 @@ services:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
         REACT_APP_SAPLING_URL: '/sapling-dev-server'
-        REACT_APP_GRID_URL: '/gridd'
+        REACT_APP_DGC_PLATFORM_URL: '/gridd'
         SPLINTER_URL: 'http://splinterd-gamma:8085'
         SAPLING_URL: ' http://sapling-dev-server-gamma:80'
-        GRID_URL: 'http://gridd-gamma:8080'
+        DGC_PLATFORM_URL: 'http://gridd-gamma:8080'
     image: dgc-platform-ui-gamma
     container_name: dgc-platform-ui-gamma
     expose:

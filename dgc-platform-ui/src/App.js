@@ -17,7 +17,7 @@ function AppWithProvider() {
     <CanopyProvider
       saplingURL={process.env.REACT_APP_SAPLING_URL}
       splinterURL={process.env.REACT_APP_SPLINTER_URL}
-      appConfig={{ gridURL: process.env.REACT_APP_GRID_URL }}
+      appConfig={{ gridURL: process.env.REACT_APP_DGC_PLATFORM_URL }}
     >
       <SideNav />
     </CanopyProvider>

@@ -13,22 +13,22 @@ ARG REACT_APP_SPLINTER_URL
 ENV REACT_APP_SPLINTER_URL $REACT_APP_SPLINTER_URL
 ARG REACT_APP_SAPLING_URL
 ENV REACT_APP_SAPLING_URL $REACT_APP_SAPLING_URL
-ARG REACT_APP_GRID_URL
-ENV REACT_APP_GRID_URL $REACT_APP_GRID_URL
+ARG REACT_APP_DGC_PLATFORM_URL
+ENV REACT_APP_DGC_PLATFORM_URL $REACT_APP_DGC_PLATFORM_URL
 RUN yarn build
 WORKDIR /dgc_platform_ui/build
 ARG REPO_VERSION
-RUN tar c -z . -f ../grid_ui_v${REPO_VERSION}.tar.gz
+RUN tar c -z . -f ../dgc_platform_ui_v${REPO_VERSION}.tar.gz
 
 # prod stage
 FROM httpd:2.4 as prod-stage
 
 ARG SPLINTER_URL
 ARG SAPLING_URL
-ARG GRID_URL
+ARG DGC_PLATFORM_URL
 
-COPY --from=build-stage /dgc_platform_ui/grid_ui_*.tar.gz /tmp
-RUN tar -xzvf /tmp/grid_ui_*.tar.gz -C /usr/local/apache2/htdocs/
+COPY --from=build-stage /dgc_platform_ui/dgc_platform_ui_*.tar.gz /tmp
+RUN tar -xzvf /tmp/dgc_platform_ui_*.tar.gz -C /usr/local/apache2/htdocs/
 COPY /configs/apache/httpd.conf /usr/local/apache2/conf/httpd.conf
 
 RUN echo "\
@@ -37,8 +37,8 @@ RUN echo "\
   ProxyPassReverse /splinterd $SPLINTER_URL\n\
   ProxyPass /sapling-dev-server $SAPLING_URL\n\
   ProxyPassReverse /sapling-dev-server $SAPLING_URL\n\
-  ProxyPass /gridd $GRID_URL\n\
-  ProxyPassReverse /gridd $GRID_URL\n\
+  ProxyPass /gridd $DGC_PLATFORM_URL\n\
+  ProxyPassReverse /gridd $DGC_PLATFORM_URL\n\
   \n\
   " >>/usr/local/apache2/conf/httpd.conf
 
