@@ -6,9 +6,9 @@ version: '3.6'
 volumes:
   contracts-shared:
   key-registry:
-  gridd-alpha:
-  gridd-beta:
-  gridd-gamma:
+  dgc-platform-daemon-alpha:
+  dgc-platform-daemon-beta:
+  dgc-platform-daemon-gamma:
 
 services:
 
@@ -105,10 +105,10 @@ services:
       POSTGRES_PASSWORD: grid_example
       POSTGRES_DB: dgc-platform
 
-  gridd-alpha:
-    image: gridd
-    container_name: gridd-alpha
-    hostname: gridd-alpha
+  dgc-platform-daemon-alpha:
+    image: dgc-platform-daemon
+    container_name: dgc-platform-daemon-alpha
+    hostname: dgc-platform-daemon-alpha
     build:
       context: ../..
       dockerfile: daemon/Dockerfile
@@ -117,14 +117,14 @@ services:
         - CARGO_ARGS=-- --features experimental
     volumes:
       - contracts-shared:/usr/share/scar
-      - gridd-alpha:/etc/dgc-platform/keys
+      - dgc-platform-daemon-alpha:/etc/dgc-platform/keys
     expose:
       - 8080
     ports:
       - "8080:8080"
     environment:
       GRID_DAEMON_KEY: "alpha-agent"
-      GRID_DAEMON_ENDPOINT: "http://gridd-alpha:8080"
+      GRID_DAEMON_ENDPOINT: "http://dgc-platform-daemon-alpha:8080"
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
@@ -135,7 +135,7 @@ services:
           dgc-platform -vv admin keygen --skip && \
           dgc-platform -vv database migrate \
               --database-url postgres://dgc-platform:grid_example@db-alpha/dgc-platform &&
-          gridd -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-alpha:8085 \
+          dgc-platform-daemon -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-alpha:8085 \
               --database-url postgres://dgc-platform:grid_example@db-alpha/dgc-platform
         "
 
@@ -144,7 +144,7 @@ services:
     container_name: scabbard-cli-alpha
     hostname: scabbard-cli-alpha
     volumes:
-      - gridd-alpha:/root/.splinter/keys
+      - dgc-platform-daemon-alpha:/root/.splinter/keys
 
   splinterd-alpha:
     image: splintercommunity/splinterd:experimental
@@ -209,10 +209,10 @@ services:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
         REACT_APP_SAPLING_URL: '/sapling-dev-server'
-        REACT_APP_DGC_PLATFORM_URL: '/gridd'
+        REACT_APP_DGC_PLATFORM_URL: '/dgc-platform-daemon'
         SPLINTER_URL: 'http://splinterd-alpha:8085'
         SAPLING_URL: ' http://sapling-dev-server-alpha:80'
-        DGC_PLATFORM_URL: 'http://gridd-alpha:8080'
+        DGC_PLATFORM_URL: 'http://dgc-platform-daemon-alpha:8080'
     image: dgc-platform-ui-alpha
     container_name: dgc-platform-ui-alpha
     expose:
@@ -242,10 +242,10 @@ services:
       POSTGRES_PASSWORD: grid_example
       POSTGRES_DB: dgc-platform
 
-  gridd-beta:
-    image: gridd
-    container_name: gridd-beta
-    hostname: gridd-beta
+  dgc-platform-daemon-beta:
+    image: dgc-platform-daemon
+    container_name: dgc-platform-daemon-beta
+    hostname: dgc-platform-daemon-beta
     build:
       context: ../..
       dockerfile: daemon/Dockerfile
@@ -254,14 +254,14 @@ services:
         - CARGO_ARGS=-- --features experimental
     volumes:
       - contracts-shared:/usr/share/scar
-      - gridd-beta:/etc/dgc-platform/keys
+      - dgc-platform-daemon-beta:/etc/dgc-platform/keys
     expose:
       - 8080
     ports:
       - "8081:8080"
     environment:
       GRID_DAEMON_KEY: "beta-agent"
-      GRID_DAEMON_ENDPOINT: "http://gridd-beta:8080"
+      GRID_DAEMON_ENDPOINT: "http://dgc-platform-daemon-beta:8080"
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
@@ -272,7 +272,7 @@ services:
           dgc-platform -vv admin keygen --skip && \
           dgc-platform -vv database migrate \
               --database-url postgres://dgc-platform:grid_example@db-beta/dgc-platform &&
-          gridd -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-beta:8085 \
+          dgc-platform-daemon -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-beta:8085 \
               --database-url postgres://dgc-platform:grid_example@db-beta/dgc-platform
         "
 
@@ -281,7 +281,7 @@ services:
     container_name: scabbard-cli-beta
     hostname: scabbard-cli-beta
     volumes:
-      - gridd-beta:/root/.splinter/keys
+      - dgc-platform-daemon-beta:/root/.splinter/keys
 
   splinterd-beta:
     image: splintercommunity/splinterd:experimental
@@ -345,10 +345,10 @@ services:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
         REACT_APP_SAPLING_URL: '/sapling-dev-server'
-        REACT_APP_DGC_PLATFORM_URL: '/gridd'
+        REACT_APP_DGC_PLATFORM_URL: '/dgc-platform-daemon'
         SPLINTER_URL: 'http://splinterd-beta:8085'
         SAPLING_URL: ' http://sapling-dev-server-beta:80'
-        DGC_PLATFORM_URL: 'http://gridd-beta:8080'
+        DGC_PLATFORM_URL: 'http://dgc-platform-daemon-beta:8080'
     image: dgc-platform-ui-beta
     container_name: dgc-platform-ui-beta
     expose:
@@ -378,10 +378,10 @@ services:
       POSTGRES_PASSWORD: grid_example
       POSTGRES_DB: dgc-platform
 
-  gridd-gamma:
-    image: gridd
-    container_name: gridd-gamma
-    hostname: gridd-gamma
+  dgc-platform-daemon-gamma:
+    image: dgc-platform-daemon
+    container_name: dgc-platform-daemon-gamma
+    hostname: dgc-platform-daemon-gamma
     build:
       context: ../..
       dockerfile: daemon/Dockerfile
@@ -390,14 +390,14 @@ services:
         - CARGO_ARGS=-- --features experimental
     volumes:
       - contracts-shared:/usr/share/scar
-      - gridd-gamma:/etc/dgc-platform/keys
+      - dgc-platform-daemon-gamma:/etc/dgc-platform/keys
     expose:
       - 8080
     ports:
       - "8082:8080"
     environment:
       GRID_DAEMON_KEY: "gamma-agent"
-      GRID_DAEMON_ENDPOINT: "http://gridd-gamma:8080"
+      GRID_DAEMON_ENDPOINT: "http://dgc-platform-daemon-gamma:8080"
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
@@ -408,7 +408,7 @@ services:
           dgc-platform -vv admin keygen --skip && \
           dgc-platform -vv database migrate \
               --database-url postgres://dgc-platform:grid_example@db-gamma/dgc-platform &&
-          gridd -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-gamma:8085 \
+          dgc-platform-daemon -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-gamma:8085 \
               --database-url postgres://dgc-platform:grid_example@db-gamma/dgc-platform
         "
 
@@ -474,10 +474,10 @@ services:
         REPO_VERSION: ${REPO_VERSION}
         REACT_APP_SPLINTER_URL: '/splinterd'
         REACT_APP_SAPLING_URL: '/sapling-dev-server'
-        REACT_APP_DGC_PLATFORM_URL: '/gridd'
+        REACT_APP_DGC_PLATFORM_URL: '/dgc-platform-daemon'
         SPLINTER_URL: 'http://splinterd-gamma:8085'
         SAPLING_URL: ' http://sapling-dev-server-gamma:80'
-        DGC_PLATFORM_URL: 'http://gridd-gamma:8080'
+        DGC_PLATFORM_URL: 'http://dgc-platform-daemon-gamma:8080'
     image: dgc-platform-ui-gamma
     container_name: dgc-platform-ui-gamma
     expose:

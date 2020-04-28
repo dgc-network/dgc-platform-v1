@@ -116,9 +116,9 @@ pipeline {
             }
         }
 
-        stage("Build gridd with experimental features") {
+        stage("Build dgc-platform-daemon with experimental features") {
             steps {
-                sh 'ISOLATION_ID=$ISOLATION_ID"experimental" CARGO_ARGS="-- --features experimental" docker-compose -f docker-compose.yaml build gridd'
+                sh 'ISOLATION_ID=$ISOLATION_ID"experimental" CARGO_ARGS="-- --features experimental" docker-compose -f docker-compose.yaml build dgc-platform-daemon'
             }
         }
 
@@ -143,7 +143,7 @@ pipeline {
         stage("Build artifacts") {
             steps {
                 sh 'mkdir -p build/debs'
-                sh 'docker run --rm -v $(pwd)/build/debs/:/debs gridd:${ISOLATION_ID} bash -c "cp /tmp/dgc-platform*.deb /debs && chown -R ${JENKINS_UID} /debs"'
+                sh 'docker run --rm -v $(pwd)/build/debs/:/debs dgc-platform-daemon:${ISOLATION_ID} bash -c "cp /tmp/dgc-platform*.deb /debs && chown -R ${JENKINS_UID} /debs"'
             }
         }
     }

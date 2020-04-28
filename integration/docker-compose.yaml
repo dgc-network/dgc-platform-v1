@@ -177,14 +177,14 @@ services:
         --connect tcp://validator:4004
         --bind rest-api:8008
 
-  gridd:
-    container_name: gridd
-    image: gridd-integration:${ISOLATION_ID}
+  dgc-platform-daemon:
+    container_name: dgc-platform-daemon
+    image: dgc-platform-daemon-integration:${ISOLATION_ID}
     build:
       context: ..
       dockerfile: docker/tests
     environment:
-      INTEGRATION_TEST_URL: http://gridd:8080
+      INTEGRATION_TEST_URL: http://dgc-platform-daemon:8080
     expose:
       - 8080
     volumes:
@@ -198,14 +198,14 @@ services:
             >&2 echo \"Database is unavailable - sleeping\"
             sleep 1
         done
-        cp /project/dgc-platform/target/debug/gridd /usr/sbin/gridd && \
+        cp /project/dgc-platform/target/debug/dgc-platform-daemon /usr/sbin/dgc-platform-daemon && \
         cp /project/dgc-platform/target/debug/dgc-platform /usr/bin/dgc-platform && \
         dgc-platform database migrate \
             --database-url postgres://dgc-platform:grid_example@db/dgc-platform && \
-        gridd -b gridd:8080 -C tcp://validator:4004 \
+        dgc-platform-daemon -b dgc-platform-daemon:8080 -C tcp://validator:4004 \
             --database-url postgres://dgc-platform:grid_example@db/dgc-platform &
         cd cli
-        while true; do curl -s http://gridd:8080; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
+        while true; do curl -s http://dgc-platform-daemon:8080; if [ $$? -eq 0 ]; then break; fi; sleep 0.5; done;
         cargo test integration -- --nocapture --test-threads=1
       "
 

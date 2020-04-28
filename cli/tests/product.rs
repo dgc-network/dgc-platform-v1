@@ -150,7 +150,7 @@ mod integration {
     ///
     fn make_grid_command() -> Command {
         let mut cmd = Command::cargo_bin("dgc-platform").unwrap();
-        let url = env::var("INTEGRATION_TEST_URL").unwrap_or("http://gridd:8080".to_string());
+        let url = env::var("INTEGRATION_TEST_URL").unwrap_or("http://dgc-platform-daemon:8080".to_string());
         cmd.args(&["--url", &url]).arg("-vv");
         return cmd;
     }

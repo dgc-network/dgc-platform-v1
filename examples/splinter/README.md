@@ -54,10 +54,10 @@ To create a circuit, a user on one node proposes a new circuit that includes one
 or more other nodes. When the other nodes accept the circuit proposal, the
 circuit is created.
 
-1. Get the gridd public key from the `gridd-alpha` container. You will need this
+1. Get the dgc-platform-daemon public key from the `dgc-platform-daemon-alpha` container. You will need this
    key when creating a circuit definition file in step 3.
 
-   `$ docker exec gridd-alpha cat /etc/dgc-platform/keys/gridd.pub`
+   `$ docker exec dgc-platform-daemon-alpha cat /etc/dgc-platform/keys/dgc-platform-daemon.pub`
 
 2. Connect to the `splinterd-alpha` container. You will use this container to
    run Splinter commands on alpha-node-000.
@@ -70,7 +70,7 @@ circuit is created.
 3. Copy the key and save it in a local file.
 
    ```
-   root@splinterd-alpha:/# echo "<public key>" > gridd.pub
+   root@splinterd-alpha:/# echo "<public key>" > dgc-platform-daemon.pub
    ```
 
 4. Propose a new circuit with the definition `circuit propose` CLI command.
@@ -85,7 +85,7 @@ circuit is created.
       --service gsBB::beta-node-000 \
       --service-type *::scabbard \
       --management dgc-platform \
-      --service-arg *::admin_keys=$(cat gridd.pub) \
+      --service-arg *::admin_keys=$(cat dgc-platform-daemon.pub) \
       --service-peer-group gsAA,gsBB
    ```
 
@@ -117,7 +117,7 @@ circuit is created.
               <alpha-public-key>
           Service (scabbard): gsAA
               admin_keys:
-                  <gridd-alpha public key>
+                  <dgc-platform-daemon-alpha public key>
               peer_services:
                   gsBB
 
@@ -125,7 +125,7 @@ circuit is created.
           Vote: PENDING
           Service (scabbard): gsBB
               admin_keys:
-                  <gridd-alpha public key>
+                  <dgc-platform-daemon-alpha public key>
               peer_services:
                   gsAA
 
@@ -165,7 +165,7 @@ circuit is created.
               <alpha-public-key>
           Service (scabbard): gsAA
               admin_keys:
-                  <gridd-alpha public key>
+                  <dgc-platform-daemon-alpha public key>
               peer_services:
                   gsBB
 
@@ -173,7 +173,7 @@ circuit is created.
           Vote: PENDING
           Service (scabbard): gsBB
               admin_keys:
-                  <gridd-alpha public key>
+                  <dgc-platform-daemon-alpha public key>
               peer_services:
                   gsAA
    ```
@@ -201,7 +201,7 @@ circuit is created.
 ## Demonstrate dgc-platform Smart Contract Functionality
 
 **Note:** To simplify this procedure, the example `docker-compose.yaml` file
-defines environment variables for the ``gridd-alpha`` and ``gridd-beta``
+defines environment variables for the ``dgc-platform-daemon-alpha`` and ``dgc-platform-daemon-beta``
 containers. These variables define the dgc-platform daemon's key file and endpoint,
 so you don't have to use the `-k` and `--url` options with the `dgc-platform` command in this section.
 
@@ -214,23 +214,23 @@ steps 3 through 10.
    by the `docker-compose.yaml` file. Use `-k <keyfile>` to override this
    variable on the command line.
 
-- `GRID_DAEMON_ENDPOINT` defines the endpoint for the ``gridd-alpha`` or
-   ``gridd-beta`` container. Use `--url <endpoint>` to override this variable
+- `GRID_DAEMON_ENDPOINT` defines the endpoint for the ``dgc-platform-daemon-alpha`` or
+   ``dgc-platform-daemon-beta`` container. Use `--url <endpoint>` to override this variable
    on the command line.
 
 
-1. Start a bash session in the `gridd-alpha` Docker container.  You will use
+1. Start a bash session in the `dgc-platform-daemon-alpha` Docker container.  You will use
    this container to run dgc-platform commands on `alpha-node-000`.
 
    ```
-   $ docker exec -it gridd-alpha bash
-   root@gridd-alpha:/#
+   $ docker exec -it dgc-platform-daemon-alpha bash
+   root@dgc-platform-daemon-alpha:/#
    ```
 
 2. Generate a secp256k1 key pair for the alpha node. This key will be used to
    sign dgc-platform transactions.
 
-   `root@gridd-alpha:/# dgc-platform keygen alpha-agent`
+   `root@dgc-platform-daemon-alpha:/# dgc-platform keygen alpha-agent`
 
    This command generates two files, `alpha-agent.priv` and `alpha-agent.pub`,
    in the `~/.dgc-platform/keys/` directory.
@@ -242,13 +242,13 @@ steps 3 through 10.
    the `--service-id` argument in each of these commands.
 
    ```
-   root@gridd-alpha:/# export GRID_SERVICE_ID=01234-ABCDE::gsAA
+   root@dgc-platform-daemon-alpha:/# export GRID_SERVICE_ID=01234-ABCDE::gsAA
    ```
 
 4. Create a new organization, `myorg`.
 
    ```
-   root@gridd-alpha:/# dgc-platform \
+   root@dgc-platform-daemon-alpha:/# dgc-platform \
    organization create 314156 myorg '123 main street' \
     --metadata gs1_company_prefixes=314156
    ```
@@ -263,7 +263,7 @@ steps 3 through 10.
    deleting dgc-platform products.
 
    ```
-   root@gridd-alpha:/# dgc-platform \
+   root@dgc-platform-daemon-alpha:/# dgc-platform \
    agent update 314156 $(cat ~/.dgc-platform/keys/alpha-agent.pub) --active \
    --role can_create_product \
    --role can_update_product \
@@ -275,7 +275,7 @@ steps 3 through 10.
    following contents.
 
    ```
-   root@gridd-alpha:/# cat > product.yaml
+   root@dgc-platform-daemon-alpha:/# cat > product.yaml
    - product_type: "GS1"
      product_id: "723382885088"
      owner: "314156"
@@ -298,24 +298,24 @@ steps 3 through 10.
    `product.yaml`.
 
    ```
-   root@gridd-alpha:/# dgc-platform \
+   root@dgc-platform-daemon-alpha:/# dgc-platform \
      product create  product.yaml
    ```
 
-8. Open a new terminal and connect to the `gridd-beta` container.
+8. Open a new terminal and connect to the `dgc-platform-daemon-beta` container.
 
-   `$ docker exec -it gridd-beta bash`
+   `$ docker exec -it dgc-platform-daemon-beta bash`
 
 9. Set an environment variable with the service ID.
 
     ```
-    root@gridd-beta:/# export GRID_SERVICE_ID=01234-ABCDE::gsBB
+    root@dgc-platform-daemon-beta:/# export GRID_SERVICE_ID=01234-ABCDE::gsBB
     ```
 
 10. Display all products.
 
    ```
-   root@gridd-beta:/# dgc-platform product list
+   root@dgc-platform-daemon-beta:/# dgc-platform product list
    ```
 
 
@@ -347,8 +347,8 @@ circuits.
 
    ```
    root@scabbard-cli-alpha:/# scabbard cr create sawtooth_xo \
-   --owner $(cat /root/.splinter/keys/gridd.pub) \
-   -k gridd \
+   --owner $(cat /root/.splinter/keys/dgc-platform-daemon.pub) \
+   -k dgc-platform-daemon \
    -U 'http://splinterd-alpha:8085' \
    --service-id $CIRCUIT_ID::gsAA
    ```
@@ -358,7 +358,7 @@ circuits.
    ```
    root@scabbard-cli-alpha:/# scabbard contract upload xo:0.4.2 \
    --path . \
-   -k gridd \
+   -k dgc-platform-daemon \
    -U 'http://splinterd-alpha:8085' \
    --service-id $CIRCUIT_ID::gsAA
    ```
@@ -367,8 +367,8 @@ circuits.
 
    ```
    root@scabbard-cli-alpha:/# scabbard ns create 5b7349 \
-   --owner $(cat /root/.splinter/keys/gridd.pub) \
-   -k gridd \
+   --owner $(cat /root/.splinter/keys/dgc-platform-daemon.pub) \
+   -k dgc-platform-daemon \
    -U 'http://splinterd-alpha:8085' \
    --service-id $CIRCUIT_ID::gsAA
    ```
@@ -377,7 +377,7 @@ circuits.
 
    ```
    root@scabbard-cli-alpha:/# scabbard perm 5b7349 sawtooth_xo --read --write \
-   -k gridd \
+   -k dgc-platform-daemon \
    -U 'http://splinterd-alpha:8085' \
    --service-id $CIRCUIT_ID::gsAA
    ```
@@ -398,9 +398,9 @@ circuits.
    ```
    root@scabbard-cli-beta:/# scabbard contract list -U 'http://splinterd-beta:8085' --service-id $CIRCUIT_ID::gsBB
    NAME         VERSIONS OWNERS
-   dgc_platform_product 1.0      <gridd-alpha public key>
-   pike         0.1      <gridd-alpha public key>
-   sawtooth_xo  1.0      <gridd-alpha public key>
+   dgc_platform_product 1.0      <dgc-platform-daemon-alpha public key>
+   pike         0.1      <dgc-platform-daemon-alpha public key>
+   sawtooth_xo  1.0      <dgc-platform-daemon-alpha public key>
    ```
 
 10. Display the xo smart contract.
@@ -412,7 +412,7 @@ circuits.
      - 5b7349
      outputs:
      - 5b7349
-     creator: <gridd-alpha public key>
+     creator: <dgc-platform-daemon-alpha public key>
    ```
 
 ## Demonstrate Circuit Scope

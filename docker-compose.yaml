@@ -158,9 +158,9 @@ services:
         --connect tcp://validator:4004
         --bind rest-api:8008
 
-  gridd:
-    image: gridd:${ISOLATION_ID}
-    container_name: gridd
+  dgc-platform-daemon:
+    image: dgc-platform-daemon:${ISOLATION_ID}
+    container_name: dgc-platform-daemon
     build:
       context: .
       dockerfile: daemon/Dockerfile
@@ -181,7 +181,7 @@ services:
 
           dgc-platform -vv database migrate \
               --database-url postgres://dgc-platform:grid_example@db/dgc-platform &&
-          gridd -vv -b gridd:8080 -C tcp://validator:4004 \
+          dgc-platform-daemon -vv -b dgc-platform-daemon:8080 -C tcp://validator:4004 \
               --database-url postgres://dgc-platform:grid_example@db/dgc-platform
         "
 

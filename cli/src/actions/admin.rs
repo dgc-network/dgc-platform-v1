@@ -32,7 +32,7 @@ pub fn do_keygen(
         None => {
             if !PathBuf::from(DEFAULT_KEY_DIR).exists() {
                 return Err(CliError::UserError(format!(
-                    "{} does not exist; verify that you have gridd installed on this system",
+                    "{} does not exist; verify that you have dgc-platform-daemon installed on this system",
                     DEFAULT_KEY_DIR
                 )));
             }
@@ -40,8 +40,8 @@ pub fn do_keygen(
         }
     };
 
-    let public_key_path: PathBuf = [key_dir, "gridd.pub"].iter().collect();
-    let private_key_path: PathBuf = [key_dir, "gridd.priv"].iter().collect();
+    let public_key_path: PathBuf = [key_dir, "dgc-platform-daemon.pub"].iter().collect();
+    let private_key_path: PathBuf = [key_dir, "dgc-platform-daemon.priv"].iter().collect();
 
     match conflict_strategy {
         ConflictStrategy::Force => (),

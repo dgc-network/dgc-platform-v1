@@ -1,20 +1,20 @@
 # Copyright (c) The dgc.network
 # SPDX-License-Identifier: Apache-2.0
 
-user="gridd"
-group="gridd"
+user="dgc-platform-daemon"
+group="dgc-platform-daemon"
 
 case "$1" in
     configure)
 
     # This value is present only during upgrades
     if [ -z "$2" ]; then
-        # Create gridd group if it doesn't exist
+        # Create dgc-platform-daemon group if it doesn't exist
         if ! getent group $group >/dev/null; then
             addgroup --quiet --system $group
         fi
 
-        # Create gridd user if it doesn't exist
+        # Create dgc-platform-daemon user if it doesn't exist
         if ! getent passwd $user >/dev/null; then
             adduser --quiet --system --ingroup $group $user
         fi

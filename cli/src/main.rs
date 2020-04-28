@@ -184,11 +184,11 @@ fn run() -> Result<(), CliError> {
 
         app = app.subcommand(
             SubCommand::with_name("admin")
-                .about("Administrative commands for gridd")
+                .about("Administrative commands for dgc-platform-daemon")
                 .setting(clap::AppSettings::SubcommandRequiredElseHelp)
                 .subcommand(
                     SubCommand::with_name("keygen")
-                        .about("Generates keys for gridd to use to sign transactions and batches.")
+                        .about("Generates keys for dgc-platform-daemon to use to sign transactions and batches.")
                         .arg(
                             Arg::with_name("directory")
                                 .long("dir")

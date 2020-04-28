@@ -14,7 +14,7 @@ description = """\
 """
 
 [[bin]]
-name = "gridd"
+name = "dgc-platform-daemon"
 path = "src/main.rs"
 
 [dependencies]
@@ -61,6 +61,6 @@ test-api = []
 maintainer = "The dgc-platform Team"
 depends = "$auto"
 assets = [
-    ["target/release/gridd", "/usr/bin/gridd", "755"]
+    ["target/release/dgc-platform-daemon", "/usr/bin/dgc-platform-daemon", "755"]
 ]
 maintainer-scripts = "packaging/ubuntu"

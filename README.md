@@ -44,7 +44,7 @@ discussion](https://grid.hyperledger.org/community/join_the_discussion/).
 ## Building dgc-platform
 
 To build dgc-platform, run `cargo build` from the root directory. This command
-builds all of the dgc-platform components, including `gridd` (the dgc-platform daemon),
+builds all of the dgc-platform components, including `dgc-platform-daemon` (the dgc-platform daemon),
 the CLI, and all of the smart contracts in the `contracts` directory.
 
 To build individual components, run `cargo build` in the component directories.
@@ -53,7 +53,7 @@ For example, to build only the dgc-platform-cli, navigate to `cli`, then run
 
 To build dgc-platform using Docker, run `docker-compose build` from the root directory.
 This command builds Docker images for all of the dgc-platform components, including
-`gridd` (the dgc-platform daemon), the CLI, and all of the smart contracts in the
+`dgc-platform-daemon` (the dgc-platform daemon), the CLI, and all of the smart contracts in the
 `contracts` directory.
 
 To build individual components using Docker, run

@@ -37,8 +37,8 @@ RUN echo "\
   ProxyPassReverse /splinterd $SPLINTER_URL\n\
   ProxyPass /sapling-dev-server $SAPLING_URL\n\
   ProxyPassReverse /sapling-dev-server $SAPLING_URL\n\
-  ProxyPass /gridd $DGC_PLATFORM_URL\n\
-  ProxyPassReverse /gridd $DGC_PLATFORM_URL\n\
+  ProxyPass /dgc-platform-daemon $DGC_PLATFORM_URL\n\
+  ProxyPassReverse /dgc-platform-daemon $DGC_PLATFORM_URL\n\
   \n\
   " >>/usr/local/apache2/conf/httpd.conf
 

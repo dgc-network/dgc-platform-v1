@@ -7,7 +7,7 @@ use std::io::Read;
 use std::{fs::File, path::Path};
 
 pub fn load_scabbard_admin_key(key_dir: &str) -> Result<String, KeyError> {
-    let private_key_filename = format!("{}/gridd.priv", key_dir);
+    let private_key_filename = format!("{}/dgc-platform-daemon.priv", key_dir);
     let private_key_path = Path::new(&private_key_filename);
     if !private_key_path.exists() {
         return Err(KeyError(format!(
