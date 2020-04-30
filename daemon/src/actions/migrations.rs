@@ -1,7 +1,8 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::error::CliError;
+//use crate::error::CliError;
+use crate::actions::error::CliError;
 
 use diesel::{connection::Connection as _, pg::PgConnection};
 

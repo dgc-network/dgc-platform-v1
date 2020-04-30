@@ -14,7 +14,8 @@ use grid_sdk::protocol::schema::state::PropertyValue;
 use grid_sdk::protos::IntoProto;
 use reqwest::Client;
 
-use crate::error::CliError;
+//use crate::error::CliError;
+use crate::actions::error::CliError;
 use serde::Deserialize;
 
 use crate::yaml_parser::{

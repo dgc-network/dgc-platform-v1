@@ -8,7 +8,8 @@ use std::path::PathBuf;
 
 use sawtooth_sdk::signing;
 
-use crate::error::CliError;
+//use crate::error::CliError;
+use crate::actions::error::CliError;
 
 const DEFAULT_KEY_DIR: &str = "/etc/dgc-platform/keys";
 

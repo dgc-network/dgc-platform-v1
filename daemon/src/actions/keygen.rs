@@ -9,7 +9,8 @@ use std::path::PathBuf;
 use sawtooth_sdk::signing;
 use users::get_current_username;
 
-use crate::error::CliError;
+//use crate::error::CliError;
+use crate::actions::error::CliError;
 
 /// Generates a public/private key pair that can be used to sign transactions.
 /// If no directory is provided, the keys are created in the default directory
