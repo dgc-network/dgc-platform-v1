@@ -1,6 +1,7 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
+pub mod error;
 #[cfg(feature = "admin-keygen")]
 pub mod admin;
 pub mod agents;
