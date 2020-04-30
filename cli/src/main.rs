@@ -1,12 +1,9 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
-#[macro_use]
-extern crate clap;
-#[macro_use]
-extern crate log;
-#[macro_use]
-extern crate diesel_migrations;
+#[macro_use] extern crate clap;
+#[macro_use] extern crate log;
+#[macro_use] extern crate diesel_migrations;
 extern crate diesel;
 
 mod actions;

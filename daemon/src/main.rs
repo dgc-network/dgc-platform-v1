@@ -1,19 +1,13 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
-#[macro_use]
-extern crate clap;
-#[macro_use]
-extern crate diesel;
-#[macro_use]
-extern crate diesel_migrations;
-#[macro_use]
-extern crate log;
-#[macro_use]
-extern crate serde_json;
+#[macro_use] extern crate clap;
+#[macro_use] extern crate diesel;
+#[macro_use] extern crate diesel_migrations;
+#[macro_use] extern crate log;
+#[macro_use] extern crate serde_json;
 #[cfg(feature = "splinter-support")]
-#[macro_use]
-extern crate serde;
+#[macro_use] extern crate serde;
 
 mod config;
 mod database;
@@ -25,6 +19,10 @@ mod sawtooth;
 #[cfg(feature = "splinter-support")]
 mod splinter;
 mod submitter;
+mod actions;
+mod key;
+mod transaction;
+mod yaml_parser;
 
 use std::process;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -56,8 +54,7 @@ fn run() -> Result<(), DaemonError> {
         (about: "Daemon Package for dgc-platform")
         (@arg connect: -C --connect +takes_value "connection endpoint for sawtooth or splinter")
         (@arg verbose: -v +multiple "Log verbosely")
-        (@arg database_url: --("database-url") +takes_value
-         "specifies the database URL to connect to.")
+        (@arg database_url: --("database-url") +takes_value "specifies the database URL to connect to.")
         (@arg bind: -b --bind +takes_value "connection endpoint for rest API")
         (@arg admin_key_dir: --("admin-key-dir") +takes_value "directory containing the Scabbard admin key files"))
     .get_matches();

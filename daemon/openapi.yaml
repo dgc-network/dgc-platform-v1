@@ -6,6 +6,7 @@ info:
   version: 0.1.0
   title: dgc-platform REST API
   description: _An API providing HTTP/JSON interface to dgc-platform._
+
 paths:
   /batches:
     post:
@@ -44,6 +45,7 @@ paths:
           $ref: "#/components/responses/500ServerError"
         "503":
           $ref: "#/components/responses/503ServiceUnavailable"
+
   /batch_statuses:
     get:
       tags:
@@ -91,6 +93,7 @@ paths:
           $ref: "#/components/responses/500ServerError"
         "503":
           $ref: "#/components/responses/503ServiceUnavailable"
+
   /schema:
     get:
       tags:
@@ -125,7 +128,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  "/schema/{schema_name}":
+
+  /schema/{schema_name}:
     get:
       tags:
         - Schema
@@ -166,6 +170,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
   /agent:
     get:
       tags:
@@ -200,6 +205,51 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+
+                /agent/{public_key}:
+                  get:
+                    tags:
+                      - Pike
+                    summary: Find agent by public key
+                    description: Returns a single agent from reporting database
+                    operationId: fetch_agent
+                    parameters:
+                      - name: public_key
+                        in: path
+                        description: Public key of the agent to return
+                        required: true
+                        schema:
+                          type: string
+                    responses:
+                      "200":
+                        description: Successful operation
+                        content:
+                          application/json:
+                            schema:
+                              properties:
+                                data:
+                                  type: array
+                                  items:
+                                    $ref: "#/components/schemas/Agent"
+                      "400":
+                        $ref: "#/components/responses/400BadRequest"
+                      "404":
+                        $ref: "#/components/responses/404NotFound"
+                      "429":
+                        $ref: "#/components/responses/429TooManyRequests"
+                      "500":
+                        description: Something went wrong within the database
+                        content:
+                          application/json:
+                            schema:
+                              $ref: "#/components/schemas/Error"
+                      "503":
+                        description: API is unable to reach the database
+                        content:
+                          application/json:
+                            schema:
+                              $ref: "#/components/schemas/Error"
+ 
   /organization:
     get:
       tags:
@@ -232,7 +282,8 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  "/organization/{id}":
+
+  /organization/{id}:
     get:
       tags:
         - Pike
@@ -271,49 +322,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  "/agent/{public_key}":
-    get:
-      tags:
-        - Pike
-      summary: Find agent by public key
-      description: Returns a single agent from reporting database
-      operationId: fetch_agent
-      parameters:
-        - name: public_key
-          in: path
-          description: Public key of the agent to return
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Agent"
-        "400":
-          $ref: "#/components/responses/400BadRequest"
-        "404":
-          $ref: "#/components/responses/404NotFound"
-        "429":
-          $ref: "#/components/responses/429TooManyRequests"
-        "500":
-          description: Something went wrong within the database
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "503":
-          description: API is unable to reach the database
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+
   /record:
     get:
       tags:
@@ -340,7 +349,8 @@ paths:
           $ref: "#/components/responses/500ServerError"
         "503":
           $ref: "#/components/responses/503ServiceUnavailable"
-  "/record/{record_id}":
+
+  /record/{record_id}:
     get:
       tags:
         - Track and Trace
@@ -371,7 +381,8 @@ paths:
           $ref: "#/components/responses/500ServerError"
         "503":
           $ref: "#/components/responses/503ServiceUnavailable"
-  "/record/{record_id}/property/{property_name}":
+
+  /record/{record_id}/property/{property_name}:
       get:
         tags:
           - Track and Trace
@@ -409,6 +420,7 @@ paths:
             $ref: "#/components/responses/500ServerError"
           "503":
             $ref: "#/components/responses/503ServiceUnavailable"
+
   /product:
     get:
       tags:
@@ -442,7 +454,8 @@ paths:
           $ref: "#/components/responses/500ServerError"
         "503":
           $ref: "#/components/responses/503ServiceUnavailable"
-  "/product/{product_id}":
+
+  /product/{product_id}:
     get:
       tags:
         - Product
@@ -497,6 +510,7 @@ components:
       description: A time in seconds to wait for commit
       schema:
         type: integer
+
   responses:
     400BadRequest:
       description: Request was malformed
@@ -528,6 +542,7 @@ components:
         "*/*":
           schema:
             $ref: "#/components/schemas/Error"
+
   schemas:
     Link:
       type: string
