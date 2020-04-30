@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 //use crate::error::CliError;
-use crate::actions::error::CliError;
+//use crate::actions::error::CliError;
+use error::CliError;
 use crate::http::submit_batches;
 use crate::transaction::{pike_batch_builder, PIKE_NAMESPACE};
 use grid_sdk::{
