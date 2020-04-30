@@ -4,7 +4,7 @@
 use std::error::Error;
 use std::fmt;
 
-use crate::actions::CliError;
+//use crate::actions::CliError;
 use crate::database::DatabaseError;
 use crate::event::EventProcessorError;
 use crate::rest_api::RestApiServerError;
