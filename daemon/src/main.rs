@@ -44,7 +44,7 @@ use crate::splinter::{
 };
 
 use crate::error::CliError;
-use actions::{agents, database, keygen, organizations as orgs, products, schemas};
+use actions::{agents, migrations, keygen, organizations as orgs, products, schemas};
 
 const APP_NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
