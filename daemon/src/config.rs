@@ -4,7 +4,7 @@
 use crate::error::ConfigurationError;
 
 #[derive(Debug)]
-pub struct GridConfig {
+pub struct PlatformConfig {
     endpoint: Endpoint,
     rest_api_endpoint: String,
     database_url: String,
@@ -12,7 +12,7 @@ pub struct GridConfig {
     admin_key_dir: String,
 }
 
-impl GridConfig {
+impl PlatformConfig {
     pub fn endpoint(&self) -> &Endpoint {
         &self.endpoint
     }
@@ -82,7 +82,7 @@ pub enum Backend {
     Sawtooth,
 }
 
-pub struct GridConfigBuilder {
+pub struct PlatformConfigBuilder {
     endpoint: Option<Endpoint>,
     rest_api_endpoint: Option<String>,
     database_url: Option<String>,
@@ -90,7 +90,7 @@ pub struct GridConfigBuilder {
     admin_key_dir: Option<String>,
 }
 
-impl Default for GridConfigBuilder {
+impl Default for PlatformConfigBuilder {
     fn default() -> Self {
         Self {
             endpoint: Some(Endpoint {
@@ -105,7 +105,7 @@ impl Default for GridConfigBuilder {
     }
 }
 
-impl GridConfigBuilder {
+impl PlatformConfigBuilder {
     pub fn with_cli_args(&mut self, matches: &clap::ArgMatches<'_>) -> Self {
         Self {
             endpoint: matches
@@ -131,8 +131,8 @@ impl GridConfigBuilder {
         }
     }
 
-    pub fn build(mut self) -> Result<GridConfig, ConfigurationError> {
-        Ok(GridConfig {
+    pub fn build(mut self) -> Result<PlatformConfig, ConfigurationError> {
+        Ok(PlatformConfig {
             endpoint: self
                 .endpoint
                 .take()
@@ -171,7 +171,7 @@ mod test {
                 "rest_api:8080",
             ]);
 
-        let config = GridConfigBuilder::default()
+        let config = PlatformConfigBuilder::default()
             .with_cli_args(&matches)
             .build()
             .expect("Unable to build configuration");
@@ -187,7 +187,7 @@ mod test {
             .arg(clap::Arg::with_name("bind").short("b").takes_value(true))
             .get_matches_from(vec!["testapp"]);
 
-        let config = GridConfigBuilder::default()
+        let config = PlatformConfigBuilder::default()
             .with_cli_args(&matches)
             .build()
             .expect("Unable to build configuration");

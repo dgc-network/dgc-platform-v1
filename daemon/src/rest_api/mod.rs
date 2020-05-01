@@ -16,6 +16,12 @@ use crate::rest_api::routes::{
     fetch_record_property, get_batch_statuses, list_agents, list_grid_schemas, list_organizations,
     list_products, list_records, submit_batches,
 };
+use crate::actions::{
+    do_create_agent, do_update_agent, migrations, keygen, 
+    do_create_organization, do_update_organization, 
+    do_create_product, do_update_product, 
+    do_create_schema, do_update_schema
+};
 use crate::submitter::BatchSubmitter;
 use actix::{Addr, SyncArbiter};
 use actix_web::{
@@ -117,7 +123,7 @@ pub fn run(
     let (tx, rx) = mpsc::channel();
 
     let join_handle = thread::Builder::new()
-        .name("GridRestApi".into())
+        .name("dgcPlatformRestApi".into())
         .spawn(move || {
             let sys = actix::System::new("dgc-platform-Rest-API");
             let state = AppState::new(batch_submitter, database_connection);
@@ -132,6 +138,8 @@ pub fn run(
                             .name("batch_statuses")
                             .route(web::get().to(get_batch_statuses)),
                     )
+                    .service(web::resource("/agent").route(web::post().to(do_create_agent)))
+                    .service(web::resource("/agent").route(web::put().to(do_update_agent)))
                     .service(
                         web::scope("/agent")
                             .service(web::resource("").route(web::get().to(list_agents)))

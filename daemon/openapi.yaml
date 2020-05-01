@@ -94,83 +94,6 @@ paths:
         "503":
           $ref: "#/components/responses/503ServiceUnavailable"
 
-  /schema:
-    get:
-      tags:
-        - Schema
-      summary: Get a list of schemas
-      description: Fetches a list of schemas from the reporting database
-      operationId: get_schemas
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                properties:
-                  data:
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/Schema"
-        "400":
-          $ref: "#/components/responses/400BadRequest"
-        "429":
-          $ref: "#/components/responses/429TooManyRequests"
-        "500":
-          description: Something went wrong within the database
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "503":
-          description: API is unable to reach the database
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
-  /schema/{schema_name}:
-    get:
-      tags:
-        - Schema
-      summary: Find schema by schema name
-      description: Returns a single schema
-      operationId: get_schema_by_name
-      parameters:
-        - name: schema_name
-          in: path
-          description: Name of the schema to return
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                properties:
-                  link:
-                    $ref: "#/components/schemas/Schema"
-        "400":
-          $ref: "#/components/responses/400BadRequest"
-        "404":
-          $ref: "#/components/responses/404NotFound"
-        "429":
-          $ref: "#/components/responses/429TooManyRequests"
-        "500":
-          description: Something went wrong within the database
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        "503":
-          description: API is unable to reach the database
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-
   /agent:
     get:
       tags:
@@ -304,6 +227,83 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/Organization"
+        "400":
+          $ref: "#/components/responses/400BadRequest"
+        "404":
+          $ref: "#/components/responses/404NotFound"
+        "429":
+          $ref: "#/components/responses/429TooManyRequests"
+        "500":
+          description: Something went wrong within the database
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: API is unable to reach the database
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /schema:
+    get:
+      tags:
+        - Schema
+      summary: Get a list of schemas
+      description: Fetches a list of schemas from the reporting database
+      operationId: get_schemas
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Schema"
+        "400":
+          $ref: "#/components/responses/400BadRequest"
+        "429":
+          $ref: "#/components/responses/429TooManyRequests"
+        "500":
+          description: Something went wrong within the database
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "503":
+          description: API is unable to reach the database
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /schema/{schema_name}:
+    get:
+      tags:
+        - Schema
+      summary: Find schema by schema name
+      description: Returns a single schema
+      operationId: get_schema_by_name
+      parameters:
+        - name: schema_name
+          in: path
+          description: Name of the schema to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                properties:
+                  link:
+                    $ref: "#/components/schemas/Schema"
         "400":
           $ref: "#/components/responses/400BadRequest"
         "404":

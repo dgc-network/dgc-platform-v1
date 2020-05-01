@@ -32,7 +32,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use ::splinter::events::Reactor;
 use flexi_logger::{LogSpecBuilder, Logger};
 
-use crate::config::{GridConfig, GridConfigBuilder};
+use crate::config::{PlatformConfig, PlatformConfigBuilder};
 use crate::database::{error::DatabaseError, helpers as db, ConnectionPool};
 use crate::error::DaemonError;
 use crate::event::{db_handler::DatabaseEventHandler, EventProcessor};
@@ -45,7 +45,7 @@ use crate::splinter::{
 };
 
 //use crate::error::CliError;
-use actions::{agents, migrations, keygen, organizations as orgs, products, schemas};
+//use actions::{agents, migrations, keygen, organizations as orgs, products, schemas};
 
 const APP_NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -76,7 +76,7 @@ fn run() -> Result<(), DaemonError> {
 
     Logger::with(log_spec_builder.build()).start()?;
 
-    let config = GridConfigBuilder::default()
+    let config = PlatformConfigBuilder::default()
         .with_cli_args(&matches)
         .build()?;
 
@@ -96,7 +96,7 @@ fn run() -> Result<(), DaemonError> {
 }
 
 #[cfg(feature = "sawtooth-support")]
-fn run_sawtooth(config: GridConfig, connection_pool: ConnectionPool) -> Result<(), DaemonError> {
+fn run_sawtooth(config: PlatformConfig, connection_pool: ConnectionPool) -> Result<(), DaemonError> {
     let sawtooth_connection = SawtoothConnection::new(&config.endpoint().url());
     let current_commit =
         db::get_current_commit_id(&*connection_pool.get()?).map_err(DatabaseError::from)?;
@@ -157,7 +157,7 @@ fn run_sawtooth(config: GridConfig, connection_pool: ConnectionPool) -> Result<(
 }
 
 #[cfg(not(feature = "sawtooth-support"))]
-fn run_sawtooth(config: GridConfig, _connection_pool: ConnectionPool) -> Result<(), DaemonError> {
+fn run_sawtooth(config: PlatformConfig, _connection_pool: ConnectionPool) -> Result<(), DaemonError> {
     Err(DaemonError::UnsupportedEndpoint(format!(
         "A Sawtooth connection endpoint ({}) was provided but Sawtooth support is not enabled for this binary.",
         config.endpoint().url()
@@ -165,7 +165,7 @@ fn run_sawtooth(config: GridConfig, _connection_pool: ConnectionPool) -> Result<
 }
 
 #[cfg(feature = "splinter-support")]
-fn run_splinter(config: GridConfig, connection_pool: ConnectionPool) -> Result<(), DaemonError> {
+fn run_splinter(config: PlatformConfig, connection_pool: ConnectionPool) -> Result<(), DaemonError> {
     let reactor = Reactor::new();
 
     let scabbard_admin_key = load_scabbard_admin_key(&config.admin_key_dir())
@@ -219,7 +219,7 @@ fn run_splinter(config: GridConfig, connection_pool: ConnectionPool) -> Result<(
 }
 
 #[cfg(not(feature = "splinter-support"))]
-fn run_splinter(config: GridConfig, _connection_pool: ConnectionPool) -> Result<(), DaemonError> {
+fn run_splinter(config: PlatformConfig, _connection_pool: ConnectionPool) -> Result<(), DaemonError> {
     Err(DaemonError::UnsupportedEndpoint(format!(
         "A Splinter connection endpoint ({}) was provided but Splinter support is not enabled for this binary.",
         config.endpoint().url()
