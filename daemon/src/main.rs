@@ -44,7 +44,7 @@ use crate::splinter::{
     event::ScabbardEventConnectionFactory, key::load_scabbard_admin_key,
 };
 
-use crate::error::CliError;
+//use crate::error::CliError;
 use actions::{agents, migrations, keygen, organizations as orgs, products, schemas};
 
 const APP_NAME: &str = env!("CARGO_PKG_NAME");
