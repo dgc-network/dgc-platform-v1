@@ -58,7 +58,8 @@ stable = ["sawtooth-support"]
 experimental = ["splinter-support"]
 
 sawtooth-support = []
-splinter-support = ["splinter", "reqwest", "sabre-sdk", "transact", "transact/contract-archive"]
+#splinter-support = ["splinter", "reqwest", "sabre-sdk", "transact", "transact/contract-archive"]
+splinter-support = ["splinter", "transact", "transact/contract-archive"]
 test-api = []
 
 [package.metadata.deb]
