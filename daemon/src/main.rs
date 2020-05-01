@@ -20,6 +20,7 @@ mod sawtooth;
 mod splinter;
 mod submitter;
 mod actions;
+mod http;
 mod key;
 mod transaction;
 mod yaml_parser;
