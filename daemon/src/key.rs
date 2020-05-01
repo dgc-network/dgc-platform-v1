@@ -12,7 +12,8 @@ use users::get_current_username;
 
 use sawtooth_sdk::signing::secp256k1::Secp256k1PrivateKey;
 
-use crate::error::CliError;
+//use crate::error::CliError;
+use crate::actions::error::CliError;
 
 /// Return a signing key loaded from the user's environment
 ///

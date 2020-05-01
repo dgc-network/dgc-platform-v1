@@ -1,7 +1,8 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::CliError;
+//use crate::CliError;
+use crate::actions::error::CliError;
 use protobuf::Message;
 use reqwest::Client;
 use sawtooth_sdk::messages::batch::BatchList;

@@ -1,7 +1,8 @@
 // Copyright (c) The dgc.network
 // SPDX-License-Identifier: Apache-2.0
 
-use crate::error::CliError;
+//use crate::error::CliError;
+use crate::actions::error::CliError;
 use grid_sdk::protocol::product::state::ProductType;
 use grid_sdk::protocol::schema::state::{DataType, PropertyValue, PropertyValueBuilder};
 use grid_sdk::protocol::schema::state::{LatLong, LatLongBuilder};
