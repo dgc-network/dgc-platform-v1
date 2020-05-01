@@ -41,6 +41,7 @@ transact = { version = "0.2", optional = true }
 url = "2.1"
 uuid = { version = "0.6", features = ["v4"] }
 
+users = "0.9"
 reqwest = "0.9"
 sabre-sdk = "0.5"
 serde_yaml = "0.8"
