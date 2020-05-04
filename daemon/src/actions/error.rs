@@ -15,10 +15,10 @@ use std::io;
 pub enum CliError {
     LoggingInitializationError(Box<flexi_logger::FlexiLoggerError>),
     InvalidYamlError(String),
-    PayloadError(String),
-    UserError(String),
+//    PayloadError(String),
+//    UserError(String),
     SigningError(signing::Error),
-    DatabaseError(String),
+//    DatabaseError(String),
     IoError(io::Error),
     ProtobufError(protobuf::ProtobufError),
     ReqwestError(reqwest::Error),
@@ -31,9 +31,9 @@ impl StdError for CliError {
         match self {
             CliError::LoggingInitializationError(err) => Some(err),
             CliError::InvalidYamlError(_) => None,
-            CliError::PayloadError(_) => None,
-            CliError::UserError(_) => None,
-            CliError::DatabaseError(_) => None,
+//            CliError::PayloadError(_) => None,
+//            CliError::UserError(_) => None,
+//            CliError::DatabaseError(_) => None,
             CliError::IoError(err) => Some(err),
             CliError::ProtobufError(err) => Some(err),
             CliError::SigningError(err) => Some(err),
@@ -47,11 +47,11 @@ impl StdError for CliError {
 impl std::fmt::Display for CliError {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match *self {
-            CliError::UserError(ref err) => write!(f, "Error: {}", err),
+//            CliError::UserError(ref err) => write!(f, "Error: {}", err),
             CliError::InvalidYamlError(ref err) => write!(f, "InvalidYamlError: {}", err),
-            CliError::PayloadError(ref err) => write!(f, "PayloadError: {}", err),
+//            CliError::PayloadError(ref err) => write!(f, "PayloadError: {}", err),
             CliError::IoError(ref err) => write!(f, "IoError: {}", err),
-            CliError::DatabaseError(ref err) => write!(f, "DatabaseError: {}", err),
+//            CliError::DatabaseError(ref err) => write!(f, "DatabaseError: {}", err),
             CliError::SigningError(ref err) => write!(f, "SigningError: {}", err),
             CliError::ProtobufError(ref err) => write!(f, "ProtobufError: {}", err),
             CliError::LoggingInitializationError(ref err) => {
