@@ -10,7 +10,7 @@ use grid_sdk::{
     protos::IntoProto,
 };
 
-pub fn do_create_agent(
+pub async fn do_create_agent(
     url: &str,
     key: Option<String>,
     wait: u64,
@@ -34,7 +34,7 @@ pub fn do_create_agent(
     submit_batches(url, wait, &batch_list, service_id.as_deref())
 }
 
-pub fn do_update_agent(
+pub async fn do_update_agent(
     url: &str,
     key: Option<String>,
     wait: u64,
