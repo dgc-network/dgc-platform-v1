@@ -368,7 +368,7 @@ fn run() -> Result<(), CliError> {
         ("database", Some(m)) => match m.subcommand() {
             ("migrate", Some(m)) => database::run_migrations(
                 m.value_of("database_url")
-                    .unwrap_or("postgres://dgc-platform:grid_example@localhost/dgc-platform"),
+                    .unwrap_or("postgres://dgc-platform:dgc_platform_example@localhost/dgc-platform"),
             )?,
             _ => return Err(CliError::UserError("Subcommand not recognized".into())),
         },

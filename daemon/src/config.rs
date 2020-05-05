@@ -98,7 +98,7 @@ impl Default for PlatformConfigBuilder {
                 backend: Backend::Sawtooth,
             }),
             rest_api_endpoint: Some("127.0.0.1:8080".to_owned()),
-            database_url: Some("postgres://dgc-platform:grid_example@localhost/dgc-platform".to_owned()),
+            database_url: Some("postgres://dgc-platform:dgc_platform_example@localhost/dgc-platform".to_owned()),
             #[cfg(feature = "splinter-support")]
             admin_key_dir: Some("/etc/dgc-platform/keys".to_owned()),
         }

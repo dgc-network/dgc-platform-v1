@@ -24,14 +24,14 @@ services:
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
-          until PGPASSWORD=grid_example psql -h db -U dgc-platform -c '\q'; do
+          until PGPASSWORD=dgc_platform_example psql -h db -U dgc-platform -c '\q'; do
               >&2 echo \"Database is unavailable - sleeping\"
               sleep 1
           done
           dgc-platform -vv database migrate \
-              --database-url postgres://dgc-platform:grid_example@db/dgc-platform &&
+              --database-url postgres://dgc-platform:dgc_platform_example@db/dgc-platform &&
           dgc-platform-daemon -vv -b dgc-platform-daemon:8080 -C splinter:http://splinterd:8085 \
-              --database-url postgres://dgc-platform:grid_example@db/dgc-platform
+              --database-url postgres://dgc-platform:dgc_platform_example@db/dgc-platform
         "
 
   pike-contract-builder:
@@ -104,7 +104,7 @@ services:
         - "5432:5432"
     environment:
       POSTGRES_USER: dgc-platform
-      POSTGRES_PASSWORD: grid_example
+      POSTGRES_PASSWORD: dgc_platform_example
       POSTGRES_DB: dgc-platform
 
   splinter-cli:

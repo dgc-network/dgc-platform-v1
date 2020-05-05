@@ -102,7 +102,7 @@ services:
       - 5432
     environment:
       POSTGRES_USER: dgc-platform
-      POSTGRES_PASSWORD: grid_example
+      POSTGRES_PASSWORD: dgc_platform_example
       POSTGRES_DB: dgc-platform
 
   dgc-platform-daemon-alpha:
@@ -128,15 +128,15 @@ services:
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
-          until PGPASSWORD=grid_example psql -h db-alpha -U dgc-platform -c '\q' > /dev/null 2>&1; do
+          until PGPASSWORD=dgc_platform_example psql -h db-alpha -U dgc-platform -c '\q' > /dev/null 2>&1; do
               >&2 echo \"Database is unavailable - sleeping\"
               sleep 1
           done
           dgc-platform -vv admin keygen --skip && \
           dgc-platform -vv database migrate \
-              --database-url postgres://dgc-platform:grid_example@db-alpha/dgc-platform &&
+              --database-url postgres://dgc-platform:dgc_platform_example@db-alpha/dgc-platform &&
           dgc-platform-daemon -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-alpha:8085 \
-              --database-url postgres://dgc-platform:grid_example@db-alpha/dgc-platform
+              --database-url postgres://dgc-platform:dgc_platform_example@db-alpha/dgc-platform
         "
 
   scabbard-cli-alpha:
@@ -239,7 +239,7 @@ services:
       - 5432
     environment:
       POSTGRES_USER: dgc-platform
-      POSTGRES_PASSWORD: grid_example
+      POSTGRES_PASSWORD: dgc_platform_example
       POSTGRES_DB: dgc-platform
 
   dgc-platform-daemon-beta:
@@ -265,15 +265,15 @@ services:
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
-          until PGPASSWORD=grid_example psql -h db-beta -U dgc-platform -c '\q' > /dev/null 2>&1; do
+          until PGPASSWORD=dgc_platform_example psql -h db-beta -U dgc-platform -c '\q' > /dev/null 2>&1; do
               >&2 echo \"Database is unavailable - sleeping\"
               sleep 1
           done
           dgc-platform -vv admin keygen --skip && \
           dgc-platform -vv database migrate \
-              --database-url postgres://dgc-platform:grid_example@db-beta/dgc-platform &&
+              --database-url postgres://dgc-platform:dgc_platform_example@db-beta/dgc-platform &&
           dgc-platform-daemon -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-beta:8085 \
-              --database-url postgres://dgc-platform:grid_example@db-beta/dgc-platform
+              --database-url postgres://dgc-platform:dgc_platform_example@db-beta/dgc-platform
         "
 
   scabbard-cli-beta:
@@ -375,7 +375,7 @@ services:
       - 5432
     environment:
       POSTGRES_USER: dgc-platform
-      POSTGRES_PASSWORD: grid_example
+      POSTGRES_PASSWORD: dgc_platform_example
       POSTGRES_DB: dgc-platform
 
   dgc-platform-daemon-gamma:
@@ -401,15 +401,15 @@ services:
     entrypoint: |
         bash -c "
           # we need to wait for the db to have started.
-          until PGPASSWORD=grid_example psql -h db-gamma -U dgc-platform -c '\q' > /dev/null 2>&1; do
+          until PGPASSWORD=dgc_platform_example psql -h db-gamma -U dgc-platform -c '\q' > /dev/null 2>&1; do
               >&2 echo \"Database is unavailable - sleeping\"
               sleep 1
           done
           dgc-platform -vv admin keygen --skip && \
           dgc-platform -vv database migrate \
-              --database-url postgres://dgc-platform:grid_example@db-gamma/dgc-platform &&
+              --database-url postgres://dgc-platform:dgc_platform_example@db-gamma/dgc-platform &&
           dgc-platform-daemon -vv -b 0.0.0.0:8080 -C splinter:http://splinterd-gamma:8085 \
-              --database-url postgres://dgc-platform:grid_example@db-gamma/dgc-platform
+              --database-url postgres://dgc-platform:dgc_platform_example@db-gamma/dgc-platform
         "
 
   splinterd-gamma:
