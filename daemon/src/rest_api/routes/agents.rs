@@ -152,7 +152,7 @@ pub async fn create_agent(
         )?
         .create_batch_list();
 
-    submit_batches(url, wait, &batch_list, service_id.as_deref())
+    submit_batches(url, wait, &batch_list, service_id.as_deref());
 
     type Result = Result<AgentSlice, RestApiResponseError>;
 }
@@ -179,7 +179,7 @@ pub async fn update_agent(
         )?
         .create_batch_list();
 
-    submit_batches(url, wait, &batch_list, service_id.as_deref())
+    submit_batches(url, wait, &batch_list, service_id.as_deref());
 
     type Result = Result<AgentSlice, RestApiResponseError>;
 }
