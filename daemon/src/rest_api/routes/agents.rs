@@ -3,7 +3,8 @@
 
 use crate::database::{helpers as db, models::Agent};
 use crate::rest_api::{
-    error::RestApiResponseError, routes::DbExecutor, AcceptServiceIdParam, AppState, QueryServiceId,
+    error::RestApiResponseError, routes::DbExecutor, 
+    AcceptServiceIdParam, AppState, QueryServiceId,
 };
 
 use actix::{Handler, Message, SyncContext};
@@ -84,7 +85,8 @@ impl Message for FetchAgent {
 impl Handler<FetchAgent> for DbExecutor {
     type Result = Result<AgentSlice, RestApiResponseError>;
 
-    fn handle(&mut self, msg: FetchAgent, _: &mut SyncContext<Self>) -> Self::Result {
+    fn handle(&mut self, msg: FetchAgent, _: &mut SyncContext<Self>
+    ) -> Self::Result {
         let fetched_agent = match db::get_agent(
             &*self.connection_pool.get()?,
             &msg.public_key,
@@ -151,6 +153,8 @@ pub async fn create_agent(
         .create_batch_list();
 
     submit_batches(url, wait, &batch_list, service_id.as_deref())
+
+    type Result = Result<AgentSlice, RestApiResponseError>;
 }
 
 pub async fn update_agent(
@@ -176,4 +180,6 @@ pub async fn update_agent(
         .create_batch_list();
 
     submit_batches(url, wait, &batch_list, service_id.as_deref())
+
+    type Result = Result<AgentSlice, RestApiResponseError>;
 }
