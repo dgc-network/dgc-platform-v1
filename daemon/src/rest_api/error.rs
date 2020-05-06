@@ -53,6 +53,7 @@ pub enum RestApiResponseError {
     RequestHandlerError(String),
     DatabaseError(String),
     NotFoundError(String),
+    UserError(String),
 }
 
 impl Error for RestApiResponseError {
@@ -64,6 +65,7 @@ impl Error for RestApiResponseError {
             RestApiResponseError::RequestHandlerError(_) => None,
             RestApiResponseError::DatabaseError(_) => None,
             RestApiResponseError::NotFoundError(_) => None,
+            RestApiResponseError::UserError(_) => None,
         }
     }
 }
@@ -83,6 +85,7 @@ impl fmt::Display for RestApiResponseError {
             }
             RestApiResponseError::NotFoundError(ref s) => write!(f, "Not Found Error: {}", s),
             RestApiResponseError::DatabaseError(ref s) => write!(f, "Database Error: {}", s),
+            RestApiResponseError::UserError(ref err) => write!(f, "Error: {}", err),
         }
     }
 }

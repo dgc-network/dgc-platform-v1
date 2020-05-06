@@ -134,15 +134,16 @@ use grid_sdk::{
     protos::IntoProto,
 };
 
-use std::collections::HashMap;
+//use std::collections::HashMap;
 
-use sawtooth_sdk::messages::batch::BatchList;
+//use sawtooth_sdk::messages::batch::BatchList;
 
 use crate::submitter::{BatchStatusResponse, BatchStatuses, SubmitBatches, DEFAULT_TIME_OUT};
 
 pub async fn create_agent(
     req: HttpRequest,
     //body: web::Bytes,
+    key: Option<String>,
     create_agent: CreateAgentAction,
     state: web::Data<AppState>,
     query_service_id: web::Query<QueryServiceId>,
