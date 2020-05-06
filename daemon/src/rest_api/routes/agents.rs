@@ -142,19 +142,19 @@ pub async fn create_agent(
         .with_action(Action::CreateAgent)
         .with_create_agent(create_agent)
         .build()
-        .map_err(|err| CliError::UserError(format!("{}", err)))?;
+        .map_err(|err| CliError::UserError(format!("{}", err)));
 
     let batch_list = pike_batch_builder(key)
         .add_transaction(
-            &payload.into_proto()?,
+            &payload.into_proto(),
             &[PIKE_NAMESPACE.to_string()],
             &[PIKE_NAMESPACE.to_string()],
-        )?
+        )
         .create_batch_list();
 
     submit_batches(url, wait, &batch_list, service_id.as_deref());
 
-    type Result = Result<AgentSlice, RestApiResponseError>;
+    //type Result = Result<AgentSlice, RestApiResponseError>;
 }
 
 pub async fn update_agent(
@@ -181,5 +181,5 @@ pub async fn update_agent(
 
     submit_batches(url, wait, &batch_list, service_id.as_deref());
 
-    type Result = Result<AgentSlice, RestApiResponseError>;
+    //type Result = Result<AgentSlice, RestApiResponseError>;
 }
