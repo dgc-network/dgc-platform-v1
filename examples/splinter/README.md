@@ -210,11 +210,11 @@ override these values, you can edit `docker-compose.yaml` to redefine the
 variables, or you can use the associated option with the `dgc-platform` commands in
 steps 3 through 10.
 
-- `GRID_DAEMON_KEY` defines the key file name for the dgc-platform daemon, as generated
+- `DGC_PLATFORM_DAEMON_KEY` defines the key file name for the dgc-platform daemon, as generated
    by the `docker-compose.yaml` file. Use `-k <keyfile>` to override this
    variable on the command line.
 
-- `GRID_DAEMON_ENDPOINT` defines the endpoint for the ``dgc-platform-daemon-alpha`` or
+- `DGC_PLATFORM_DAEMON_ENDPOINT` defines the endpoint for the ``dgc-platform-daemon-alpha`` or
    ``dgc-platform-daemon-beta`` container. Use `--url <endpoint>` to override this variable
    on the command line.
 
@@ -242,7 +242,7 @@ steps 3 through 10.
    the `--service-id` argument in each of these commands.
 
    ```
-   root@dgc-platform-daemon-alpha:/# export GRID_SERVICE_ID=01234-ABCDE::gsAA
+   root@dgc-platform-daemon-alpha:/# export DGC_PLATFORM_SERVICE_ID=01234-ABCDE::gsAA
    ```
 
 4. Create a new organization, `myorg`.
@@ -309,7 +309,7 @@ steps 3 through 10.
 9. Set an environment variable with the service ID.
 
     ```
-    root@dgc-platform-daemon-beta:/# export GRID_SERVICE_ID=01234-ABCDE::gsBB
+    root@dgc-platform-daemon-beta:/# export DGC_PLATFORM_SERVICE_ID=01234-ABCDE::gsBB
     ```
 
 10. Display all products.

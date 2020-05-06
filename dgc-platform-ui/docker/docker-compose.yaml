@@ -116,9 +116,9 @@
       ports:
         - "8080:8080"
       environment:
-        GRID_DAEMON_KEY: "alpha-agent"
-        GRID_DAEMON_ENDPOINT: "http://dgc-platform-daemon:8080"
-        GRID_SERVICE_ID: "my-dgc-platform-circuit::dgc-platform-scabbard-a"
+        DGC_PLATFORM_DAEMON_KEY: "alpha-agent"
+        DGC_PLATFORM_DAEMON_ENDPOINT: "http://dgc-platform-daemon:8080"
+        DGC_PLATFORM_SERVICE_ID: "my-dgc-platform-circuit::dgc-platform-scabbard-a"
       entrypoint: |
           bash -c "
             # we need to wait for the db to have started.

@@ -40,9 +40,9 @@ use actions::admin;
 const APP_NAME: &str = env!("CARGO_PKG_NAME");
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 
-const GRID_DAEMON_KEY: &str = "GRID_DAEMON_KEY";
-const GRID_DAEMON_ENDPOINT: &str = "GRID_DAEMON_ENDPOINT";
-const GRID_SERVICE_ID: &str = "GRID_SERVICE_ID";
+const DGC_PLATFORM_DAEMON_KEY: &str = "DGC_PLATFORM_DAEMON_KEY";
+const DGC_PLATFORM_DAEMON_ENDPOINT: &str = "DGC_PLATFORM_DAEMON_ENDPOINT";
+const DGC_PLATFORM_SERVICE_ID: &str = "DGC_PLATFORM_SERVICE_ID";
 
 // log format for cli that will only show the log message
 pub fn log_format(
@@ -233,20 +233,20 @@ fn run() -> Result<(), CliError> {
     let url = matches
         .value_of("url")
         .map(String::from)
-        .or_else(|| env::var(GRID_DAEMON_ENDPOINT).ok())
+        .or_else(|| env::var(DGC_PLATFORM_DAEMON_ENDPOINT).ok())
         .unwrap_or_else(|| String::from("http://localhost:8000"));
 
     let key = matches
         .value_of("key")
         .map(String::from)
-        .or_else(|| env::var(GRID_DAEMON_KEY).ok());
+        .or_else(|| env::var(DGC_PLATFORM_DAEMON_KEY).ok());
 
     let wait = value_t!(matches, "wait", u64).unwrap_or(0);
 
     let service_id = matches
         .value_of("service_id")
         .map(String::from)
-        .or_else(|| env::var(GRID_SERVICE_ID).ok());
+        .or_else(|| env::var(DGC_PLATFORM_SERVICE_ID).ok());
 
     match matches.subcommand() {
         #[cfg(feature = "admin-keygen")]
