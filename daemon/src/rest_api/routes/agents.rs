@@ -134,7 +134,8 @@ pub async fn create_agent(
     wait: u64,
     create_agent: CreateAgentAction,
     service_id: Option<String>,
-) -> Result<(), CliError> {
+//) -> Result<(), CliError> {
+) -> Result<HttpResponse, RestApiResponseError> {
     let payload = PikePayloadBuilder::new()
         .with_action(Action::CreateAgent)
         .with_create_agent(create_agent)
@@ -158,7 +159,8 @@ pub async fn update_agent(
     wait: u64,
     update_agent: UpdateAgentAction,
     service_id: Option<String>,
-) -> Result<(), CliError> {
+//) -> Result<(), CliError> {
+) -> Result<HttpResponse, RestApiResponseError> {
     let payload = PikePayloadBuilder::new()
         .with_action(Action::UpdateAgent)
         .with_update_agent(update_agent)
