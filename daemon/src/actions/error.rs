@@ -47,11 +47,11 @@ impl StdError for CliError {
 impl std::fmt::Display for CliError {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match *self {
-//            CliError::UserError(ref err) => write!(f, "Error: {}", err),
+            CliError::UserError(ref err) => write!(f, "Error: {}", err),
             CliError::InvalidYamlError(ref err) => write!(f, "InvalidYamlError: {}", err),
-//            CliError::PayloadError(ref err) => write!(f, "PayloadError: {}", err),
+            CliError::PayloadError(ref err) => write!(f, "PayloadError: {}", err),
             CliError::IoError(ref err) => write!(f, "IoError: {}", err),
-//            CliError::DatabaseError(ref err) => write!(f, "DatabaseError: {}", err),
+            CliError::DatabaseError(ref err) => write!(f, "DatabaseError: {}", err),
             CliError::SigningError(ref err) => write!(f, "SigningError: {}", err),
             CliError::ProtobufError(ref err) => write!(f, "ProtobufError: {}", err),
             CliError::LoggingInitializationError(ref err) => {
