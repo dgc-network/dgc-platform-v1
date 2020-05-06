@@ -138,8 +138,8 @@ pub fn run(
                             .name("batch_statuses")
                             .route(web::get().to(get_batch_statuses)),
                     )
-                    .service(web::resource("/agent").route(web::post().to(do_create_agent)))
-                    .service(web::resource("/agent").route(web::put().to(do_update_agent)))
+                    .service(web::resource("/agent").route(web::post().to(create_agent)))
+                    .service(web::resource("/agent").route(web::put().to(update_agent)))
                     .service(
                         web::scope("/agent")
                             //.service(web::resource("").route(web::post().to(do_create_agent)))
