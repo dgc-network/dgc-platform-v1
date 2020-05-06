@@ -131,6 +131,52 @@ use grid_sdk::{
 };
 
 pub async fn create_agent(
+    req: HttpRequest,
+    //body: web::Bytes,
+    create_agent: CreateAgentAction,
+    state: web::Data<AppState>,
+    query_service_id: web::Query<QueryServiceId>,
+    _: AcceptServiceIdParam,
+) -> Result<HttpResponse, RestApiResponseError> {
+/*    
+    let batch_list: BatchList = match protobuf::parse_from_bytes(&*body) {
+        Ok(batch_list) => batch_list,
+        Err(err) => {
+            return Err(RestApiResponseError::BadRequest(format!(
+                "Protobuf message was badly formatted. {}",
+                err.to_string()
+            )));
+        }
+    };
+*/
+    let payload = PikePayloadBuilder::new()
+        .with_action(Action::CreateAgent)
+        .with_create_agent(create_agent)
+        .build()
+        .map_err(|err| CliError::UserError(format!("{}", err)))?;
+
+    let batch_list = pike_batch_builder(key)
+        .add_transaction(
+            &payload.into_proto()?,
+            &[PIKE_NAMESPACE.to_string()],
+            &[PIKE_NAMESPACE.to_string()],
+        )?
+        .create_batch_list();
+
+    let response_url = req.url_for_static("create_agent")?;
+
+    state
+        .batch_submitter
+        .submit_batches(SubmitBatches {
+            batch_list,
+            response_url,
+            service_id: query_service_id.into_inner().service_id,
+        })
+        .await
+        .map(|link| HttpResponse::Ok().json(link))
+}
+/*
+pub async fn create_agent(
     url: &str,
     key: Option<String>,
     wait: u64,
@@ -183,3 +229,4 @@ pub async fn update_agent(
 
     //type Result = Result<AgentSlice, RestApiResponseError>;
 }
+*/
