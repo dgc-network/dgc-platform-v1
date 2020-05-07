@@ -107,6 +107,11 @@ impl RestApiResponseError {
                     .json(message)
                     .into_future(),
             ),
+            RestApiResponseError::UserError(ref message) => Box::new(
+                HttpResponse::ServiceUnavailable()
+                    .json(message)
+                    .into_future(),
+            ),
             RestApiResponseError::NotFoundError(ref message) => {
                 Box::new(HttpResponse::NotFound().json(message).into_future())
             }
@@ -129,6 +134,9 @@ impl ResponseError for RestApiResponseError {
                 HttpResponse::ServiceUnavailable().json(message)
             }
             RestApiResponseError::DatabaseError(ref message) => {
+                HttpResponse::ServiceUnavailable().json(message)
+            }
+            RestApiResponseError::UserError(ref message) => {
                 HttpResponse::ServiceUnavailable().json(message)
             }
             RestApiResponseError::NotFoundError(ref message) => {
@@ -168,8 +176,19 @@ impl From<UrlGenerationError> for RestApiResponseError {
 
 impl From<DatabaseError> for RestApiResponseError {
     fn from(err: DatabaseError) -> RestApiResponseError {
-        RestApiResponseError::DatabaseError(format!("Database Error occured: {}", 
-        err.to_string()))
+        RestApiResponseError::DatabaseError(format!(
+            "Database Error occured: {}", 
+            err.to_string()
+        ))
+    }
+}
+
+impl From<UserError> for RestApiResponseError {
+    fn from(err: UserError) -> RestApiResponseError {
+        RestApiResponseError::UserError(format!(
+            "User Error occured: {}", 
+            err.to_string()
+        ))
     }
 }
 

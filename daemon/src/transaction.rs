@@ -81,7 +81,8 @@ impl BatchBuilder {
         payload: &T,
         inputs: &[String],
         outputs: &[String],
-    ) -> Result<Self, CliError> {
+    //) -> Result<Self, CliError> {
+    ) -> Result<Self, RestApiResponseError> {
         // create execute contract action for sabre payload
         let sabre_payload = ExecuteContractActionBuilder::new()
             .with_name(self.family_name.to_string())
