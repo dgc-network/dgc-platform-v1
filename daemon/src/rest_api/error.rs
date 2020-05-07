@@ -13,7 +13,9 @@ use actix_web::{
 use diesel;
 use futures::future::{Future, TryFutureExt};
 
-use std::error::Error;
+use std;
+use std::error::Error as StdError;
+//use std::error::Error;
 use std::fmt;
 use std::io;
 
