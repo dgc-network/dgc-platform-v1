@@ -169,7 +169,7 @@ pub async fn create_agent(
 
     let batch_list = pike_batch_builder(key)
         .add_transaction(
-            &payload.into_proto(),
+            //&payload.into_proto()?,
             &[PIKE_NAMESPACE.to_string()],
             &[PIKE_NAMESPACE.to_string()],
         )?
