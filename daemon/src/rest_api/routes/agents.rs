@@ -149,6 +149,8 @@ pub async fn update_agent(
     query_service_id: web::Query<QueryServiceId>,
     _: AcceptServiceIdParam,
 ) -> Result<HttpResponse, RestApiResponseError> {
+    state
+        .map(|link| HttpResponse::Ok().json(link))
 }
 
 pub async fn create_agent(
@@ -176,7 +178,7 @@ pub async fn create_agent(
         .with_create_agent(create_agent)
         .build()
         //.map_err(|err| CliError::UserError(format!("{}", err)))?;
-        .map_err(|err| RestApiResponseError::UserError(format!("{}", err)))?;
+        .map_err(|err| RestApiResponseError::UserError(format!("{}", err)));
 
     let batch_list = pike_batch_builder(key)
         .add_transaction(
