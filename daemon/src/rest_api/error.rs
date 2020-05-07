@@ -36,8 +36,8 @@ impl From<std::io::Error> for RestApiServerError {
     }
 }
 
-impl Error for RestApiServerError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
+impl StdError for RestApiServerError {
+    fn source(&self) -> Option<&(dyn StdError + 'static)> {
         match self {
             RestApiServerError::StartUpError(_) => None,
             RestApiServerError::StdError(err) => Some(err),
@@ -70,8 +70,8 @@ pub enum RestApiResponseError {
     SabreProtoError(sabre_sdk::protos::ProtoConversionError),
 }
 
-impl Error for RestApiResponseError {
-    fn source(&self) -> Option<&(dyn Error + 'static)> {
+impl StdError for RestApiResponseError {
+    fn source(&self) -> Option<&(dyn StdError + 'static)> {
         match self {
             RestApiResponseError::BadRequest(_) => None,
             RestApiResponseError::SawtoothConnectionError(_) => None,
@@ -100,7 +100,7 @@ impl fmt::Display for RestApiResponseError {
                 write!(f, "Sawtooth Validator Response Error: {}", s)
             }
             RestApiResponseError::RequestHandlerError(ref s) => {
-                write!(f, "Request Handler Error Error: {}", s)
+                write!(f, "Request Handler Error: {}", s)
             }
             RestApiResponseError::NotFoundError(ref s) => write!(f, "Not Found Error: {}", s),
             RestApiResponseError::DatabaseError(ref s) => write!(f, "Database Error: {}", s),
