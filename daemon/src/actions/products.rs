@@ -3,7 +3,7 @@
 
 use crate::http::submit_batches;
 use crate::transaction::{
-    product_batch_builder, GRID_PRODUCT_NAMESPACE, GRID_SCHEMA_NAMESPACE, PIKE_NAMESPACE,
+    product_batch_builder, DGC_PLATFORM_PRODUCT_NAMESPACE, DGC_PLATFORM_SCHEMA_NAMESPACE, PIKE_NAMESPACE,
 };
 use grid_sdk::protocol::product::payload::{
     Action, ProductCreateAction, ProductCreateActionBuilder, ProductDeleteActionBuilder,
@@ -208,10 +208,10 @@ pub fn build_batches_from_payloads(
             &payload.into_proto()?,
             &[
                 PIKE_NAMESPACE.to_string(),
-                GRID_SCHEMA_NAMESPACE.to_string(),
-                GRID_PRODUCT_NAMESPACE.to_string(),
+                DGC_PLATFORM_SCHEMA_NAMESPACE.to_string(),
+                DGC_PLATFORM_PRODUCT_NAMESPACE.to_string(),
             ],
-            &[GRID_PRODUCT_NAMESPACE.to_string()],
+            &[DGC_PLATFORM_PRODUCT_NAMESPACE.to_string()],
         )?;
     }
 

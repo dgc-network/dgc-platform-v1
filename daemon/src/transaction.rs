@@ -25,18 +25,19 @@ use crate::key;
 
 //use crate::CliError;
 use crate::actions::error::CliError;
+use crate::rest_api::error::RestApiResponseError;
 
 pub const PIKE_NAMESPACE: &str = "cad11d";
 const PIKE_FAMILY_NAME: &str = "pike";
 const PIKE_FAMILY_VERSION: &str = "0.1";
 
-pub const GRID_SCHEMA_NAMESPACE: &str = "621dee01";
-const GRID_SCHEMA_FAMILY_NAME: &str = "dgc_platform_schema";
-const GRID_SCHEMA_FAMILY_VERSION: &str = "1.0";
+pub const DGC_PLATFORM_SCHEMA_NAMESPACE: &str = "621dee01";
+const DGC_PLATFORM_SCHEMA_FAMILY_NAME: &str = "dgc_platform_schema";
+const DGC_PLATFORM_SCHEMA_FAMILY_VERSION: &str = "1.0";
 
-pub const GRID_PRODUCT_NAMESPACE: &str = "621dee02";
-const GRID_PRODUCT_FAMILY_NAME: &str = "dgc_platform_product";
-const GRID_PRODUCT_FAMILY_VERSION: &str = "1.0";
+pub const DGC_PLATFORM_PRODUCT_NAMESPACE: &str = "621dee02";
+const DGC_PLATFORM_PRODUCT_FAMILY_NAME: &str = "dgc_platform_product";
+const DGC_PLATFORM_PRODUCT_FAMILY_VERSION: &str = "1.0";
 
 const SABRE_FAMILY_NAME: &str = "sabre";
 const SABRE_FAMILY_VERSION: &str = "0.5";
@@ -45,7 +46,7 @@ const SABRE_CONTRACT_REGISTRY_PREFIX: &str = "00ec01";
 const SABRE_CONTRACT_PREFIX: &str = "00ec02";
 
 pub fn schema_batch_builder(key: Option<String>) -> BatchBuilder {
-    BatchBuilder::new(GRID_SCHEMA_FAMILY_NAME, GRID_SCHEMA_FAMILY_VERSION, key)
+    BatchBuilder::new(DGC_PLATFORM_SCHEMA_FAMILY_NAME, DGC_PLATFORM_SCHEMA_FAMILY_VERSION, key)
 }
 
 pub fn pike_batch_builder(key: Option<String>) -> BatchBuilder {
@@ -53,7 +54,7 @@ pub fn pike_batch_builder(key: Option<String>) -> BatchBuilder {
 }
 
 pub fn product_batch_builder(key: Option<String>) -> BatchBuilder {
-    BatchBuilder::new(GRID_PRODUCT_FAMILY_NAME, GRID_PRODUCT_FAMILY_VERSION, key)
+    BatchBuilder::new(DGC_PLATFORM_PRODUCT_FAMILY_NAME, DGC_PLATFORM_PRODUCT_FAMILY_VERSION, key)
 }
 
 #[derive(Clone)]
@@ -65,7 +66,8 @@ pub struct BatchBuilder {
 }
 
 impl BatchBuilder {
-    pub fn new(family_name: &str, family_version: &str, key_name: Option<String>) -> BatchBuilder {
+    pub fn new(family_name: &str, family_version: &str, key_name: Option<String>
+    ) -> BatchBuilder {
         BatchBuilder {
             family_name: family_name.to_string(),
             family_version: family_version.to_string(),
@@ -88,9 +90,11 @@ impl BatchBuilder {
             .with_outputs(outputs.to_vec())
             .with_payload(payload.write_to_bytes()?)
             .into_payload_builder()
-            .map_err(|err| CliError::UserError(format!("{}", err)))?
+            //.map_err(|err| CliError::UserError(format!("{}", err)))?
+            .map_err(|err| RestApiResponseError::UserError(format!("{}", err)))?
             .build()
-            .map_err(|err| CliError::UserError(format!("{}", err)))?;
+            //.map_err(|err| CliError::UserError(format!("{}", err)))?;
+            .map_err(|err| RestApiResponseError::UserError(format!("{}", err)))?
 
         let mut input_addresses = vec![
             compute_contract_registry_address(&self.family_name),
@@ -101,7 +105,8 @@ impl BatchBuilder {
             let namespace = match input.get(..6) {
                 Some(namespace) => namespace,
                 None => {
-                    return Err(CliError::UserError(format!(
+                    //return Err(CliError::UserError(format!(
+                    return Err(RestApiResponseError::UserError(format!(
                         "Input must be at least 6 characters long: {}",
                         input
                     )));
@@ -121,7 +126,8 @@ impl BatchBuilder {
             let namespace = match output.get(..6) {
                 Some(namespace) => namespace,
                 None => {
-                    return Err(CliError::UserError(format!(
+                    //return Err(CliError::UserError(format!(
+                    return Err(RestApiResponseError::UserError(format!(
                         "Output must be at least 6 characters long: {}",
                         output
                     )));
@@ -251,7 +257,8 @@ fn compute_namespace_registry_address(namespace: &str) -> Result<String, CliErro
     let prefix = match namespace.get(..6) {
         Some(x) => x,
         None => {
-            return Err(CliError::UserError(format!(
+            //return Err(CliError::UserError(format!(
+            return Err(RestApiResponseError::UserError(format!(
                 "Namespace must be at least 6 characters long: {}",
                 namespace
             )));

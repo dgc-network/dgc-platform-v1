@@ -18,7 +18,7 @@ cfg_if! {
 }
 
 pub const GRID_NAMESPACE: &str = "621dee";
-pub const GRID_SCHEMA_NAMESPACE: &str = "01";
+pub const DGC_PLATFORM_SCHEMA_NAMESPACE: &str = "01";
 
 pub const PIKE_NAMESPACE: &str = "cad11d";
 pub const PIKE_AGENT_NAMESPACE: &str = "00";
@@ -36,7 +36,7 @@ pub fn compute_schema_address(name: &str) -> String {
     let mut sha = Sha512::new();
     sha.input(name.as_bytes());
 
-    String::from(GRID_NAMESPACE) + GRID_SCHEMA_NAMESPACE + &sha.result_str()[..62].to_string()
+    String::from(GRID_NAMESPACE) + DGC_PLATFORM_SCHEMA_NAMESPACE + &sha.result_str()[..62].to_string()
 }
 
 /// GridSchemaState is in charge of handling getting and setting state.

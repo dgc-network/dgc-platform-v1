@@ -9,7 +9,7 @@ const PROPERTY: &str = "ea";
 const PROPOSAL: &str = "aa";
 const RECORD: &str = "ec";
 const GRID_NAMESPACE: &str = "621dee";
-const GRID_SCHEMA_NAMESPACE: &str = "01";
+const DGC_PLATFORM_SCHEMA_NAMESPACE: &str = "01";
 const PIKE_NAMESPACE: &str = "cad11d";
 const PIKE_AGENT_NAMESPACE: &str = "00";
 
@@ -54,7 +54,7 @@ pub fn make_property_address_range(record_id: &str) -> String {
 pub fn make_schema_address(name: &str) -> String {
     let mut sha = Sha512::new();
     sha.input(name.as_bytes());
-    String::from(GRID_NAMESPACE) + GRID_SCHEMA_NAMESPACE + &sha.result_str()[..62].to_string()
+    String::from(GRID_NAMESPACE) + DGC_PLATFORM_SCHEMA_NAMESPACE + &sha.result_str()[..62].to_string()
 }
 
 /// Computes the address a Pike Agent is stored at based on its public_key

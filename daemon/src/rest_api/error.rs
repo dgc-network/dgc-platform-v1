@@ -168,7 +168,8 @@ impl From<UrlGenerationError> for RestApiResponseError {
 
 impl From<DatabaseError> for RestApiResponseError {
     fn from(err: DatabaseError) -> RestApiResponseError {
-        RestApiResponseError::DatabaseError(format!("Database Error occured: {}", err.to_string()))
+        RestApiResponseError::DatabaseError(format!("Database Error occured: {}", 
+        err.to_string()))
     }
 }
 

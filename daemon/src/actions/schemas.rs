@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::http::submit_batches;
-use crate::transaction::{schema_batch_builder, GRID_SCHEMA_NAMESPACE, PIKE_NAMESPACE};
+use crate::transaction::{schema_batch_builder, DGC_PLATFORM_SCHEMA_NAMESPACE, PIKE_NAMESPACE};
 use crate::yaml_parser::{
     parse_value_as_boolean, parse_value_as_data_type, parse_value_as_i32, parse_value_as_sequence,
     parse_value_as_string, parse_value_as_vec_string,
@@ -103,9 +103,9 @@ pub fn do_create_schemas(
             &payload.into_proto()?,
             &[
                 PIKE_NAMESPACE.to_string(),
-                GRID_SCHEMA_NAMESPACE.to_string(),
+                DGC_PLATFORM_SCHEMA_NAMESPACE.to_string(),
             ],
-            &[GRID_SCHEMA_NAMESPACE.to_string()],
+            &[DGC_PLATFORM_SCHEMA_NAMESPACE.to_string()],
         )?;
     }
 
@@ -128,9 +128,9 @@ pub fn do_update_schemas(
             &payload.into_proto()?,
             &[
                 PIKE_NAMESPACE.to_string(),
-                GRID_SCHEMA_NAMESPACE.to_string(),
+                DGC_PLATFORM_SCHEMA_NAMESPACE.to_string(),
             ],
-            &[GRID_SCHEMA_NAMESPACE.to_string()],
+            &[DGC_PLATFORM_SCHEMA_NAMESPACE.to_string()],
         )?;
     }
 
