@@ -149,6 +149,13 @@ pub async fn create_agent(
     query_service_id: web::Query<QueryServiceId>,
     //_: AcceptServiceIdParam,
 ) -> Result<HttpResponse, RestApiResponseError> {
+    let payload = PikePayloadBuilder::new()
+        .with_action(Action::CreateAgent)
+        .with_create_agent(create_agent)
+        .build()
+        //.map_err(|err| CliError::UserError(format!("{}", err)))?;
+        .map_err(|err| RestApiResponseError::UserError(format!("{}", err)));
+
 /*    
     let batch_list: BatchList = match protobuf::parse_from_bytes(&*body) {
         Ok(batch_list) => batch_list,
@@ -159,13 +166,6 @@ pub async fn create_agent(
             )));
         }
     };
-*/
-    let payload = PikePayloadBuilder::new()
-        .with_action(Action::CreateAgent)
-        .with_create_agent(create_agent)
-        .build()
-        //.map_err(|err| CliError::UserError(format!("{}", err)))?;
-        .map_err(|err| RestApiResponseError::UserError(format!("{}", err)));
 
     let batch_list = pike_batch_builder(key)
         .add_transaction(
@@ -186,6 +186,8 @@ pub async fn create_agent(
         })
         .await
         .map(|link| HttpResponse::Ok().json(link))
+*/
+    HttpResponse::Ok()
 }
 /*
 pub async fn create_agent(
