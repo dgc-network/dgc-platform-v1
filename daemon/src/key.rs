@@ -13,7 +13,8 @@ use users::get_current_username;
 use sawtooth_sdk::signing::secp256k1::Secp256k1PrivateKey;
 
 //use crate::error::CliError;
-use crate::actions::error::CliError;
+//use crate::actions::error::CliError;
+use crate::rest_api::error::RestApiResponseError;
 
 /// Return a signing key loaded from the user's environment
 ///
@@ -37,7 +38,9 @@ use crate::actions::error::CliError;
 ///
 /// If a HOME or USER environment variable is required but cannot be
 /// retrieved from the environment, a CliError::VarError is returned.
-pub fn load_signing_key(name: Option<String>) -> Result<Secp256k1PrivateKey, CliError> {
+//pub fn load_signing_key(name: Option<String>) -> Result<Secp256k1PrivateKey, CliError> {
+pub fn load_signing_key(name: Option<String>
+) -> Result<Secp256k1PrivateKey, RestApiResponseError> {
     let username: String = name
         .ok_or_else(|| env::var("USER"))
         .or_else(|_| {
@@ -46,14 +49,16 @@ pub fn load_signing_key(name: Option<String>) -> Result<Secp256k1PrivateKey, Cli
                 .and_then(|os_str| os_str.into_string().map_err(|_| 0))
         })
         .map_err(|_| {
-            CliError::UserError(String::from(
+            //CliError::UserError(String::from(
+            RestApiResponseError::UserError(String::from(
                 "Could not load signing key: unable to determine username",
             ))
         })?;
 
     let private_key_filename = dirs::home_dir()
         .ok_or_else(|| {
-            CliError::UserError(String::from(
+            //CliError::UserError(String::from(
+            RestApiResponseError::UserError(String::from(
                 "Could not load signing key: unable to determine home directory",
             ))
         })
@@ -65,7 +70,8 @@ pub fn load_signing_key(name: Option<String>) -> Result<Secp256k1PrivateKey, Cli
         })?;
 
     if !private_key_filename.as_path().exists() {
-        return Err(CliError::UserError(format!(
+        //return Err(CliError::UserError(format!(
+        return Err(RestApiResponseError::UserError(format!(
             "No such key file: {}",
             private_key_filename.display()
         )));
@@ -79,8 +85,9 @@ pub fn load_signing_key(name: Option<String>) -> Result<Secp256k1PrivateKey, Cli
     let key_str = match contents.lines().next() {
         Some(k) => k.trim(),
         None => {
-            return Err(CliError::UserError(format!(
-                "Empty key file: {}",
+            //return Err(CliError::UserError(format!(
+            return Err(RestApiResponseError::UserError(format!(
+                    "Empty key file: {}",
                 private_key_filename.display()
             )));
         }

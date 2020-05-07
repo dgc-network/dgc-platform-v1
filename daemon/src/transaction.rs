@@ -24,7 +24,7 @@ use sawtooth_sdk::signing;
 use crate::key;
 
 //use crate::CliError;
-use crate::actions::error::CliError;
+//use crate::actions::error::CliError;
 use crate::rest_api::error::RestApiResponseError;
 
 pub const PIKE_NAMESPACE: &str = "cad11d";
@@ -253,7 +253,9 @@ fn compute_contract_address(name: &str, version: &str) -> String {
 /// # Arguments
 ///
 /// * `namespace` - the address prefix for this namespace
-fn compute_namespace_registry_address(namespace: &str) -> Result<String, CliError> {
+//fn compute_namespace_registry_address(namespace: &str) -> Result<String, CliError> {
+fn compute_namespace_registry_address(namespace: &str
+) -> Result<String, RestApiResponseError> {
     let prefix = match namespace.get(..6) {
         Some(x) => x,
         None => {
