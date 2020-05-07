@@ -212,7 +212,7 @@ impl From<sabre_sdk::protos::ProtoConversionError> for RestApiResponseError {
         RestApiResponseError::SabreProtoError(err)
     }
 }
-
+/*
 impl From<crate::rest_api::error::RestApiResponseError> for RestApiResponseError {
     fn from(err: crate::rest_api::error::RestApiResponseError) -> RestApiResponseError {
         RestApiResponseError::UserError(format!(
@@ -221,3 +221,4 @@ impl From<crate::rest_api::error::RestApiResponseError> for RestApiResponseError
         ))
     }
 }
+*/
