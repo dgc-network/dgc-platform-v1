@@ -187,7 +187,7 @@ pub async fn create_agent(
         .await
         .map(|link| HttpResponse::Ok().json(link))
 */
-    HttpResponse::Ok()
+    HttpResponse::Ok().await
 }
 /*
 pub async fn create_agent(
