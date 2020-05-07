@@ -165,7 +165,7 @@ pub async fn create_agent(
         .with_create_agent(create_agent)
         .build()
         //.map_err(|err| CliError::UserError(format!("{}", err)))?;
-        .map_err(|err| RestApiResponseError::UserError(format!("{}", err)))?;
+        .map_err(|err| RestApiResponseError::UserError(format!("{}", err)));
 
     let batch_list = pike_batch_builder(key)
         .add_transaction(
