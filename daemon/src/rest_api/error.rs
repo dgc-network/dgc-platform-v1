@@ -12,11 +12,15 @@ use actix_web::{
 };
 use diesel;
 use futures::future::{Future, TryFutureExt};
-use std::error::Error;
-use grid_sdk::protos;
-use sabre_sdk;
 
+use std::error::Error;
 use std::fmt;
+use std::io;
+
+use grid_sdk::protos;
+use protobuf;
+use sabre_sdk;
+use sawtooth_sdk::signing;
 
 #[derive(Debug)]
 pub enum RestApiServerError {
@@ -57,6 +61,9 @@ pub enum RestApiResponseError {
     DatabaseError(String),
     NotFoundError(String),
     UserError(String),
+    SigningError(signing::Error),
+    IoError(io::Error),
+    ProtobufError(protobuf::ProtobufError),
     GridProtoError(protos::ProtoConversionError),
     SabreProtoError(sabre_sdk::protos::ProtoConversionError),
 }
@@ -71,6 +78,9 @@ impl Error for RestApiResponseError {
             RestApiResponseError::DatabaseError(_) => None,
             RestApiResponseError::NotFoundError(_) => None,
             RestApiResponseError::UserError(_) => None,
+            RestApiResponseError::SigningError(err) => Some(err),
+            RestApiResponseError::IoError(err) => Some(err),
+            RestApiResponseError::ProtobufError(err) => Some(err),
             RestApiResponseError::GridProtoError(err) => Some(err),
             RestApiResponseError::SabreProtoError(err) => Some(err),
         }
@@ -93,6 +103,9 @@ impl fmt::Display for RestApiResponseError {
             RestApiResponseError::NotFoundError(ref s) => write!(f, "Not Found Error: {}", s),
             RestApiResponseError::DatabaseError(ref s) => write!(f, "Database Error: {}", s),
             RestApiResponseError::UserError(ref err) => write!(f, "Error: {}", err),
+            RestApiResponseError::SigningError(ref err) => write!(f, "SigningError: {}", err),
+            RestApiResponseError::IoError(ref err) => write!(f, "IoError: {}", err),
+            RestApiResponseError::ProtobufError(ref err) => write!(f, "ProtobufError: {}", err),
             RestApiResponseError::GridProtoError(ref err) => write!(f, "dgc-platform Proto Error: {}", err),
             RestApiResponseError::SabreProtoError(ref err) => write!(f, "Sabre Proto Error: {}", err),
         }
@@ -198,6 +211,24 @@ impl From<diesel::result::Error> for RestApiResponseError {
             "Database Result Error occured: {}",
             err.to_string()
         ))
+    }
+}
+
+impl From<signing::Error> for RestApiResponseError {
+    fn from(err: signing::Error) -> Self {
+        RestApiResponseError::SigningError(err)
+    }
+}
+
+impl From<io::Error> for RestApiResponseError {
+    fn from(err: io::Error) -> Self {
+        RestApiResponseError::IoError(err)
+    }
+}
+
+impl From<protobuf::ProtobufError> for RestApiResponseError {
+    fn from(err: protobuf::ProtobufError) -> Self {
+        RestApiResponseError::ProtobufError(err)
     }
 }
 
