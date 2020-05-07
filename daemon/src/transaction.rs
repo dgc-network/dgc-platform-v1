@@ -94,7 +94,7 @@ impl BatchBuilder {
             .map_err(|err| RestApiResponseError::UserError(format!("{}", err)))?
             .build()
             //.map_err(|err| CliError::UserError(format!("{}", err)))?;
-            .map_err(|err| RestApiResponseError::UserError(format!("{}", err)))?
+            .map_err(|err| RestApiResponseError::UserError(format!("{}", err)))?;
 
         let mut input_addresses = vec![
             compute_contract_registry_address(&self.family_name),
