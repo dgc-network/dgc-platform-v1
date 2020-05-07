@@ -246,7 +246,7 @@ pub async fn update_agent(
     key: Option<String>,
     update_agent: UpdateAgentAction,
     state: web::Data<AppState>,
-    //query_service_id: web::Query<QueryServiceId>,
+    query_service_id: web::Query<QueryServiceId>,
     //_: AcceptServiceIdParam,
 ) -> Result<HttpResponse, RestApiResponseError> {
     let payload = PikePayloadBuilder::new()
@@ -257,12 +257,23 @@ pub async fn update_agent(
         .map_err(|err| RestApiResponseError::UserError(format!("{}", err)));
 
     let batch_list = pike_batch_builder(key)
-        .add_transaction(
-            &payload.into_proto()?,
-            &[PIKE_NAMESPACE.to_string()],
-            &[PIKE_NAMESPACE.to_string()],
-        )?
+        //.add_transaction(
+        //    &payload.into_proto()?,
+        //    &[PIKE_NAMESPACE.to_string()],
+        //    &[PIKE_NAMESPACE.to_string()],
+        //)?
         .create_batch_list();
 
+    let response_url = req.url_for_static("update_agent")?;
+
+    state
+        .batch_submitter
+        .submit_batches(SubmitBatches {
+            batch_list,
+            response_url,
+            service_id: query_service_id.into_inner().service_id,
+        })
+        .await
+        .map(|link| HttpResponse::Ok().json(link))
 }
 
