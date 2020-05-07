@@ -147,7 +147,7 @@ pub async fn create_agent(
     create_agent: CreateAgentAction,
     state: web::Data<AppState>,
     query_service_id: web::Query<QueryServiceId>,
-    _: AcceptServiceIdParam,
+    //_: AcceptServiceIdParam,
 ) -> Result<HttpResponse, RestApiResponseError> {
 /*    
     let batch_list: BatchList = match protobuf::parse_from_bytes(&*body) {
@@ -212,7 +212,6 @@ pub async fn create_agent(
 
     submit_batches(url, wait, &batch_list, service_id.as_deref());
 
-    //type Result = Result<AgentSlice, RestApiResponseError>;
 }
 
 pub async fn update_agent(
@@ -247,8 +246,8 @@ pub async fn update_agent(
     key: Option<String>,
     update_agent: UpdateAgentAction,
     state: web::Data<AppState>,
-    query_service_id: web::Query<QueryServiceId>,
-    _: AcceptServiceIdParam,
+    //query_service_id: web::Query<QueryServiceId>,
+    //_: AcceptServiceIdParam,
 ) -> Result<HttpResponse, RestApiResponseError> {
     let payload = PikePayloadBuilder::new()
         .with_action(Action::UpdateAgent)
