@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::database::DatabaseError;
-use crate::actions::error::CliError::UserError;
+//use crate::actions::error::CliError::UserError;
 
 use actix::MailboxError;
 use actix_web::error::{PayloadError, UrlGenerationError};
@@ -184,8 +184,8 @@ impl From<DatabaseError> for RestApiResponseError {
     }
 }
 
-impl From<UserError> for RestApiResponseError {
-    fn from(err: UserError) -> RestApiResponseError {
+impl From<crate::rest_api::error::RestApiResponseError> for RestApiResponseError {
+    fn from(err: crate::rest_api::error::RestApiResponseError) -> RestApiResponseError {
         RestApiResponseError::UserError(format!(
             "User Error occured: {}", 
             err.to_string()
