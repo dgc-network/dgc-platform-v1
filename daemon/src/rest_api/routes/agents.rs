@@ -178,7 +178,7 @@ pub async fn create_agent(
     let response_url = req.url_for_static("create_agent")?;
 
     state
-        .batch_submitter
+        //.batch_submitter
         //.submit_batches(SubmitBatches {
         //    batch_list,
         //    response_url,
