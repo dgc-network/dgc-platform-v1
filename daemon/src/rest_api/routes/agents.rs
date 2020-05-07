@@ -166,24 +166,24 @@ pub async fn create_agent(
             )));
         }
     };
-
-    let batch_list = pike_batch_builder(key)
-        .add_transaction(
-            &payload.into_proto()?,
-            &[PIKE_NAMESPACE.to_string()],
-            &[PIKE_NAMESPACE.to_string()],
-        )?
-        .create_batch_list();
 */
+    let batch_list = pike_batch_builder(key)
+        //.add_transaction(
+        //    &payload.into_proto()?,
+        //    &[PIKE_NAMESPACE.to_string()],
+        //    &[PIKE_NAMESPACE.to_string()],
+        //)?
+        .create_batch_list();
+
     let response_url = req.url_for_static("create_agent")?;
 
     state
-        //.batch_submitter
-        //.submit_batches(SubmitBatches {
-        //    batch_list,
-        //    response_url,
-        //    service_id: query_service_id.into_inner().service_id,
-        //})
+        .batch_submitter
+        .submit_batches(SubmitBatches {
+            batch_list,
+            response_url,
+            service_id: query_service_id.into_inner().service_id,
+        })
         .await
         .map(|link| HttpResponse::Ok().json(link))
 }
