@@ -140,19 +140,6 @@ use grid_sdk::{
 
 use crate::submitter::{BatchStatusResponse, BatchStatuses, SubmitBatches, DEFAULT_TIME_OUT};
 
-pub async fn update_agent(
-    req: HttpRequest,
-    //body: web::Bytes,
-    key: Option<String>,
-    update_agent: UpdateAgentAction,
-    state: web::Data<AppState>,
-    query_service_id: web::Query<QueryServiceId>,
-    _: AcceptServiceIdParam,
-) -> Result<HttpResponse, RestApiResponseError> {
-    state
-        .map(|link| HttpResponse::Ok().json(link))
-}
-
 pub async fn create_agent(
     req: HttpRequest,
     //body: web::Bytes,
@@ -252,6 +239,31 @@ pub async fn update_agent(
 
     submit_batches(url, wait, &batch_list, service_id.as_deref());
 
-    //type Result = Result<AgentSlice, RestApiResponseError>;
 }
 */
+pub async fn update_agent(
+    req: HttpRequest,
+    //body: web::Bytes,
+    key: Option<String>,
+    update_agent: UpdateAgentAction,
+    state: web::Data<AppState>,
+    query_service_id: web::Query<QueryServiceId>,
+    _: AcceptServiceIdParam,
+) -> Result<HttpResponse, RestApiResponseError> {
+    let payload = PikePayloadBuilder::new()
+        .with_action(Action::UpdateAgent)
+        .with_update_agent(update_agent)
+        .build()
+        //.map_err(|err| CliError::UserError(format!("{}", err)))?;
+        .map_err(|err| RestApiResponseError::UserError(format!("{}", err)));
+
+    let batch_list = pike_batch_builder(key)
+        .add_transaction(
+            &payload.into_proto()?,
+            &[PIKE_NAMESPACE.to_string()],
+            &[PIKE_NAMESPACE.to_string()],
+        )?
+        .create_batch_list();
+
+}
+
