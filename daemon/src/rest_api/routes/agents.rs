@@ -174,20 +174,18 @@ pub async fn create_agent(
             &[PIKE_NAMESPACE.to_string()],
         )?
         .create_batch_list();
-
+*/
     let response_url = req.url_for_static("create_agent")?;
 
     state
         .batch_submitter
-        .submit_batches(SubmitBatches {
-            batch_list,
-            response_url,
-            service_id: query_service_id.into_inner().service_id,
-        })
+        //.submit_batches(SubmitBatches {
+        //    batch_list,
+        //    response_url,
+        //    service_id: query_service_id.into_inner().service_id,
+        //})
         .await
         .map(|link| HttpResponse::Ok().json(link))
-*/
-    HttpResponse::Ok().await
 }
 /*
 pub async fn create_agent(
