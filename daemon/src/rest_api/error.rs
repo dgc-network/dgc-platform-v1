@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 use crate::database::DatabaseError;
+use crate::actions::error::CliError::UserError;
 
 use actix::MailboxError;
 use actix_web::error::{PayloadError, UrlGenerationError};
