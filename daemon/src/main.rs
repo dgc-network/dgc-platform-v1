@@ -20,10 +20,10 @@ mod sawtooth;
 mod splinter;
 mod submitter;
 //mod actions;
-mod http;
+//mod http;
 mod key;
 mod transaction;
-mod yaml_parser;
+//mod yaml_parser;
 
 use std::process;
 use std::sync::atomic::{AtomicBool, Ordering};
